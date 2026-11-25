@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.duanju.mapper.DjUserProgressMapper">
+
+    <resultMap type="com.ruoyi.duanju.domain.DjUserProgress" id="DjUserProgressResult">
+        <id     property="id"                 column="id"                   />
+        <result property="userId"             column="user_id"              />
+        <result property="wxOpenid"           column="wx_openid"            />
+        <result property="scriptId"           column="script_id"            />
+        <result property="scriptTitle"        column="script_title"         />
+        <result property="currentEpisode"     column="current_episode"      />
+        <result property="currentPanel"       column="current_panel"        />
+        <result property="historyChoicesJson" column="history_choices_json" />
+        <result property="currentStatsJson"   column="current_stats_json"   />
+        <result property="isFinished"         column="is_finished"          />
+        <result property="finishScore"        column="finish_score"         />
+        <result property="finishBoxOffice"    column="finish_box_office"    />
+        <result property="lastShootTime"      column="last_shoot_time"      />
+        <result property="delFlag"            column="del_flag"             />
+        <result property="createBy"           column="create_by"            />
+        <result property="createTime"         column="create_time"          />
+        <result property="updateBy"           column="update_by"            />
+        <result property="updateTime"         column="update_time"          />
+        <result property="remark"             column="remark"               />
+        <result property="nickname"           column="nickname"             />
+        <result property="userName"           column="user_name"            />
+    </resultMap>
+
+    <sql id="selectDjUserProgressVo">
+        select p.id, p.user_id, p.wx_openid, p.script_id, p.script_title, 
+               p.current_episode, p.current_panel, p.history_choices_json, 
+               p.current_stats_json, p.is_finished, p.finish_score, 
+               p.finish_box_office, p.last_shoot_time, p.del_flag, 
+               p.create_by, p.create_time, p.update_by, p.update_time, p.remark,
+               u.nickname, u.user_name
+        from dj_user_progress p
+        left join dj_user u on p.user_id = u.user_id and u.del_flag = '0'
+    </sql>
+
+    <!-- 列表查询：强制 del_flag = '0' 过滤 -->
+    <select id="selectDjUserProgressList" parameterType="com.ruoyi.duanju.domain.DjUserProgress" resultMap="DjUserProgressResult">
+        <include refid="selectDjUserProgressVo"/>
+        <where>
+            p.del_flag = '0'
+            <if test="userId != null">
+                and p.user_id = #{userId}
+            </if>
+            <if test="wxOpenid != null and wxOpenid != ''">
+                and p.wx_openid = #{wxOpenid}
+            </if>
+            <if test="scriptId != null and scriptId != ''">
+                and p.script_id = #{scriptId}
+            </if>
+            <if test="isFinished != null and isFinished != ''">
+                and p.is_finished = #{isFinished}
+            </if>
+            <if test="scriptTitle != null and scriptTitle != ''">
+                and p.script_title like concat('%', #{scriptTitle}, '%')
+            </if>
+        </where>
+        order by p.last_shoot_time desc
+    </select>
+
+    <!-- 查询用户在特定剧本下的当前拍摄进度 -->
+    <select id="selectProgressByUserAndScript" resultMap="DjUserProgressResult">
+        <include refid="selectDjUserProgressVo"/>
+        where p.user_id = #{userId} and p.script_id = #{scriptId} and p.del_flag = '0'
+        limit 1
+    </select>
+
+    <!-- 根据ID查询 -->
+    <select id="selectDjUserProgressById" parameterType="Long" resultMap="DjUserProgressResult">
+        <include refid="selectDjUserProgressVo"/>
+        where p.id = #{id} and p.del_flag = '0'
+    </select>
+
+    <!-- 新增或更新拍摄进度存档 -->
+    <insert id="upsertDjUserProgress" parameterType="com.ruoyi.duanju.domain.DjUserProgress" useGeneratedKeys="true" keyProperty="id">
+        insert into dj_user_progress (
+            user_id, wx_openid, script_id, script_title, current_episode, 
+            current_panel, history_choices_json, current_stats_json, is_finished, 
+            finish_score, finish_box_office, last_shoot_time, del_flag, create_by, create_time
+        ) values (
+            #{userId}, #{wxOpenid}, #{scriptId}, #{scriptTitle}, #{currentEpisode}, 
+            #{currentPanel}, #{historyChoicesJson}, #{currentStatsJson}, #{isFinished}, 
+            #{finishScore}, #{finishBoxOffice}, sysdate(), '0', #{createBy}, sysdate()
+        )
+        on duplicate key update
+            script_title = values(script_title),
+            current_episode = values(current_episode),
+            current_panel = values(current_panel),
+            history_choices_json = values(history_choices_json),
+            current_stats_json = values(current_stats_json),
+            is_finished = values(is_finished),
+            finish_score = values(finish_score),
+            finish_box_office = values(finish_box_office),
+            last_shoot_time = sysdate(),
+            update_by = values(create_by),
+            update_time = sysdate()
+    </insert>
+
+    <!-- 修改拍摄进度 -->
+    <update id="updateDjUserProgress" parameterType="com.ruoyi.duanju.domain.DjUserProgress">
+        update dj_user_progress
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="scriptTitle != null">script_title = #{scriptTitle},</if>
+            <if test="currentEpisode != null">current_episode = #{currentEpisode},</if>
+            <if test="currentPanel != null">current_panel = #{currentPanel},</if>
+            <if test="historyChoicesJson != null">history_choices_json = #{historyChoicesJson},</if>
+            <if test="currentStatsJson != null">current_stats_json = #{currentStatsJson},</if>
+            <if test="isFinished != null">is_finished = #{isFinished},</if>
+            <if test="finishScore != null">finish_score = #{finishScore},</if>
+            <if test="finishBoxOffice != null">finish_box_office = #{finishBoxOffice},</if>
+            last_shoot_time = sysdate(),
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            update_time = sysdate()
+        </trim>
+        where id = #{id}
+    </update>
+
+    <!-- 重置剧本进度至第1集 -->
+    <update id="resetProgressByUserAndScript">
+        update dj_user_progress
+        set current_episode = 1,
+            current_panel = 0,
+            history_choices_json = '[]',
+            current_stats_json = '{"pleasure":10,"drama":25,"anger":10,"evidence":0,"subversion":0}',
+            is_finished = '0',
+            finish_score = null,
+            finish_box_office = null,
+            last_shoot_time = sysdate(),
+            update_time = sysdate()
+        where user_id = #{userId} and script_id = #{scriptId} and del_flag = '0'
+    </update>
+
+    <!-- 逻辑删除拍摄进度 -->
+    <update id="deleteDjUserProgressById" parameterType="Long">
+        update dj_user_progress set del_flag = '2' where id = #{id}
+    </update>
+
+</mapper>

@@ -1,0 +1,32 @@
+{
+    "name" : "漫剧大导演",
+    "appid" : "__UNI__DUANJU2026",
+    "description" : "互动短剧放映厅 · 全员恶人，你来决定这集怎么离谱",
+    "versionName" : "1.0.0",
+    "versionCode" : "100",
+    "transformPx" : false,
+    "vueVersion" : "3",
+    "mp-weixin" : {
+        "appid" : "wxa795432123391c34",
+        "setting" : {
+            "urlCheck" : false,
+            "es6" : true,
+            "enhance" : true,
+            "postcss" : true,
+            "minified" : true
+        },
+        "usingComponents" : true,
+        "lazyCodeLoading" : "requiredComponents",
+        "permission" : {}
+    },
+    "h5" : {
+        "title" : "漫剧大导演 · 互动短剧放映厅",
+        "router" : {
+            "mode" : "hash"
+        },
+        "devServer" : {
+            "port" : 8082,
+            "disableHostCheck" : true
+        }
+    }
+}

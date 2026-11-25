@@ -1,0 +1,48 @@
+{
+  "pages": [
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "漫剧大导演 · 放映厅",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/episode/episode",
+      "style": {
+        "navigationBarTitleText": "片场拍摄中",
+        "navigationStyle": "custom",
+        "disableScroll": false
+      }
+    },
+    {
+      "path": "pages/ending/ending",
+      "style": {
+        "navigationBarTitleText": "杀青检验报告",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/rank/rank",
+      "style": {
+        "navigationBarTitleText": "封神导演排行榜",
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/pokedex/pokedex",
+      "style": {
+        "navigationBarTitleText": "我的图鉴收集册",
+        "navigationStyle": "custom"
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "漫剧大导演",
+    "navigationBarBackgroundColor": "#FFF6F8",
+    "backgroundColor": "#FFF6F8"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "ruoyi-duanju-server",
+  "version": "1.0.0",
+  "description": "《漫剧大导演》若依 (RuoYi-Vue3 / RuoYi-App) 后端服务",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "mysql2": "^3.24.6"
+  }
+}

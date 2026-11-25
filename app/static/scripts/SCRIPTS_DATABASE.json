@@ -1,0 +1,1756 @@
+{
+  "version": "1.0.0",
+  "totalCollectionCount": 28,
+  "collections": [
+    {
+      "cardId": "end_zhuixu_01",
+      "scriptId": "script_01_zhuixu",
+      "type": "ending",
+      "rarity": "SSR",
+      "title": "入赘三年，结局是开食堂？",
+      "hint": "在《赘婿龙王》中坚持颠勺与美食路线"
+    },
+    {
+      "cardId": "end_zhuixu_02",
+      "scriptId": "script_01_zhuixu",
+      "type": "ending",
+      "rarity": "UR",
+      "title": "超级辈分王：我娶我自己孙女？",
+      "hint": "在《赘婿龙王》大结局亮出惊天族谱辈分"
+    },
+    {
+      "cardId": "end_zhuixu_03",
+      "scriptId": "script_01_zhuixu",
+      "type": "ending",
+      "rarity": "SR",
+      "title": "至尊歪嘴战神：三年之期已到",
+      "hint": "在《赘婿龙王》中全程走传统爽文打脸路线"
+    },
+    {
+      "cardId": "end_zhuixu_04",
+      "scriptId": "script_01_zhuixu",
+      "type": "ending",
+      "rarity": "R",
+      "title": "折叠凳代言人：豪门整顿大师",
+      "hint": "在《赘婿龙王》中用劳动法和折叠凳整顿豪门"
+    },
+    {
+      "cardId": "card_zhuixu_01",
+      "scriptId": "script_01_zhuixu",
+      "type": "easter_egg",
+      "rarity": "SR",
+      "title": "寿宴加臭螺蛳粉",
+      "hint": "《赘婿龙王》第1集在折叠凳上煮螺蛳粉"
+    },
+    {
+      "cardId": "card_zhuixu_02",
+      "scriptId": "script_01_zhuixu",
+      "type": "easter_egg",
+      "rarity": "SSR",
+      "title": "原汁原味九转大肠",
+      "hint": "《赘婿龙王》第2集给富少献上九转大肠"
+    },
+    {
+      "cardId": "card_zhuixu_03",
+      "scriptId": "script_01_zhuixu",
+      "type": "easter_egg",
+      "rarity": "SR",
+      "title": "十万龙殿外卖骑手",
+      "hint": "《赘婿龙王》第4集向百名黑衣保镖推销盒饭"
+    },
+    {
+      "cardId": "end_qianjin_01",
+      "scriptId": "script_02_qianjin",
+      "type": "ending",
+      "rarity": "SSR",
+      "title": "真假千金联手，把豪门买下来了！",
+      "hint": "在《真假千金》中与假千金放弃雌竞联手搞钱"
+    },
+    {
+      "cardId": "end_qianjin_02",
+      "scriptId": "script_02_qianjin",
+      "type": "ending",
+      "rarity": "UR",
+      "title": "豪门流水席：万物皆可杀猪菜",
+      "hint": "在《真假千金》中把荒诞接地气路线贯彻到底"
+    },
+    {
+      "cardId": "end_qianjin_03",
+      "scriptId": "script_02_qianjin",
+      "type": "ending",
+      "rarity": "SR",
+      "title": "满级马甲女王：莫欺少女穷",
+      "hint": "在《真假千金》中全程亮出顶级马甲打脸众人"
+    },
+    {
+      "cardId": "end_qianjin_04",
+      "scriptId": "script_02_qianjin",
+      "type": "ending",
+      "rarity": "R",
+      "title": "全员恶人改造营：豪门变形计",
+      "hint": "在《真假千金》中送豪门全家去养猪场改造"
+    },
+    {
+      "cardId": "card_qianjin_01",
+      "scriptId": "script_02_qianjin",
+      "type": "easter_egg",
+      "rarity": "SR",
+      "title": "旋转楼梯番茄酱假摔",
+      "hint": "《真假千金》第1集比绿茶更快滚下楼梯"
+    },
+    {
+      "cardId": "card_qianjin_02",
+      "scriptId": "script_02_qianjin",
+      "type": "easter_egg",
+      "rarity": "SSR",
+      "title": "豪门五三高考模拟卷",
+      "hint": "《真假千金》第2集逼亲妈和假千金做高考卷子"
+    },
+    {
+      "cardId": "card_qianjin_03",
+      "scriptId": "script_02_qianjin",
+      "type": "easter_egg",
+      "rarity": "UR",
+      "title": "太子爷竟是林家真闺女",
+      "hint": "《真假千金》第4集揭晓最离谱的DNA报告"
+    },
+    {
+      "cardId": "end_bazong_01",
+      "scriptId": "script_03_bazong",
+      "type": "ending",
+      "rarity": "SSR",
+      "title": "萌宝黑客把霸总公司干破产了",
+      "hint": "在《霸总带球跑》中培养天才萌宝反杀霸总"
+    },
+    {
+      "cardId": "end_bazong_02",
+      "scriptId": "script_03_bazong",
+      "type": "ending",
+      "rarity": "UR",
+      "title": "带球跑？我带的是国足青训队！",
+      "hint": "在《霸总带球跑》中走极致离谱体育强国路线"
+    },
+    {
+      "cardId": "end_bazong_03",
+      "scriptId": "script_03_bazong",
+      "type": "ending",
+      "rarity": "SR",
+      "title": "追妻火葬场：霸总雨夜跪搓衣板",
+      "hint": "在《霸总带球跑》中走经典虐恋追妻火葬场路线"
+    },
+    {
+      "cardId": "end_bazong_04",
+      "scriptId": "script_03_bazong",
+      "type": "ending",
+      "rarity": "R",
+      "title": "搞钱大女主：五百万支票真香",
+      "hint": "在《霸总带球跑》中专注搞钱不谈恋爱"
+    },
+    {
+      "cardId": "card_bazong_01",
+      "scriptId": "script_03_bazong",
+      "type": "easter_egg",
+      "rarity": "SR",
+      "title": "霸总专属验钞机",
+      "hint": "《霸总带球跑》第1集当面用验钞机验五百万支票"
+    },
+    {
+      "cardId": "card_bazong_02",
+      "scriptId": "script_03_bazong",
+      "type": "easter_egg",
+      "rarity": "SSR",
+      "title": "十胞胎葫芦娃战队",
+      "hint": "《霸总带球跑》第3集带着一串萌宝走红毯"
+    },
+    {
+      "cardId": "card_bazong_03",
+      "scriptId": "script_03_bazong",
+      "type": "easter_egg",
+      "rarity": "SR",
+      "title": "人工降雨洒水车",
+      "hint": "《霸总带球跑》第5集给雨夜下跪的霸总安排洒水车"
+    },
+    {
+      "cardId": "end_baomu_01",
+      "scriptId": "script_04_baomu",
+      "type": "ending",
+      "rarity": "SSR",
+      "title": "保姆竟是千亿集团幕后太皇太后",
+      "hint": "在《豪门当保姆》中亮出隐藏千亿神秘富豪身份"
+    },
+    {
+      "cardId": "end_baomu_02",
+      "scriptId": "script_04_baomu",
+      "type": "ending",
+      "rarity": "UR",
+      "title": "带领豪门全家跳广场舞称霸全国",
+      "hint": "在《豪门当保姆》中用广场舞和夕阳红统治豪门"
+    },
+    {
+      "cardId": "end_baomu_03",
+      "scriptId": "script_04_baomu",
+      "type": "ending",
+      "rarity": "SR",
+      "title": "恶毒少奶奶被罚每天洗十吨衣服",
+      "hint": "在《豪门当保姆》中狠狠惩治刁蛮豪门少奶奶"
+    },
+    {
+      "cardId": "end_baomu_04",
+      "scriptId": "script_04_baomu",
+      "type": "ending",
+      "rarity": "R",
+      "title": "金牌月嫂：整顿京圈家政市场",
+      "hint": "在《豪门当保姆》中凭硬核家政技能封神"
+    },
+    {
+      "cardId": "card_baomu_01",
+      "scriptId": "script_04_baomu",
+      "type": "easter_egg",
+      "rarity": "SR",
+      "title": "镶金边尚方宝剑鸡毛掸子",
+      "hint": "《豪门当保姆》第1集掏出祖传鸡毛掸子教训少爷"
+    },
+    {
+      "cardId": "card_baomu_02",
+      "scriptId": "script_04_baomu",
+      "type": "easter_egg",
+      "rarity": "SSR",
+      "title": "震慑全场的广场舞低音炮",
+      "hint": "《豪门当保姆》第3集在豪门晚宴放《最炫民族风》"
+    },
+    {
+      "cardId": "card_baomu_03",
+      "scriptId": "script_04_baomu",
+      "type": "easter_egg",
+      "rarity": "UR",
+      "title": "真话王妈老母鸡汤",
+      "hint": "《豪门当保姆》第4集用一锅鸡汤让全员吐露心声"
+    }
+  ],
+  "scripts": [
+    {
+      "scriptId": "script_01_zhuixu",
+      "title": "赘婿龙王：三年之期",
+      "subtitle": "三年隐忍坐折叠凳，今天寿宴你决定怎么摊牌",
+      "tag": "男频爽剧",
+      "recommend": true,
+      "difficulty": 1,
+      "totalEpisodes": 6,
+      "endingCount": 4,
+      "coverTheme": "#FF6B9E",
+      "defaultProtagonist": "叶辰",
+      "supportingRoles": {
+        "wife": "苏倾城",
+        "brotherInLaw": "苏强",
+        "grandma": "苏老太君"
+      },
+      "synopsis": "你扮演入赘苏家三年的上门女婿：岳家让你坐掉漆的塑料折叠凳，象征至高权力的纯金龙纹令牌被岳母当成超市购物卡。今天是老太君八十大寿，主桌依旧没有你的位子……",
+      "initialStats": {
+        "thrill": 20,
+        "absurd": 10,
+        "persona": 50,
+        "budget": 10
+      },
+      "episodes": [
+        {
+          "ep": 1,
+          "title": "第一集：寿宴上的塑料折叠凳",
+          "sceneDesc": "苏家别墅金碧辉煌，老太君八十大寿宾客云集。大舅哥苏强一脚把一张掉漆的红色塑料折叠凳踢到你脚边，满脸鄙夷：「{{playerName}}，后厨的潲水桶倒完没？倒完就坐垃圾桶旁边吃剩菜，别在这丢我苏家的脸！」",
+          "directorHint": "开局第一镜！观众前3秒留存全看你这一坐怎么选！",
+          "choices": [
+            {
+              "choiceId": "s1_e1_c1",
+              "label": "A",
+              "text": "歪嘴冷笑45度，掏出纯金龙纹令牌拍在桌上：「三年之期已到！」",
+              "styleTag": "经典套路",
+              "effects": {
+                "thrill": 25,
+                "absurd": -5,
+                "persona": 15,
+                "budget": 10
+              },
+              "qualityBonus": 12,
+              "feedback": "全场安静了一秒。大舅哥拿起令牌咬了一口：「哟，拼夕夕9块9包邮的巧克力金币？还挺逼真！」顺手揣进了自己兜里。"
+            },
+            {
+              "choiceId": "s1_e1_c2",
+              "label": "B",
+              "text": "熟练地打开折叠凳坐下，并从裤兜掏出便携电磁炉开始煮加臭螺蛳粉",
+              "styleTag": "离谱反套路",
+              "effects": {
+                "thrill": 10,
+                "absurd": 35,
+                "persona": -10,
+                "budget": 5
+              },
+              "qualityBonus": 18,
+              "unlockedCardId": "card_zhuixu_01",
+              "feedback": "浓郁的酸笋味瞬间席卷整个宴会厅，隔壁桌吃鲍鱼的首富猛吸一口气：「兄弟，加炸蛋吗？我出十万买你半碗汤！」"
+            },
+            {
+              "choiceId": "s1_e1_c3",
+              "label": "C",
+              "text": "反手掏出卷尺丈量折叠凳：「根据《豪门赘婿劳动法》，坐折叠凳需按分钟计发精神损失费」",
+              "styleTag": "打工人觉醒",
+              "effects": {
+                "thrill": 15,
+                "absurd": 25,
+                "persona": 20,
+                "budget": 0
+              },
+              "qualityBonus": 15,
+              "feedback": "老太君当场愣住，从来没见过把吃软饭算得这么合法的赘婿。"
+            }
+          ]
+        },
+        {
+          "ep": 2,
+          "title": "第二集：九千万的寿礼风波",
+          "sceneDesc": "这时，追求你老婆苏倾城的富少赵公子昂首走入，让人抬上一尊半人高的翡翠观音：「老太君，这是我花九千万拍下的唐代翡翠！不像某些吃软饭的废物，连九十块都掏不出来！」全场目光齐刷刷看向你。",
+          "directorHint": "经典献礼打脸桥段！要爽还是要离谱？",
+          "choices": [
+            {
+              "choiceId": "s1_e2_c1",
+              "label": "A",
+              "text": "打了个响指，窗外百架直升机轰鸣，空投下整箱传国玉玺同款原石",
+              "styleTag": "经费燃烧",
+              "effects": {
+                "thrill": 30,
+                "absurd": 10,
+                "persona": 20,
+                "budget": 35
+              },
+              "qualityBonus": 15,
+              "feedback": "由于直升机风力过大，老太君的假发被当场吹飞挂在了水晶吊灯上，场面一度十分震撼。"
+            },
+            {
+              "choiceId": "s1_e2_c2",
+              "label": "B",
+              "text": "掏出手机扫了扫翡翠底座的二维码：「赵公子，这义乌批发价38块5，你还被宰了邮费」",
+              "styleTag": "科技打脸",
+              "effects": {
+                "thrill": 25,
+                "absurd": 25,
+                "persona": 15,
+                "budget": -5
+              },
+              "qualityBonus": 17,
+              "feedback": "语音播报响彻大厅：「拼好货砍一刀成功！」赵公子脸色瞬间比翡翠还绿。"
+            },
+            {
+              "choiceId": "s1_e2_c3",
+              "label": "C",
+              "text": "真诚地双手奉上自己在后厨刚炒好的「九转大肠」，请赵公子先尝头一口",
+              "styleTag": "原汁原味",
+              "effects": {
+                "thrill": 15,
+                "absurd": 40,
+                "persona": -5,
+                "budget": 0
+              },
+              "qualityBonus": 19,
+              "unlockedCardId": "card_zhuixu_02",
+              "feedback": "你微笑着说：「我特意保留了一部分原有的味道，才知道你吃的是大肠。」全网弹幕瞬间刷屏！"
+            }
+          ]
+        },
+        {
+          "ep": 3,
+          "title": "第三集：离婚协议书拍在脸上",
+          "sceneDesc": "岳母见你抢了风头，气得浑身发抖，直接把一份《离婚协议书》甩在你脸上：「{{playerName}}！签了它！倾城马上要和赵家联姻拿下百亿城南项目，你这种只会在厨房颠勺的窝囊废根本配不上她！」",
+          "directorHint": "中场高潮！女主态度即将出现转折。",
+          "choices": [
+            {
+              "choiceId": "s1_e3_c1",
+              "label": "A",
+              "text": "冷笑撕碎协议：「百亿城南项目？不好意思，那个项目背后的龙腾集团，是我的！」",
+              "styleTag": "龙王摊牌",
+              "effects": {
+                "thrill": 35,
+                "absurd": 0,
+                "persona": 25,
+                "budget": 20
+              },
+              "qualityBonus": 14,
+              "feedback": "岳母哈哈大笑：「你要是龙腾董事长，我当场把这叠A4纸吃下去！」"
+            },
+            {
+              "choiceId": "s1_e3_c2",
+              "label": "B",
+              "text": "秒签名字并掏出POS机：「婚内三年包揽苏家做饭洗碗共3285顿，请先结清家政服务费88万」",
+              "styleTag": "人间清醒",
+              "effects": {
+                "thrill": 20,
+                "absurd": 30,
+                "persona": 10,
+                "budget": 15
+              },
+              "qualityBonus": 18,
+              "feedback": "苏倾城看着你熟练打印发票的样子，突然觉得你比那些油腻富二代顺眼多了。"
+            },
+            {
+              "choiceId": "s1_e3_c3",
+              "label": "C",
+              "text": "深情看向岳母：「妈，其实我不装了，我真正暗恋的是后厨王妈的独门卤肉配方」",
+              "styleTag": "神级走位",
+              "effects": {
+                "thrill": 5,
+                "absurd": 45,
+                "persona": -15,
+                "budget": 0
+              },
+              "qualityBonus": 20,
+              "feedback": "正在端汤的王妈老脸一红，手里的汤勺差点掉进赵公子怀里。"
+            }
+          ]
+        },
+        {
+          "ep": 4,
+          "title": "第四集：十万龙殿将士堵门",
+          "sceneDesc": "正僵持间，别墅大门轰然洞开！整整三十辆劳斯莱斯整齐停靠，黑衣战神龙一带着百名保镖单膝跪地，高呼：「恭迎尊上归位！」然而他跪的方向，刚好在你、赵公子和后厨大黄狗三者之间……",
+          "directorHint": "经典乌龙错位梗！",
+          "choices": [
+            {
+              "choiceId": "s1_e4_c1",
+              "label": "A",
+              "text": "负手而立，声音低沉如雷：「龙一，给我把赵家所有的资金链，三分钟内全部断掉！」",
+              "styleTag": "霸气全开",
+              "effects": {
+                "thrill": 35,
+                "absurd": -5,
+                "persona": 25,
+                "budget": 25
+              },
+              "qualityBonus": 15,
+              "feedback": "龙一立刻掏出手机：「尊上，天凉了，赵氏集团已经破产了！」"
+            },
+            {
+              "choiceId": "s1_e4_c2",
+              "label": "B",
+              "text": "赶紧把大黄狗抱到C位：「别跪我，其实这条狗才是你们失散多年的哮天犬老祖」",
+              "styleTag": "甩锅大师",
+              "effects": {
+                "thrill": 10,
+                "absurd": 40,
+                "persona": -10,
+                "budget": 10
+              },
+              "qualityBonus": 18,
+              "feedback": "大黄狗十分配合地「汪」了一声，赵公子居然真的跟着磕了个头。"
+            },
+            {
+              "choiceId": "s1_e4_c3",
+              "label": "C",
+              "text": "熟练地给百名黑衣保镖每人发了一张传单：「既然来了，我新开的盒饭快餐了解一下？团购八折」",
+              "styleTag": "商业鬼才",
+              "effects": {
+                "thrill": 15,
+                "absurd": 35,
+                "persona": 15,
+                "budget": 20
+              },
+              "qualityBonus": 19,
+              "unlockedCardId": "card_zhuixu_03",
+              "feedback": "龙一热泪盈眶：「尊上日理万机还不忘龙殿兄弟们的伙食，先订五百份卤肉饭！」"
+            }
+          ]
+        },
+        {
+          "ep": 5,
+          "title": "第五集：岳家全员跪求原谅",
+          "sceneDesc": "真相大白！苏家众人终于意识到你才是手握万亿资产的真大佬。大舅哥苏强啪地扇了自己两巴掌，岳母捧着那张塑料折叠凳跪在地上痛哭流涕：「好女婿，妈以前有眼无珠！求求你别跟倾城离婚，救救苏家吧！」",
+          "directorHint": "倒数第二集，决定结局走向的关键分水岭！",
+          "choices": [
+            {
+              "choiceId": "s1_e5_c1",
+              "label": "A",
+              "text": "一脚踢开折叠凳，搂住苏倾城：「看在倾城三年来没嫌弃我的份上，苏家，我保了！」",
+              "styleTag": "爽文男主",
+              "effects": {
+                "thrill": 30,
+                "absurd": 0,
+                "persona": 25,
+                "budget": 15
+              },
+              "qualityBonus": 15,
+              "feedback": "苏倾城感动落泪，背景音乐瞬间响起悲壮的BGM《战神归来》。"
+            },
+            {
+              "choiceId": "s1_e5_c2",
+              "label": "B",
+              "text": "宣布收购苏氏集团大楼，一楼改造成全市最大的平价大食堂，让大舅哥专门负责剥蒜",
+              "styleTag": "食堂大亨",
+              "effects": {
+                "thrill": 25,
+                "absurd": 35,
+                "persona": 15,
+                "budget": 20
+              },
+              "qualityBonus": 20,
+              "feedback": "大舅哥边哭边剥蒜：「妹夫，这独头蒜真辣眼睛啊！」"
+            },
+            {
+              "choiceId": "s1_e5_c3",
+              "label": "C",
+              "text": "把折叠凳焊死在董事长办公室：「从今天起，苏家开董事会全员必须坐塑料折叠凳！」",
+              "styleTag": "折凳艺术",
+              "effects": {
+                "thrill": 20,
+                "absurd": 40,
+                "persona": 5,
+                "budget": 5
+              },
+              "qualityBonus": 18,
+              "feedback": "塑料折叠凳厂家连夜给你送来一面锦旗：「折凳之神，普度豪门」。"
+            }
+          ]
+        },
+        {
+          "ep": 6,
+          "title": "第六集（大结局）：杀青之战",
+          "sceneDesc": "三个月后，全城名流齐聚龙腾大厦顶层参加你的巅峰盛典。记者把话筒递到你嘴边：「{{playerName}}先生，从入赘三年坐折叠凳，到如今站在全城之巅，您最想对全国观众说的一句话是什么？」",
+          "directorHint": "最后一镜！你的收官台词将直接决定本剧最终结局与票房评级！",
+          "choices": [
+            {
+              "choiceId": "s1_e6_c1",
+              "label": "A",
+              "text": "再次歪嘴邪魅一笑：「顺我者昌，逆我者亡！下一部《龙王殿第二季》敬请期待！」",
+              "styleTag": "战神收官",
+              "effects": {
+                "thrill": 30,
+                "absurd": -5,
+                "persona": 20,
+                "budget": 20
+              },
+              "qualityBonus": 15,
+              "feedback": "由于歪嘴用力过猛，下巴轻微脱臼，但画面定格依然帅炸苍穹！"
+            },
+            {
+              "choiceId": "s1_e6_c2",
+              "label": "B",
+              "text": "举起大勺对准镜头：「打打杀杀哪有颠勺香？龙王大食堂现已开通外卖，满20减15！」",
+              "styleTag": "反套路封神",
+              "effects": {
+                "thrill": 15,
+                "absurd": 40,
+                "persona": 15,
+                "budget": 15
+              },
+              "qualityBonus": 22,
+              "feedback": "当晚全市外卖系统瘫痪，十万龙殿将士全员化身金牌骑手！"
+            },
+            {
+              "choiceId": "s1_e6_c3",
+              "label": "C",
+              "text": "掏出老花镜戴上：「其实我不仅是龙王，我还是苏老太君失散六十年的亲大爷！」",
+              "styleTag": "伦理暴击",
+              "effects": {
+                "thrill": 20,
+                "absurd": 50,
+                "persona": -20,
+                "budget": 5
+              },
+              "qualityBonus": 20,
+              "feedback": "大舅哥当场掐人中晕倒：「合着我管你叫妹夫，你管我奶奶叫大侄女？！」"
+            }
+          ]
+        }
+      ],
+      "endings": [
+        {
+          "endingId": "end_zhuixu_01",
+          "title": "入赘三年，结局是开食堂？",
+          "badge": "SSR · 荒诞神作",
+          "condition": {
+            "minAbsurd": 130,
+            "specialChoice": "s1_e5_c2"
+          },
+          "priority": 1,
+          "baseScoreBonus": 15,
+          "summary": "你放弃了枯燥的万亿商战，把苏氏大厦改造成了全国闻名的「龙王人民大食堂」。十万龙殿战神统一穿上美团黄袍送外卖，大舅哥成为首席剥蒜师，老婆苏倾城负责收银，凭一碗螺蛳粉成功在纳斯达克敲钟上市！",
+          "audienceComment": "网友热评：「本来以为是俗套歪嘴龙王，结果看饿了点了个外卖，导演脑洞突破天际！」"
+        },
+        {
+          "endingId": "end_zhuixu_02",
+          "title": "超级辈分王：我娶我自己孙女？",
+          "badge": "UR · 伦理鬼才",
+          "condition": {
+            "minAbsurd": 160,
+            "specialChoice": "s1_e6_c3"
+          },
+          "priority": 2,
+          "baseScoreBonus": 18,
+          "summary": "在最终发布会上，你凭一张泛黄的族谱证明了自己的太爷辈分。原本嚣张跋扈的苏家全员连夜背诵亲戚称呼表，大舅哥每次见你都要行跪拜大礼高呼「太姑爷吉祥」，彻底重塑了短剧界的辈分天花板。",
+          "audienceComment": "网友热评：「编剧的精神状态遥遥领先，建议严查导演昨晚喝了几斤假酒！」"
+        },
+        {
+          "endingId": "end_zhuixu_03",
+          "title": "至尊歪嘴战神：三年之期已到",
+          "badge": "SR · 爽文正统",
+          "condition": {
+            "minThrill": 140
+          },
+          "priority": 3,
+          "baseScoreBonus": 10,
+          "summary": "你严格遵循了古早男频爽文的每一条黄金法则：歪嘴、拍令牌、直升机空投、天凉王破。赵家在三分钟内破产了八次，岳母悔青了肠子，你也因为连续歪嘴108次喜提全市口腔医院终身形象代言人。",
+          "audienceComment": "网友热评：「对味了！就是这个熟悉的土味爽感，我爸半夜充了300块钱看完了全集！」"
+        },
+        {
+          "endingId": "end_zhuixu_04",
+          "title": "折叠凳代言人：豪门整顿大师",
+          "badge": "R · 职场清醒",
+          "condition": {
+            "default": true
+          },
+          "priority": 4,
+          "baseScoreBonus": 8,
+          "summary": "你既没有毁天灭地，也没有忍气吞声，而是用《劳动法》和一张塑料折叠凳完成了对豪门的降维打击。如今全城豪门开会都以坐红色塑料折叠凳为荣，你也成了赘婿维权协会名誉会长。",
+          "audienceComment": "网友热评：「建议把这部剧列入全国上门女婿岗前必修课！」"
+        }
+      ],
+      "coverImage": "/static/images/cover_zhuixu.jpg"
+    },
+    {
+      "scriptId": "script_02_qianjin",
+      "title": "真假千金：DNA动了",
+      "subtitle": "豪门认亲现场，假千金正在偷偷往自己眼里滴风油精",
+      "tag": "女频狗血",
+      "recommend": true,
+      "difficulty": 2,
+      "totalEpisodes": 6,
+      "endingCount": 4,
+      "coverTheme": "#7C5CFF",
+      "defaultProtagonist": "林晚晚",
+      "supportingRoles": {
+        "fakeSister": "林茶茶",
+        "mother": "豪门亲妈",
+        "fiance": "顾少"
+      },
+      "synopsis": "你是在城乡结合部养猪十八年、刚被林氏豪门找回来的真千金。认亲宴上，鸠占鹊巢的假千金林茶茶正楚楚可怜地往眼睛里滴眼药水准备陷害你推她下楼，而亲妈和未婚夫全都护在她身前……",
+      "initialStats": {
+        "thrill": 15,
+        "absurd": 15,
+        "persona": 50,
+        "budget": 15
+      },
+      "episodes": [
+        {
+          "ep": 1,
+          "title": "第一集：旋转楼梯上的假摔陷阱",
+          "sceneDesc": "认亲宴二楼旋转楼梯口，假千金林茶茶拉住你的手，凄楚地说：「姐姐，我知道你不喜欢我，可你别推我呀……」话音未落，她身体后仰准备顺着楼梯滚下去讹你！",
+          "directorHint": "女频短剧必考题：绿茶假摔怎么破？",
+          "choices": [
+            {
+              "choiceId": "s2_e1_c1",
+              "label": "A",
+              "text": "比她更快一步顺着楼梯丝滑滚下去，落地后吐出一口番茄酱：「妹妹为何下此毒手！」",
+              "styleTag": "走绿茶的路",
+              "effects": {
+                "thrill": 25,
+                "absurd": 35,
+                "persona": 10,
+                "budget": 5
+              },
+              "qualityBonus": 19,
+              "unlockedCardId": "card_qianjin_01",
+              "feedback": "林茶茶保持着后仰姿势僵在楼梯上，看着你在地上熟练地画好了人形粉笔线。"
+            },
+            {
+              "choiceId": "s2_e1_c2",
+              "label": "B",
+              "text": "发挥在村里按年猪练出的三百斤臂力，单手拎起她的后衣领悬在半空：「站稳了妹妹」",
+              "styleTag": "天生神力",
+              "effects": {
+                "thrill": 30,
+                "absurd": 25,
+                "persona": 20,
+                "budget": 10
+              },
+              "qualityBonus": 17,
+              "feedback": "林茶茶双脚离地三十厘米扑腾，全场宾客惊叹于你堪比鲁智深的倒拔垂杨柳神技。"
+            },
+            {
+              "choiceId": "s2_e1_c3",
+              "label": "C",
+              "text": "掏出手机架起三脚架开启直播：「家人们谁懂啊，豪门假千金现场表演无接触碰瓷，点关注抽土鸡蛋」",
+              "styleTag": "直播带货",
+              "effects": {
+                "thrill": 20,
+                "absurd": 30,
+                "persona": 15,
+                "budget": 20
+              },
+              "qualityBonus": 18,
+              "feedback": "直播间瞬间涌入十万人，榜一大哥连刷十个嘉年华要求林茶茶再翻个跟头。"
+            }
+          ]
+        },
+        {
+          "ep": 2,
+          "title": "第二集：偏心亲妈的支票羞辱",
+          "sceneDesc": "豪门亲妈冲过来护住林茶茶，满脸嫌弃地看着你身上洗得发白的牛仔裤：「{{playerName}}，茶茶从小娇生惯养受不得委屈！这张卡里有五万块，你拿去换身像样的衣服，别让人知道你是从养猪场回来的！」",
+          "directorHint": "豪门偏心亲妈上线！",
+          "choices": [
+            {
+              "choiceId": "s2_e2_c1",
+              "label": "A",
+              "text": "反手甩出黑金百夫长无限额卡：「五万块？我养猪场一头赛级黑猪的伙食费都不止这个数！」",
+              "styleTag": "隐形首富",
+              "effects": {
+                "thrill": 35,
+                "absurd": 5,
+                "persona": 25,
+                "budget": 30
+              },
+              "qualityBonus": 15,
+              "feedback": "亲妈揉了揉眼睛，发现你名下的现代化生态牧场市值竟是林氏集团的十倍！"
+            },
+            {
+              "choiceId": "s2_e2_c2",
+              "label": "B",
+              "text": "飞快收下银行卡并掏出收款码：「妈，叫一声妈五万，我还能连叫二十声，支持微信支付宝」",
+              "styleTag": "搞钱要紧",
+              "effects": {
+                "thrill": 15,
+                "absurd": 35,
+                "persona": -5,
+                "budget": 25
+              },
+              "qualityBonus": 18,
+              "feedback": "你一口气像机关枪一样喊了二十声妈，亲妈的钱包当场被掏空。"
+            },
+            {
+              "choiceId": "s2_e2_c3",
+              "label": "C",
+              "text": "掏出两套《五年高考三年模拟》递给亲妈和林茶茶：「别搞宅斗了，我看你们逻辑混乱，先做套卷子冷静下」",
+              "styleTag": "知识降维",
+              "effects": {
+                "thrill": 20,
+                "absurd": 40,
+                "persona": 15,
+                "budget": 5
+              },
+              "qualityBonus": 20,
+              "unlockedCardId": "card_qianjin_02",
+              "feedback": "林茶茶看到立体几何当场真哭了出来，比刚才滴眼药水真诚了一百倍。"
+            }
+          ]
+        },
+        {
+          "ep": 3,
+          "title": "第三集：霸总未婚夫的退婚威胁",
+          "sceneDesc": "原本指腹为婚的京圈太子爷顾少冷着脸走过来，把订婚戒指丢进香槟杯：「{{playerName}}，我顾某只喜欢茶茶这种会弹肖邦夜曲的才女，你一个只会喂猪的村姑，趁早死了嫁入顾家的心！」",
+          "directorHint": "油腻未婚夫登场，如何优雅打脸？",
+          "choices": [
+            {
+              "choiceId": "s2_e3_c1",
+              "label": "A",
+              "text": "坐到三角钢琴前，双手化作残影弹出国际大师级《野蜂飞舞》，惊呆全场音乐家",
+              "styleTag": "马甲掉落",
+              "effects": {
+                "thrill": 35,
+                "absurd": 0,
+                "persona": 25,
+                "budget": 20
+              },
+              "qualityBonus": 14,
+              "feedback": "国际钢琴协会会长当场跪拜：「原来您就是隐退多年的神秘钢琴女皇K！」"
+            },
+            {
+              "choiceId": "s2_e3_c2",
+              "label": "B",
+              "text": "掏出唢呐吹了一曲震耳欲聋的《百鸟朝凤》，把香槟杯直接震碎：「肖邦能给你送走吗？我能！」",
+              "styleTag": "民乐核武",
+              "effects": {
+                "thrill": 25,
+                "absurd": 40,
+                "persona": 10,
+                "budget": 10
+              },
+              "qualityBonus": 20,
+              "feedback": "唢呐一响黄金万两，顾少双腿一软差点当场顺着红毯滑跪过来随礼。"
+            },
+            {
+              "choiceId": "s2_e3_c3",
+              "label": "C",
+              "text": "上下打量顾少：「退婚可以，但看你印堂发黑肝火旺盛，我按兽医经验给你开两副母猪产后护理方子吧」",
+              "styleTag": "专业对口",
+              "effects": {
+                "thrill": 20,
+                "absurd": 35,
+                "persona": 15,
+                "budget": 5
+              },
+              "qualityBonus": 18,
+              "feedback": "顾少的私人医生在旁边疯狂点头记笔记：「神医啊！这方子真对症！」"
+            }
+          ]
+        },
+        {
+          "ep": 4,
+          "title": "第四集：DNA鉴定报告惊天反转",
+          "sceneDesc": "此时管家匆匆跑来，手里举着刚刚加急出炉的第二份权威DNA报告，脸色煞白地大喊：「老爷夫人不好了！医院刚才来电，当年抱错的不仅有两位小姐……」",
+          "directorHint": "短剧最爱用的血缘大反转来了！",
+          "choices": [
+            {
+              "choiceId": "s2_e4_c1",
+              "label": "A",
+              "text": "淡定揭秘：「没错，其实我是全球首富罗斯柴尔德家族唯一继承人，你们林家高攀不起！」",
+              "styleTag": "顶级身世",
+              "effects": {
+                "thrill": 35,
+                "absurd": 10,
+                "persona": 20,
+                "budget": 30
+              },
+              "qualityBonus": 15,
+              "feedback": "林家父母听完当场后悔得直拍大腿，试图反过来认你当干妈。"
+            },
+            {
+              "choiceId": "s2_e4_c2",
+              "label": "B",
+              "text": "抢过报告念出声：「经鉴定，我和林茶茶是异父异母的亲姐妹，真正被抱错的是顾少——他才是林家闺女！」",
+              "styleTag": "离谱他妈开门",
+              "effects": {
+                "thrill": 15,
+                "absurd": 50,
+                "persona": -10,
+                "budget": 10
+              },
+              "qualityBonus": 21,
+              "unlockedCardId": "card_qianjin_03",
+              "feedback": "顾少低头看了看自己的西装，陷入了长达三集的人生哲学沉思。"
+            },
+            {
+              "choiceId": "s2_e4_c3",
+              "label": "C",
+              "text": "一把拉住林茶茶的手：「妹妹，既然咱俩都不是这家亲生的，不如联手把林家收购了平分？」",
+              "styleTag": "双女主橘势",
+              "effects": {
+                "thrill": 30,
+                "absurd": 25,
+                "persona": 25,
+                "budget": 20
+              },
+              "qualityBonus": 19,
+              "feedback": "林茶茶擦干假眼泪，眼神瞬间变得犀利：「姐姐，我早看这群奇葩不爽了，干他！」"
+            }
+          ]
+        },
+        {
+          "ep": 5,
+          "title": "第五集：豪门破产危机降临",
+          "sceneDesc": "林氏集团因为投资失败突然暴雷，资金链断裂欠下十亿巨债！亲妈和亲爸哭着抱住你的大腿：「{{playerName}}，爸妈错了！听说你的生态养猪集团刚刚上市，求你注资救救林家吧！」",
+          "directorHint": "火葬场环节！原谅还是继续整活？",
+          "choices": [
+            {
+              "choiceId": "s2_e5_c1",
+              "label": "A",
+              "text": "冷漠抽回腿：「迟来的深情比草贱！以前你们对我爱答不理，现在的我你们高攀不起！」",
+              "styleTag": "大女主爽文",
+              "effects": {
+                "thrill": 35,
+                "absurd": 0,
+                "persona": 25,
+                "budget": 20
+              },
+              "qualityBonus": 15,
+              "feedback": "全场响起战歌《玫瑰少年》，你在慢镜头中潇洒转身。"
+            },
+            {
+              "choiceId": "s2_e5_c2",
+              "label": "B",
+              "text": "答应注资，但要求林家全员连同顾少搬去养猪场，每日铲屎满八小时才发生活费",
+              "styleTag": "劳动改造",
+              "effects": {
+                "thrill": 25,
+                "absurd": 35,
+                "persona": 15,
+                "budget": 15
+              },
+              "qualityBonus": 19,
+              "feedback": "顾少穿着高定西装在猪圈里铲得热火朝天，还评上了本季度优秀饲养员。"
+            },
+            {
+              "choiceId": "s2_e5_c3",
+              "label": "C",
+              "text": "和林茶茶合伙成立「真假千金MCN机构」，把林家父母改造成搞笑短剧演员天天拍视频还债",
+              "styleTag": "资本家本家",
+              "effects": {
+                "thrill": 25,
+                "absurd": 35,
+                "persona": 20,
+                "budget": 30
+              },
+              "qualityBonus": 20,
+              "feedback": "亲妈每天在镜头前表演扇自己巴掌，单条视频点赞破百万！"
+            }
+          ]
+        },
+        {
+          "ep": 6,
+          "title": "第六集（大结局）：千金的终极归宿",
+          "sceneDesc": "一年一度的豪门慈善晚宴上，你作为全场身价最高的神秘嘉宾压轴登场。面对昔日看不起你的名媛圈和闪烁的聚光灯，你决定用什么方式为这部短剧画上句号？",
+          "directorHint": "杀青镜头！冲刺最高拍摄评分！",
+          "choices": [
+            {
+              "choiceId": "s2_e6_c1",
+              "label": "A",
+              "text": "头戴十亿皇冠独自美丽：「男人和豪门只会影响我拔剑的速度，姐自己就是豪门！」",
+              "styleTag": "女王独美",
+              "effects": {
+                "thrill": 35,
+                "absurd": 0,
+                "persona": 30,
+                "budget": 25
+              },
+              "qualityBonus": 16,
+              "feedback": "标准的大女主满分答卷，评论区清一色刷屏「姐姐杀我」！"
+            },
+            {
+              "choiceId": "s2_e6_c2",
+              "label": "B",
+              "text": "和林茶茶手挽手走红毯，宣布两人合伙的「千金生态黑猪肉铺」全球连锁突破一万家",
+              "styleTag": "姐妹搞钱",
+              "effects": {
+                "thrill": 25,
+                "absurd": 30,
+                "persona": 25,
+                "budget": 30
+              },
+              "qualityBonus": 21,
+              "feedback": "从此短剧界少了一对雌竞死敌，多了一对猪肉界绝代双骄！"
+            },
+            {
+              "choiceId": "s2_e6_c3",
+              "label": "C",
+              "text": "在晚宴现场架起大黑锅炖酸菜白肉，凭一己之力把高奢慈善晚宴办成了东北杀猪菜流水席",
+              "styleTag": "流水席之王",
+              "effects": {
+                "thrill": 20,
+                "absurd": 45,
+                "persona": 10,
+                "budget": 15
+              },
+              "qualityBonus": 20,
+              "feedback": "法国米其林三星主厨吃完血肠后痛哭流涕，当场拜你为师！"
+            }
+          ]
+        }
+      ],
+      "endings": [
+        {
+          "endingId": "end_qianjin_01",
+          "title": "真假千金联手，把豪门买下来了！",
+          "badge": "SSR · 反雌竞神作",
+          "condition": {
+            "specialChoice": "s2_e6_c2"
+          },
+          "priority": 1,
+          "baseScoreBonus": 16,
+          "summary": "谁说真假千金只能扯头花？你和林茶茶一拍即合，一个负责养猪供应链，一个负责茶艺直播带货，短短半年就把偏心的豪门父母和油腻未婚夫全买下来当了员工，开创了双女主搞钱新纪元！",
+          "audienceComment": "网友热评：「终于不用看两个女生为了个油腻霸总打架了，这结局爽到天灵盖起飞！」"
+        },
+        {
+          "endingId": "end_qianjin_02",
+          "title": "豪门流水席：万物皆可杀猪菜",
+          "badge": "UR · 接地气天花板",
+          "condition": {
+            "minAbsurd": 150
+          },
+          "priority": 2,
+          "baseScoreBonus": 18,
+          "summary": "你用唢呐、五三模拟卷和东北杀猪菜彻底重塑了京圈豪门的风气。如今上流社会聚会不再喝红酒听肖邦，而是围在大铁锅旁比赛啃猪蹄，顾少更是在猪圈里找到了人生真谛。",
+          "audienceComment": "网友热评：「别人回豪门是去受虐的，女主回豪门是去扶贫兼搞笑的！」"
+        },
+        {
+          "endingId": "end_qianjin_03",
+          "title": "满级马甲女王：莫欺少女穷",
+          "badge": "SR · 爽剧典范",
+          "condition": {
+            "minThrill": 140
+          },
+          "priority": 3,
+          "baseScoreBonus": 12,
+          "summary": "钢琴女皇、神医鬼手、世界首富继承人……你的马甲一层接一层掉落，偏心的家人和退婚的未婚夫把膝盖都跪碎了也没能求得你回头看一眼。你独自站在财富之巅，诠释了什么叫真正的大女主。",
+          "audienceComment": "网友热评：「虽然套路经典，但打脸那一下还是爽得我拍大腿！」"
+        },
+        {
+          "endingId": "end_qianjin_04",
+          "title": "全员恶人改造营：豪门变形计",
+          "badge": "R · 功德无量",
+          "condition": {
+            "default": true
+          },
+          "priority": 4,
+          "baseScoreBonus": 8,
+          "summary": "你没有一走了之，而是以德报怨，把整个林家送进了你的现代化养猪基地进行劳动改造和高考补习。一年后，假千金考上了畜牧业研究生，亲妈成了金牌饲养员。",
+          "audienceComment": "网友热评：「正能量短剧！建议申报年度乡村振兴优秀宣传片！」"
+        }
+      ],
+      "coverImage": "/static/images/cover_qianjin.jpg"
+    },
+    {
+      "scriptId": "script_03_bazong",
+      "title": "霸总逼我签协议：带球跑",
+      "subtitle": "白月光回国当天，霸总甩给你五百万支票和一份离婚协议",
+      "tag": "豪门萌宝",
+      "recommend": false,
+      "difficulty": 2,
+      "totalEpisodes": 6,
+      "endingCount": 4,
+      "coverTheme": "#2CD3E1",
+      "defaultProtagonist": "苏浅浅",
+      "supportingRoles": {
+        "ceo": "厉爵风",
+        "whiteMoonlight": "柳如烟",
+        "doctor": "张院长"
+      },
+      "synopsis": "你是替嫁给千亿霸总厉爵风三年的契约妻子。今天他的白月光柳如烟高调回国，厉爵风冷酷地把《离婚协议》和五百万支票拍在桌上，却不知道你口袋里正揣着刚拿到的三胞胎孕检单……",
+      "initialStats": {
+        "thrill": 15,
+        "absurd": 15,
+        "persona": 50,
+        "budget": 20
+      },
+      "episodes": [
+        {
+          "ep": 1,
+          "title": "第一集：五百万的分手费",
+          "sceneDesc": "顶层总裁办里，厉爵风眼神三分凉薄七分漫不经心：「{{playerName}}，如烟回来了，签了这份离婚协议，这五百万支票归你，以后别再纠缠我！」",
+          "directorHint": "霸总短剧经典开局！面对五百万支票怎么接招？",
+          "choices": [
+            {
+              "choiceId": "s3_e1_c1",
+              "label": "A",
+              "text": "倔强地撕碎五百万支票甩在他脸上：「厉爵风，我爱的是你的人，不是你的钱！」",
+              "styleTag": "古早虐恋",
+              "effects": {
+                "thrill": 20,
+                "absurd": -5,
+                "persona": 20,
+                "budget": -10
+              },
+              "qualityBonus": 12,
+              "feedback": "漫天纸屑飘落，旁边月薪三千的总裁特助心疼得跪在地上偷偷拿胶带粘支票。"
+            },
+            {
+              "choiceId": "s3_e1_c2",
+              "label": "B",
+              "text": "从包里掏出便携验钞机和放大镜核验支票印章：「厉总，扣掉个税到手才四百万，麻烦补齐差价」",
+              "styleTag": "搞钱清醒",
+              "effects": {
+                "thrill": 25,
+                "absurd": 35,
+                "persona": 15,
+                "budget": 25
+              },
+              "qualityBonus": 19,
+              "unlockedCardId": "card_bazong_01",
+              "feedback": "厉爵风三分凉薄的眼神瞬间裂开，第一次见到有人对着支票验防伪水印。"
+            },
+            {
+              "choiceId": "s3_e1_c3",
+              "label": "C",
+              "text": "热情握住白月光柳如烟的手：「姐你可算回来了！伺候这个胃穿孔加失眠症的奇葩三年，今天正式交接给你！」",
+              "styleTag": "丝滑交接",
+              "effects": {
+                "thrill": 20,
+                "absurd": 40,
+                "persona": 10,
+                "budget": 10
+              },
+              "qualityBonus": 20,
+              "feedback": "你还贴心地递上一本《厉总日常伺候避坑指南》，柳如烟看清目录后连夜想买机票逃回国外。"
+            }
+          ]
+        },
+        {
+          "ep": 2,
+          "title": "第二集：机场带球跑的抉择",
+          "sceneDesc": "办完离婚走出大厦，你看着手里「怀孕八周·多胞胎」的B超单，此时厉爵风的保镖突然追了出来，似乎发现了你落下的病历袋！",
+          "directorHint": "带球跑核心名场面！",
+          "choices": [
+            {
+              "choiceId": "s3_e2_c1",
+              "label": "A",
+              "text": "大雨中含泪登上飞往国外的航班：「宝宝们，妈妈一定带你们华丽归来！」",
+              "styleTag": "经典带球跑",
+              "effects": {
+                "thrill": 25,
+                "absurd": 0,
+                "persona": 20,
+                "budget": 15
+              },
+              "qualityBonus": 14,
+              "feedback": "画面顺利切换到「五年后」，标准得像教科书一样！"
+            },
+            {
+              "choiceId": "s3_e2_c2",
+              "label": "B",
+              "text": "把自己的孕检单掉包成厉爵风的体检报告：「诊断结果：厉总怀了双胞胎，建议立即保胎」",
+              "styleTag": "偷梁换柱",
+              "effects": {
+                "thrill": 20,
+                "absurd": 45,
+                "persona": -5,
+                "budget": 5
+              },
+              "qualityBonus": 20,
+              "feedback": "当晚厉爵风看着报告摸着自己的肚子，连夜挂了全市最贵的妇产科专家号。"
+            },
+            {
+              "choiceId": "s3_e2_c3",
+              "label": "C",
+              "text": "不去国外受苦，直接用五百万分手费在厉氏集团对面盘下一整栋楼开母婴上市公司",
+              "styleTag": "就地创业",
+              "effects": {
+                "thrill": 30,
+                "absurd": 20,
+                "persona": 25,
+                "budget": 30
+              },
+              "qualityBonus": 18,
+              "feedback": "最危险的地方就是最富有的地方，你直接把广告牌怼到了厉爵风办公室窗外。"
+            }
+          ]
+        },
+        {
+          "ep": 3,
+          "title": "第三集：五年后携萌宝霸气归来",
+          "sceneDesc": "五年后，国际商业峰会红毯现场。厉爵风正在接受采访，你穿着高定礼服登场，而跟在你身后的萌宝瞬间吸引了全场闪光灯——",
+          "directorHint": "萌宝登场！决定萌宝的人设！",
+          "choices": [
+            {
+              "choiceId": "s3_e3_c1",
+              "label": "A",
+              "text": "三个缩小版厉爵风戴着墨镜走来，大宝抱电脑、二宝拿算盘、三宝插着兜，酷炫无比",
+              "styleTag": "天才三宝",
+              "effects": {
+                "thrill": 35,
+                "absurd": 5,
+                "persona": 25,
+                "budget": 25
+              },
+              "qualityBonus": 16,
+              "feedback": "全场惊呼：「天哪！这三个孩子跟厉总长得简直像Ctrl+C和Ctrl+V！」"
+            },
+            {
+              "choiceId": "s3_e3_c2",
+              "label": "B",
+              "text": "身后一口气跑出来十一个穿着球衣的萌宝，排成4-4-2阵型边走边颠足球",
+              "styleTag": "足球青训队",
+              "effects": {
+                "thrill": 20,
+                "absurd": 50,
+                "persona": -10,
+                "budget": 20
+              },
+              "qualityBonus": 21,
+              "unlockedCardId": "card_bazong_02",
+              "feedback": "国家足协主席当场冲上红毯热泪盈眶：「五年前带球跑，原来带的是真足球啊！」"
+            },
+            {
+              "choiceId": "s3_e3_c3",
+              "label": "C",
+              "text": "大宝当场打开笔记本电脑敲了三下回车，大屏幕瞬间播放厉爵风昨晚看土味短剧抹眼泪的监控视频",
+              "styleTag": "黑客萌宝",
+              "effects": {
+                "thrill": 30,
+                "absurd": 35,
+                "persona": 15,
+                "budget": 20
+              },
+              "qualityBonus": 19,
+              "feedback": "高冷霸总人设当场社会性死亡，热搜第一：#厉总半夜为绝世龙王流泪#。"
+            }
+          ]
+        },
+        {
+          "ep": 4,
+          "title": "第四集：白月光的恶毒刁难",
+          "sceneDesc": "柳如烟见厉爵风死死盯着你的孩子，嫉妒得面目全非，端起一杯红酒假装脚滑朝萌宝泼去：「哪里来的野孩子，弄脏了我的高定礼服赔得起吗！」",
+          "directorHint": "萌宝反击恶毒女配时刻！",
+          "choices": [
+            {
+              "choiceId": "s3_e4_c1",
+              "label": "A",
+              "text": "你一个箭步挡在身前，反手一巴掌把柳如烟扇得原地旋转三圈半：「动我的孩子，你配吗！」",
+              "styleTag": "护犊狂魔",
+              "effects": {
+                "thrill": 35,
+                "absurd": 5,
+                "persona": 25,
+                "budget": 10
+              },
+              "qualityBonus": 15,
+              "feedback": "这一巴掌清脆响亮，观众爽感值瞬间飙升！"
+            },
+            {
+              "choiceId": "s3_e4_c2",
+              "label": "B",
+              "text": "二宝飞起一脚标准倒挂金钩，把红酒杯精准踢进柳如烟自己嘴里，裁判当场出示黄牌",
+              "styleTag": "世界波反击",
+              "effects": {
+                "thrill": 25,
+                "absurd": 40,
+                "persona": 10,
+                "budget": 10
+              },
+              "qualityBonus": 19,
+              "feedback": "解说员激情呐喊：「球进了！这脚射门角度极其刁钻！」"
+            },
+            {
+              "choiceId": "s3_e4_c3",
+              "label": "C",
+              "text": "大宝淡定举起平板电脑：「阿姨，你身上这件高定是高仿A货，而且你欠网贷三万八已经逾期了」",
+              "styleTag": "精准爆破",
+              "effects": {
+                "thrill": 30,
+                "absurd": 30,
+                "persona": 20,
+                "budget": 15
+              },
+              "qualityBonus": 18,
+              "feedback": "会场音响同步响起催收电话录音，柳如烟当场捂脸夺门而出。"
+            }
+          ]
+        },
+        {
+          "ep": 5,
+          "title": "第五集：霸总雨夜跪求复合",
+          "sceneDesc": "得知孩子真相并看清柳如烟真面目的厉爵风悔恨交加！当晚电闪雷鸣，这位千亿霸总竟然真的跪在你家别墅门外的大雨里高喊：「{{playerName}}，给我一次弥补你们母子的机会吧！」",
+          "directorHint": "追妻火葬场最高潮！",
+          "choices": [
+            {
+              "choiceId": "s3_e5_c1",
+              "label": "A",
+              "text": "撑着黑伞走到他面前居高临下：「厉总，当初是你亲手撕毁了我们的婚姻，现在晚了！」",
+              "styleTag": "虐夫一时爽",
+              "effects": {
+                "thrill": 35,
+                "absurd": 0,
+                "persona": 25,
+                "budget": 15
+              },
+              "qualityBonus": 15,
+              "feedback": "厉爵风哭得像个两百斤的孩子，虐恋氛围感拉满。"
+            },
+            {
+              "choiceId": "s3_e5_c2",
+              "label": "B",
+              "text": "发现外面根本没下雨，是他自己雇了两辆市政洒水车在头顶喷水，你直接扫码把洒水车改成了喷洗洁精",
+              "styleTag": "拆穿气氛组",
+              "effects": {
+                "thrill": 20,
+                "absurd": 45,
+                "persona": 10,
+                "budget": 20
+              },
+              "qualityBonus": 21,
+              "unlockedCardId": "card_bazong_03",
+              "feedback": "漫天粉红色泡泡飞舞，厉爵风在泡沫里边吐泡泡边深情表白。"
+            },
+            {
+              "choiceId": "s3_e5_c3",
+              "label": "C",
+              "text": "让三个萌宝在门口摆起收费闸机：「跪一小时收场地费一百万，搓衣板租赁另算，先扫码后下跪」",
+              "styleTag": "创收小能手",
+              "effects": {
+                "thrill": 25,
+                "absurd": 35,
+                "persona": 20,
+                "budget": 35
+              },
+              "qualityBonus": 19,
+              "feedback": "厉爵风感动地说：「孩子随你，真有商业头脑！」并直接充了张年卡。"
+            }
+          ]
+        },
+        {
+          "ep": 6,
+          "title": "第六集（大结局）：千亿帝国的新主人",
+          "sceneDesc": "最终章！厉氏集团召开股东大会，厉爵风双手奉上全部股权转让书求你原谅。面对满屋董事和镜头，你的最终决定是——",
+          "directorHint": "收官抉择！拍出最高票房神剧！",
+          "choices": [
+            {
+              "choiceId": "s3_e6_c1",
+              "label": "A",
+              "text": "签下股权书，把公司交给年仅五岁的大宝当董事长，让厉爵风去前台当保安每天打卡上班",
+              "styleTag": "萌宝当家",
+              "effects": {
+                "thrill": 30,
+                "absurd": 30,
+                "persona": 20,
+                "budget": 25
+              },
+              "qualityBonus": 20,
+              "feedback": "五岁总裁每天批阅文件之余还要喝旺仔牛奶，厉保安站岗十分敬业！"
+            },
+            {
+              "choiceId": "s3_e6_c2",
+              "label": "B",
+              "text": "宣布将厉氏集团全面转型为少年足球俱乐部，带领十一个萌宝杀进世界杯决赛圈",
+              "styleTag": "圆梦世界杯",
+              "effects": {
+                "thrill": 25,
+                "absurd": 50,
+                "persona": 10,
+                "budget": 30
+              },
+              "qualityBonus": 22,
+              "feedback": "全国球迷沸腾了！这部短剧直接被体育频道买断循环播放！"
+            },
+            {
+              "choiceId": "s3_e6_c3",
+              "label": "C",
+              "text": "拿走全部资产后潇洒挥手：「股权我收下了，至于复合？姐已经预约了十个男模庆祝单身！」",
+              "styleTag": "富婆快乐",
+              "effects": {
+                "thrill": 35,
+                "absurd": 15,
+                "persona": 30,
+                "budget": 30
+              },
+              "qualityBonus": 18,
+              "feedback": "评论区百万女观众起立鼓掌：「这才是我们想看的带球跑大结局！」"
+            }
+          ]
+        }
+      ],
+      "endings": [
+        {
+          "endingId": "end_bazong_01",
+          "title": "萌宝黑客把霸总公司干破产了",
+          "badge": "SSR · 萌宝逆天",
+          "condition": {
+            "specialChoice": "s3_e6_c1"
+          },
+          "priority": 1,
+          "baseScoreBonus": 16,
+          "summary": "你家五岁萌宝不仅黑进了霸总的系统，还顺手接管了千亿集团。如今五岁的大宝坐在总裁椅上喝着奶瓶审批百亿并购案，而昔日不可一世的霸总厉爵风正在大厦一楼兢兢业业地指挥倒车。",
+          "audienceComment": "网友热评：「别人家五岁还在玩泥巴，短剧里五岁已经人均华尔街之狼了！」"
+        },
+        {
+          "endingId": "end_bazong_02",
+          "title": "带球跑？我带的是国足青训队！",
+          "badge": "UR · 体育强国",
+          "condition": {
+            "minAbsurd": 150,
+            "specialChoice": "s3_e6_c2"
+          },
+          "priority": 2,
+          "baseScoreBonus": 18,
+          "summary": "谁能想到「带球跑」的字面意思是带着足球跑！你五年间培养出的十一个天才足球萌宝横扫各大联赛，厉爵风转型成为球队首席捡球童，全网球迷流下了感动的泪水。",
+          "audienceComment": "网友热评：「导演谐音梗扣钱！但这结局比博人传还燃是怎么回事？！」"
+        },
+        {
+          "endingId": "end_bazong_03",
+          "title": "追妻火葬场：霸总雨夜跪搓衣板",
+          "badge": "SR · 虐恋正统",
+          "condition": {
+            "minThrill": 140
+          },
+          "priority": 3,
+          "baseScoreBonus": 11,
+          "summary": "从三分凉薄到跪穿八块加厚实木搓衣板，厉爵风用实际行动演绎了什么叫标准追妻火葬场。虽然套路古早，但看霸总在洒水车下痛哭流涕依然是全国观众最爱的下饭佐料。",
+          "audienceComment": "网友热评：「土到极致就是潮，我看得嘴角比AK还难压！」"
+        },
+        {
+          "endingId": "end_bazong_04",
+          "title": "搞钱大女主：五百万支票真香",
+          "badge": "R · 人间清醒",
+          "condition": {
+            "default": true
+          },
+          "priority": 4,
+          "baseScoreBonus": 9,
+          "summary": "恋爱脑是不可能恋爱脑的，从第一集拿着验钞机验五百万支票开始，你就走上了纯粹的资本积累道路。最终你凭实力买下整条CBD，证明了支票比霸总的爱情靠谱一万倍。",
+          "audienceComment": "网友热评：「全剧唯一正常人，建议写进《当代女性防诈搞钱手册》！」"
+        }
+      ],
+      "coverImage": "/static/images/cover_bazong.jpg"
+    },
+    {
+      "scriptId": "script_04_baomu",
+      "title": "重生之我在豪门当保姆",
+      "subtitle": "恶毒少奶奶嫌你煲汤咸，却不知这栋十亿别墅写的是你的名字",
+      "tag": "银发逆袭",
+      "recommend": false,
+      "difficulty": 1,
+      "totalEpisodes": 6,
+      "endingCount": 4,
+      "coverTheme": "#4ECCA3",
+      "defaultProtagonist": "王翠花",
+      "supportingRoles": {
+        "youngMaster": "傅云深",
+        "evilBride": "娇娇",
+        "oldChairman": "傅老董事长"
+      },
+      "synopsis": "你是隐退江湖体验生活的世界首富，化名「王妈」在傅家别墅当保姆。今天新过门的恶毒少奶奶娇娇不仅把你炖了八小时的参汤打翻在地，还逼你跪下擦鞋，却不知道整个傅氏集团都是你随手投资的产业……",
+      "initialStats": {
+        "thrill": 20,
+        "absurd": 15,
+        "persona": 50,
+        "budget": 15
+      },
+      "episodes": [
+        {
+          "ep": 1,
+          "title": "第一集：被打翻的十万年份参汤",
+          "sceneDesc": "豪门客厅里，嚣张跋扈的少奶奶娇娇一脚踹翻你的托盘，滚烫的参汤洒了一地：「死老太婆，咸得要死你也敢端上来？立刻跪下把我的限量版高跟鞋舔干净！」",
+          "directorHint": "王妈视角开局！面对恶毒少奶奶如何出招？",
+          "choices": [
+            {
+              "choiceId": "s4_e1_c1",
+              "label": "A",
+              "text": "摘下围裙冷笑：「这碗汤用的是我私人药园的百年野山参，价值三千万，你赔得起吗！」",
+              "styleTag": "首富摊牌",
+              "effects": {
+                "thrill": 30,
+                "absurd": 0,
+                "persona": 20,
+                "budget": 25
+              },
+              "qualityBonus": 14,
+              "feedback": "娇娇放声大笑：「就你个每月领五千工资的保姆还三千万？笑死人了！」"
+            },
+            {
+              "choiceId": "s4_e1_c2",
+              "label": "B",
+              "text": "从围裙兜里抽出镶金边鸡毛掸子：「反了天了！你老公小时候尿床都是我揍的，今天连你一块揍！」",
+              "styleTag": "血脉压制",
+              "effects": {
+                "thrill": 35,
+                "absurd": 30,
+                "persona": 25,
+                "budget": 5
+              },
+              "qualityBonus": 19,
+              "unlockedCardId": "card_baomu_01",
+              "feedback": "鸡毛掸子挥出破空声，刚下楼的豪门少爷出于肌肉记忆当场抱头蹲防。"
+            },
+            {
+              "choiceId": "s4_e1_c3",
+              "label": "C",
+              "text": "熟练地掏出《保姆工伤碰瓷赔付表》躺倒在地：「哎呀，少奶奶把老太婆震内伤了，没两千万起不来」",
+              "styleTag": "魔法对轰",
+              "effects": {
+                "thrill": 20,
+                "absurd": 40,
+                "persona": -5,
+                "budget": 15
+              },
+              "qualityBonus": 18,
+              "feedback": "你躺得四平八稳甚至还给自己盖上了小毯子，娇娇当场傻眼。"
+            }
+          ]
+        },
+        {
+          "ep": 2,
+          "title": "第二集：别墅房产证的秘密",
+          "sceneDesc": "娇娇气急败坏地叫来物业经理要把你赶出别墅区：「把这个不知天高地厚的保姆连同行李给我扔到大街上去！」物业经理擦着冷汗跑进来，看清你的脸后双腿一软——",
+          "directorHint": "物业经理识破真身桥段！",
+          "choices": [
+            {
+              "choiceId": "s4_e2_c1",
+              "label": "A",
+              "text": "物业经理扑通跪地：「姑奶奶！这整片半山别墅区66栋豪宅，房产证上写的全都是王妈您的名字啊！」",
+              "styleTag": "包租婆降临",
+              "effects": {
+                "thrill": 35,
+                "absurd": 5,
+                "persona": 25,
+                "budget": 30
+              },
+              "qualityBonus": 15,
+              "feedback": "你掏出一串足有十斤重的钥匙环晃了晃，清脆的响声震碎了娇娇的三观。"
+            },
+            {
+              "choiceId": "s4_e2_c2",
+              "label": "B",
+              "text": "你抢先给物业经理使眼色：「小刘，我卧底考核你们物业服务质量呢，先把这少奶奶的门禁卡停了」",
+              "styleTag": "微服私访",
+              "effects": {
+                "thrill": 25,
+                "absurd": 30,
+                "persona": 20,
+                "budget": 10
+              },
+              "qualityBonus": 18,
+              "feedback": "娇娇出门倒垃圾结果被人脸识别系统播报：「禁止外来泼妇入内」，在门口吹了半天冷风。"
+            },
+            {
+              "choiceId": "s4_e2_c3",
+              "label": "C",
+              "text": "当场宣布涨房租：「既然少奶奶嫌别墅地板滑，从今天起客厅按景区收费，迈左脚五百，迈右脚一千」",
+              "styleTag": "计步收费",
+              "effects": {
+                "thrill": 20,
+                "absurd": 40,
+                "persona": 10,
+                "budget": 20
+              },
+              "qualityBonus": 19,
+              "feedback": "娇娇被迫单脚跳着回卧室，活像一只被拔了毛的袋鼠。"
+            }
+          ]
+        },
+        {
+          "ep": 3,
+          "title": "第三集：豪门晚宴上的夕阳红",
+          "sceneDesc": "傅家举办名流酒会，傅老董事长特意盛装出席。娇娇为了让你出丑，故意在麦克风前大喊：「王妈，听说你多才多艺，不如上台给大家表演个节目助助兴？」",
+          "directorHint": "酒会才艺打脸！王妈的绝活是什么？",
+          "choices": [
+            {
+              "choiceId": "s4_e3_c1",
+              "label": "A",
+              "text": "傅老董事长冲上台整理衣冠，对着你九十度鞠躬：「恭迎华尔街传奇女皇、我的救命恩人王董！」",
+              "styleTag": "大佬折腰",
+              "effects": {
+                "thrill": 35,
+                "absurd": 0,
+                "persona": 25,
+                "budget": 25
+              },
+              "qualityBonus": 15,
+              "feedback": "全场名流齐刷刷弯腰敬酒，娇娇手里的红酒杯啪地掉在地上摔得粉碎。"
+            },
+            {
+              "choiceId": "s4_e3_c2",
+              "label": "B",
+              "text": "扛出两米高的七彩闪光低音炮，放起震耳欲聋的《最炫民族风》，带领全场百亿富豪排成方阵跳广场舞",
+              "styleTag": "广场舞霸主",
+              "effects": {
+                "thrill": 25,
+                "absurd": 45,
+                "persona": 15,
+                "budget": 15
+              },
+              "qualityBonus": 21,
+              "unlockedCardId": "card_baomu_02",
+              "feedback": "没有一个老年富豪能抗拒这个前奏！傅老董事长跳在最前面领舞，比签百亿合同还起劲！"
+            },
+            {
+              "choiceId": "s4_e3_c3",
+              "label": "C",
+              "text": "在台上摆开相亲角展板：「各位老总，我家少爷二婚带个恶毒媳妇，今天现场招标给他换个新老婆！」",
+              "styleTag": "现场换媳",
+              "effects": {
+                "thrill": 30,
+                "absurd": 35,
+                "persona": 10,
+                "budget": 10
+              },
+              "qualityBonus": 19,
+              "feedback": "台下二十位名媛当场举牌竞标，娇娇气得差点背过气去。"
+            }
+          ]
+        },
+        {
+          "ep": 4,
+          "title": "第四集：真话老母鸡汤",
+          "sceneDesc": "酒会后，娇娇居然偷偷联合外人企图转移傅家核心资产，并在家宴上假惺惺地向你敬酒道歉。你端出一锅刚炖好的秘制老母鸡汤放在转盘中央……",
+          "directorHint": "家宴抓内鬼环节！",
+          "choices": [
+            {
+              "choiceId": "s4_e4_c1",
+              "label": "A",
+              "text": "直接甩出她转移资产的瑞士银行流水账单，让保镖把她和奸夫当场扭送法办",
+              "styleTag": "雷霆手段",
+              "effects": {
+                "thrill": 35,
+                "absurd": 0,
+                "persona": 25,
+                "budget": 20
+              },
+              "qualityBonus": 14,
+              "feedback": "证据确凿，大快人心！"
+            },
+            {
+              "choiceId": "s4_e4_c2",
+              "label": "B",
+              "text": "笑眯眯地看着他们喝下「见手青幻觉鸡汤」，娇娇当场站在桌子上边抓小人边把犯罪计划全招了",
+              "styleTag": "菌子立功",
+              "effects": {
+                "thrill": 25,
+                "absurd": 45,
+                "persona": 10,
+                "budget": 10
+              },
+              "qualityBonus": 21,
+              "unlockedCardId": "card_baomu_03",
+              "feedback": "娇娇抱着吊灯大喊：「我是蘑菇大王！我把公公的私房钱全藏在狗窝底下啦！」"
+            },
+            {
+              "choiceId": "s4_e4_c3",
+              "label": "C",
+              "text": "用家政大妈的信息网召唤全小区三十位保姆阿姨，每人掏出录音笔拼凑出娇娇的全套阴谋",
+              "styleTag": "朝阳保姆团",
+              "effects": {
+                "thrill": 30,
+                "absurd": 30,
+                "persona": 25,
+                "budget": 15
+              },
+              "qualityBonus": 19,
+              "feedback": "千万不要得罪小区保姆情报网，她们连你家泰迪早恋的对象是谁都一清二楚！"
+            }
+          ]
+        },
+        {
+          "ep": 5,
+          "title": "第五集：恶毒少奶奶的惩罚",
+          "sceneDesc": "阴谋败露，傅家少爷果断宣布休妻！身无分文的娇娇跪在搓衣板上抱住你的围裙痛哭：「王妈，不，王太皇太后！求求您大人有大量饶了我吧！」",
+          "directorHint": "惩治反派环节！",
+          "choices": [
+            {
+              "choiceId": "s4_e5_c1",
+              "label": "A",
+              "text": "罚她签下劳务抵债合同，每天在别墅手洗十吨衣服、刷八百个马桶直到还清债务",
+              "styleTag": "家政惩罚",
+              "effects": {
+                "thrill": 35,
+                "absurd": 15,
+                "persona": 20,
+                "budget": 10
+              },
+              "qualityBonus": 17,
+              "feedback": "昔日十指不沾阳春水的少奶奶，如今刷马桶刷出了火星子。"
+            },
+            {
+              "choiceId": "s4_e5_c2",
+              "label": "B",
+              "text": "派她去广场舞大妈军团当全职扛音响小妹，每天跟着跳满五万步不准停",
+              "styleTag": "广场舞改造",
+              "effects": {
+                "thrill": 20,
+                "absurd": 40,
+                "persona": 15,
+                "budget": 10
+              },
+              "qualityBonus": 19,
+              "feedback": "一个月后，娇娇瘦了三十斤，甚至学会了全套扇子舞走位。"
+            },
+            {
+              "choiceId": "s4_e5_c3",
+              "label": "C",
+              "text": "把她送去参加《金牌保姆职业技能高考》，考不过高级育婴师证不准出校门",
+              "styleTag": "考证地狱",
+              "effects": {
+                "thrill": 25,
+                "absurd": 30,
+                "persona": 25,
+                "budget": 15
+              },
+              "qualityBonus": 18,
+              "feedback": "娇娇深夜背诵《母婴营养学》，流下了悔恨的泪水。"
+            }
+          ]
+        },
+        {
+          "ep": 6,
+          "title": "第六集（大结局）：王妈的巅峰传奇",
+          "sceneDesc": "风波平息，傅老董事长捧着钻戒和全部家产向你求婚，同时全国百强家政峰会也邀请你作为行业泰斗发表终极演讲。你的杀青名场面是——",
+          "directorHint": "大结局最后一定格！",
+          "choices": [
+            {
+              "choiceId": "s4_e6_c1",
+              "label": "A",
+              "text": "穿上黄金定制版战袍围裙登基千亿财团总主席：「别叫我豪门太太，请叫我太皇太后！」",
+              "styleTag": "太后登基",
+              "effects": {
+                "thrill": 35,
+                "absurd": 5,
+                "persona": 30,
+                "budget": 30
+              },
+              "qualityBonus": 17,
+              "feedback": "金丝围裙迎风飘扬，中老年观众付费率突破天际！"
+            },
+            {
+              "choiceId": "s4_e6_c2",
+              "label": "B",
+              "text": "拒绝求婚，带着傅老董事长等一众百亿老头组建「夕阳红广场舞天团」，一路跳上春晚舞台",
+              "styleTag": "广场舞称霸",
+              "effects": {
+                "thrill": 25,
+                "absurd": 45,
+                "persona": 20,
+                "budget": 25
+              },
+              "qualityBonus": 22,
+              "feedback": "全国各大公园广场都被你的舞步统治，大爷大妈们疯狂转发这部神剧！"
+            },
+            {
+              "choiceId": "s4_e6_c3",
+              "label": "C",
+              "text": "宣布成立「王妈整顿豪门家政学院」，专门向各大狗血短剧输送会武术、懂收购的满级保姆",
+              "styleTag": "宇宙起源",
+              "effects": {
+                "thrill": 30,
+                "absurd": 35,
+                "persona": 25,
+                "budget": 20
+              },
+              "qualityBonus": 20,
+              "feedback": "从此整个短剧宇宙的豪门恶少们见到穿围裙的阿姨都得立正敬礼！"
+            }
+          ]
+        }
+      ],
+      "endings": [
+        {
+          "endingId": "end_baomu_01",
+          "title": "保姆竟是千亿集团幕后太皇太后",
+          "badge": "SSR · 银发爽剧王",
+          "condition": {
+            "specialChoice": "s4_e6_c1"
+          },
+          "priority": 1,
+          "baseScoreBonus": 15,
+          "summary": "你完美诠释了「大隐隐于家政」的至高境界！表面上是每月领五千块受气的炖汤王妈，实际上是掌控全球经济命脉的太皇太后，连豪门老董事长见了你都得排队递茶。",
+          "audienceComment": "网友热评：「我妈看这部剧看得连广场舞都不去跳了，边看边夸王妈霸气！」"
+        },
+        {
+          "endingId": "end_baomu_02",
+          "title": "带领豪门全家跳广场舞称霸全国",
+          "badge": "UR · 夕阳红战神",
+          "condition": {
+            "minAbsurd": 145,
+            "specialChoice": "s4_e6_c2"
+          },
+          "priority": 2,
+          "baseScoreBonus": 18,
+          "summary": "什么商战宅斗，在《最炫民族风》的低音炮面前统统不堪一击！你成功把整个京圈豪门改造成了夕阳红广场舞第一梯队，傅老董事长凭借高难度太空步勇夺全国领舞金奖。",
+          "audienceComment": "网友热评：「只要音乐一响，豪门恩怨当场变成全民健身，导演太懂中老年流量密码了！」"
+        },
+        {
+          "endingId": "end_baomu_03",
+          "title": "恶毒少奶奶被罚每天洗十吨衣服",
+          "badge": "SR · 极度解气",
+          "condition": {
+            "minThrill": 140
+          },
+          "priority": 3,
+          "baseScoreBonus": 12,
+          "summary": "天道好轮回！第一集还让你跪下擦鞋的恶毒少奶奶，大结局已经被调教成了全别墅最熟练的搓衣工。你坐在真皮沙发上喝着百年参汤拿放大镜检查她擦的地板，爽感直冲天灵盖。",
+          "audienceComment": "网友热评：「就爱看恶毒女配刷马桶的剧情，建议再拍一百集！」"
+        },
+        {
+          "endingId": "end_baomu_04",
+          "title": "金牌月嫂：整顿京圈家政市场",
+          "badge": "R · 行业泰斗",
+          "condition": {
+            "default": true
+          },
+          "priority": 4,
+          "baseScoreBonus": 9,
+          "summary": "你创办的「王妈家政学院」成为了短剧界最强黄埔军校。从这里毕业的保姆个个精通格斗、黑客、上市公司并购与鸡毛掸子剑法，彻底终结了保姆在短剧里受欺负的历史。",
+          "audienceComment": "网友热评：「王妈出品，必属精品！终于有人替短剧里的打工人出头了！」"
+        }
+      ],
+      "coverImage": "/static/images/cover_baomu.jpg"
+    }
+  ]
+}

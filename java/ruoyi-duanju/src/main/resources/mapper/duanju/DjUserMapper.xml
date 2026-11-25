@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.duanju.mapper.DjUserMapper">
+
+    <resultMap type="com.ruoyi.duanju.domain.DjUser" id="DjUserResult">
+        <id     property="userId"             column="user_id"              />
+        <result property="wxOpenid"           column="wx_openid"            />
+        <result property="userName"           column="user_name"            />
+        <result property="password"           column="password"             />
+        <result property="phone"              column="phone"                />
+        <result property="nickname"           column="nickname"             />
+        <result property="avatarUrl"          column="avatar_url"           />
+        <result property="customActorName"    column="custom_actor_name"    />
+        <result property="unlockedCardsJson"  column="unlocked_cards_json"  />
+        <result property="unlockedCount"      column="unlocked_count"       />
+        <result property="totalBoxOffice"     column="total_box_office"     />
+        <result property="bestScore"          column="best_score"           />
+        <result property="shootCount"         column="shoot_count"          />
+        <result property="lastLoginTime"      column="last_login_time"      />
+        <result property="lastLoginIp"        column="last_login_ip"        />
+        <result property="status"             column="status"               />
+        <result property="delFlag"            column="del_flag"             />
+        <result property="createBy"           column="create_by"            />
+        <result property="createTime"         column="create_time"          />
+        <result property="updateBy"           column="update_by"            />
+        <result property="updateTime"         column="update_time"          />
+        <result property="remark"             column="remark"               />
+    </resultMap>
+
+    <sql id="selectDjUserVo">
+        select user_id, wx_openid, user_name, password, phone, nickname, avatar_url, 
+               custom_actor_name, unlocked_cards_json, unlocked_count, total_box_office, 
+               best_score, shoot_count, last_login_time, last_login_ip, status, 
+               del_flag, create_by, create_time, update_by, update_time, remark
+        from dj_user
+    </sql>
+
+    <!-- 列表查询 -->
+    <select id="selectDjUserList" parameterType="com.ruoyi.duanju.domain.DjUser" resultMap="DjUserResult">
+        <include refid="selectDjUserVo"/>
+        <where>
+            del_flag = '0'
+            <if test="userName != null and userName != ''">
+                and user_name like concat('%', #{userName}, '%')
+            </if>
+            <if test="nickname != null and nickname != ''">
+                and nickname like concat('%', #{nickname}, '%')
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone = #{phone}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+        </where>
+        order by user_id asc
+    </select>
+
+    <!-- 根据ID查询 -->
+    <select id="selectDjUserById" parameterType="Long" resultMap="DjUserResult">
+        <include refid="selectDjUserVo"/>
+        where user_id = #{userId} and del_flag = '0'
+    </select>
+
+    <!-- 根据OpenID查询 -->
+    <select id="selectDjUserByOpenid" parameterType="String" resultMap="DjUserResult">
+        <include refid="selectDjUserVo"/>
+        where wx_openid = #{wxOpenid} and del_flag = '0'
+        limit 1
+    </select>
+
+    <!-- 根据用户名查询 -->
+    <select id="selectDjUserByUserName" parameterType="String" resultMap="DjUserResult">
+        <include refid="selectDjUserVo"/>
+        where user_name = #{userName} and del_flag = '0'
+        limit 1
+    </select>
+
+    <!-- 新增用户 -->
+    <insert id="insertDjUser" parameterType="com.ruoyi.duanju.domain.DjUser" useGeneratedKeys="true" keyProperty="userId">
+        insert into dj_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="wxOpenid != null and wxOpenid != ''">wx_openid,</if>
+            <if test="userName != null and userName != ''">user_name,</if>
+            <if test="password != null and password != ''">password,</if>
+            <if test="phone != null and phone != ''">phone,</if>
+            <if test="nickname != null and nickname != ''">nickname,</if>
+            <if test="avatarUrl != null and avatarUrl != ''">avatar_url,</if>
+            <if test="customActorName != null and customActorName != ''">custom_actor_name,</if>
+            <if test="unlockedCardsJson != null">unlocked_cards_json,</if>
+            <if test="unlockedCount != null">unlocked_count,</if>
+            <if test="totalBoxOffice != null">total_box_office,</if>
+            <if test="bestScore != null">best_score,</if>
+            <if test="shootCount != null">shoot_count,</if>
+            <if test="lastLoginTime != null">last_login_time,</if>
+            <if test="lastLoginIp != null and lastLoginIp != ''">last_login_ip,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            create_time
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="wxOpenid != null and wxOpenid != ''">#{wxOpenid},</if>
+            <if test="userName != null and userName != ''">#{userName},</if>
+            <if test="password != null and password != ''">#{password},</if>
+            <if test="phone != null and phone != ''">#{phone},</if>
+            <if test="nickname != null and nickname != ''">#{nickname},</if>
+            <if test="avatarUrl != null and avatarUrl != ''">#{avatarUrl},</if>
+            <if test="customActorName != null and customActorName != ''">#{customActorName},</if>
+            <if test="unlockedCardsJson != null">#{unlockedCardsJson},</if>
+            <if test="unlockedCount != null">#{unlockedCount},</if>
+            <if test="totalBoxOffice != null">#{totalBoxOffice},</if>
+            <if test="bestScore != null">#{bestScore},</if>
+            <if test="shootCount != null">#{shootCount},</if>
+            <if test="lastLoginTime != null">#{lastLoginTime},</if>
+            <if test="lastLoginIp != null and lastLoginIp != ''">#{lastLoginIp},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            sysdate()
+        </trim>
+    </insert>
+
+    <!-- 修改用户 -->
+    <update id="updateDjUser" parameterType="com.ruoyi.duanju.domain.DjUser">
+        update dj_user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userName != null and userName != ''">user_name = #{userName},</if>
+            <if test="password != null and password != ''">password = #{password},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="nickname != null and nickname != ''">nickname = #{nickname},</if>
+            <if test="avatarUrl != null">avatar_url = #{avatarUrl},</if>
+            <if test="customActorName != null">custom_actor_name = #{customActorName},</if>
+            <if test="unlockedCardsJson != null">unlocked_cards_json = #{unlockedCardsJson},</if>
+            <if test="unlockedCount != null">unlocked_count = #{unlockedCount},</if>
+            <if test="totalBoxOffice != null">total_box_office = #{totalBoxOffice},</if>
+            <if test="bestScore != null">best_score = #{bestScore},</if>
+            <if test="shootCount != null">shoot_count = #{shootCount},</if>
+            <if test="lastLoginTime != null">last_login_time = #{lastLoginTime},</if>
+            <if test="lastLoginIp != null">last_login_ip = #{lastLoginIp},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            update_time = sysdate()
+        </trim>
+        where user_id = #{userId}
+    </update>
+
+    <!-- 逻辑删除用户 -->
+    <update id="deleteDjUserById" parameterType="Long">
+        update dj_user set del_flag = '2' where user_id = #{userId}
+    </update>
+
+</mapper>

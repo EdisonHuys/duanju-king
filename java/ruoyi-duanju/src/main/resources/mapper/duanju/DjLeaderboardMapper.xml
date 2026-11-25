@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.duanju.mapper.DjLeaderboardMapper">
+
+    <resultMap type="com.ruoyi.duanju.domain.DjLeaderboard" id="DjLeaderboardResult">
+        <id     property="rankId"       column="rank_id"      />
+        <result property="scriptId"     column="script_id"    />
+        <result property="userId"       column="user_id"      />
+        <result property="wxOpenid"     column="wx_openid"    />
+        <result property="nickname"     column="nickname"     />
+        <result property="avatarUrl"    column="avatar_url"   />
+        <result property="actorName"    column="actor_name"   />
+        <result property="endingId"     column="ending_id"    />
+        <result property="endingTitle"  column="ending_title" />
+        <result property="endingBadge"  column="ending_badge" />
+        <result property="qualityScore" column="quality_score"/>
+        <result property="boxOffice"    column="box_office"   />
+        <result property="choicePath"   column="choice_path"  />
+        <result property="status"       column="status"       />
+        <result property="delFlag"      column="del_flag"     />
+        <result property="createTime"   column="create_time"  />
+        <result property="updateTime"   column="update_time"  />
+    </resultMap>
+
+    <sql id="selectDjLeaderboardVo">
+        select rank_id, script_id, user_id, wx_openid, nickname, avatar_url, 
+               actor_name, ending_id, ending_title, ending_badge, quality_score, 
+               box_office, choice_path, status, del_flag, create_time, update_time
+        from dj_leaderboard
+    </sql>
+
+    <!-- 排行榜查询：必须带 del_flag = '0' 与 status = '0' -->
+    <select id="selectDjLeaderboardList" parameterType="com.ruoyi.duanju.domain.DjLeaderboard" resultMap="DjLeaderboardResult">
+        <include refid="selectDjLeaderboardVo"/>
+        <where>
+            del_flag = '0'
+            <if test="scriptId != null and scriptId != ''">
+                and script_id = #{scriptId}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+        </where>
+        order by quality_score desc, update_time asc
+    </select>
+
+    <select id="selectByScriptAndOpenid" resultMap="DjLeaderboardResult">
+        <include refid="selectDjLeaderboardVo"/>
+        where script_id = #{scriptId} and wx_openid = #{wxOpenid} and del_flag = '0'
+        limit 1
+    </select>
+
+    <insert id="insertDjLeaderboard" parameterType="com.ruoyi.duanju.domain.DjLeaderboard" useGeneratedKeys="true" keyProperty="rankId">
+        insert into dj_leaderboard(
+            script_id, user_id, wx_openid, nickname, avatar_url, 
+            actor_name, ending_id, ending_title, ending_badge, quality_score, 
+            box_office, choice_path, status, del_flag, create_time, update_time
+        ) values (
+            #{scriptId}, #{userId}, #{wxOpenid}, #{nickname}, #{avatarUrl},
+            #{actorName}, #{endingId}, #{endingTitle}, #{endingBadge}, #{qualityScore},
+            #{boxOffice}, #{choicePath}, '0', '0', sysdate(), sysdate()
+        )
+    </insert>
+
+    <update id="updateDjLeaderboard" parameterType="com.ruoyi.duanju.domain.DjLeaderboard">
+        update dj_leaderboard
+        set nickname = #{nickname},
+            actor_name = #{actorName},
+            ending_id = #{endingId},
+            ending_title = #{endingTitle},
+            ending_badge = #{endingBadge},
+            quality_score = #{qualityScore},
+            box_office = #{boxOffice},
+            choice_path = #{choicePath},
+            update_time = sysdate()
+        where rank_id = #{rankId} and del_flag = '0'
+    </update>
+
+    <update id="updateStatus">
+        update dj_leaderboard set status = #{status}, update_time = sysdate()
+        where rank_id = #{rankId} and del_flag = '0'
+    </update>
+
+    <update id="resetActorName">
+        update dj_leaderboard set actor_name = #{defaultName}, update_time = sysdate()
+        where rank_id = #{rankId} and del_flag = '0'
+    </update>
+
+</mapper>

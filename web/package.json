@@ -1,0 +1,9 @@
+{
+  "name": "ruoyi-admin-duanju-web",
+  "version": "3.8.9",
+  "description": "《漫剧大导演》若依管理后台 (RuoYi-Vue3 + Element Plus)",
+  "scripts": {
+    "start": "node admin-server.js",
+    "dev": "node admin-server.js"
+  }
+}

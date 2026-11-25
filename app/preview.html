@@ -1,0 +1,5584 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>漫剧大导演 · 原创短剧放映厅</title>
+  <style>
+    :root {
+      --bg-paper: #F6F8FC;
+      --bg-grid: #E2E8F0;
+      --ink-navy: #1E2246;
+      --pop-pink: #FF5A8D;
+      --pop-purple: #7C5CFF;
+      --pop-cyan: #2CD3E1;
+      --pop-green: #20C997;
+      --pop-yellow: #FFD43B;
+      --pop-red: #FA5252;
+      --border-dark: #1E2246;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body {
+      background: #0f121d;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--ink-navy);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px;
+    }
+    .simulator-toolbar {
+      width: 414px;
+      max-width: 100%;
+      background: #1E2246;
+      color: #fff;
+      border: 2px solid #334155;
+      border-radius: 14px;
+      padding: 8px 14px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+    }
+    .sim-tag {
+      background: #4ADE80;
+      color: #1E2246;
+      font-weight: 900;
+      padding: 2px 8px;
+      border-radius: 99px;
+    }
+    .phone-frame {
+      width: 414px;
+      max-width: 100%;
+      height: 840px;
+      max-height: 840px;
+      background-color: var(--bg-paper);
+      background-image:
+        linear-gradient(var(--bg-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
+      background-size: 18px 18px;
+      border: 6px solid #000;
+      border-radius: 40px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+      overflow: hidden;
+      position: relative;
+      padding: 12px 14px 26px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 好友分享首映横幅 */
+    .friend-share-banner {
+      display: none;
+      background: #FEF08A;
+      border: 2.5px solid var(--border-dark);
+      border-radius: 12px;
+      padding: 8px 10px;
+      margin-bottom: 10px;
+      box-shadow: 0 3px 0 var(--border-dark);
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.4;
+      color: #713F12;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .friend-tag {
+      background: #EA580C;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 900;
+      padding: 2px 6px;
+      border-radius: 6px;
+      margin-right: 4px;
+    }
+
+    /* 微信状态栏 */
+    .wx-status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2px 6px 8px;
+      font-weight: 900;
+      font-size: 13px;
+    }
+    .wx-capsule {
+      display: inline-flex;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1.5px solid #cbd5e1;
+      border-radius: 99px;
+      padding: 2px 8px;
+      font-size: 11px;
+      gap: 6px;
+      align-items: center;
+    }
+
+    /* 顶部导航与导演胶囊条 */
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .director-user-bar {
+      display: flex;
+      align-items: center;
+      background: #FFFFFF;
+      border: 2px solid var(--border-dark);
+      border-radius: 12px;
+      padding: 6px 10px;
+      margin-bottom: 10px;
+      box-shadow: 0 3px 0 var(--border-dark);
+      cursor: pointer;
+      gap: 8px;
+      transition: transform 0.1s ease;
+    }
+    .director-user-bar:active {
+      transform: translateY(1px);
+      box-shadow: 0 1px 0 var(--border-dark);
+    }
+    .user-avatar-tag {
+      background: #7C5CFF;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 3px 6px;
+      border-radius: 6px;
+      border: 1.5px solid var(--border-dark);
+    }
+    .user-info-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+    .user-name-line {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .user-nick-label {
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--ink-navy);
+    }
+    .user-switch-tag {
+      font-size: 10px;
+      color: #2563EB;
+      font-weight: 800;
+      background: #EFF6FF;
+      padding: 1px 5px;
+      border-radius: 4px;
+      border: 1px solid #BFDBFE;
+    }
+    .user-sub-stat {
+      font-size: 11px;
+      color: #64748B;
+      font-weight: 700;
+      margin-top: 1px;
+    }
+    .user-progress-badge {
+      font-size: 11px;
+      font-weight: 900;
+      background: #FEF3C7;
+      color: #92400E;
+      border: 1.5px solid #F59E0B;
+      padding: 3px 8px;
+      border-radius: 99px;
+      white-space: nowrap;
+    }
+    .user-progress-badge.finished {
+      background: #D1FAE5;
+      color: #065F46;
+      border-color: #10B981;
+    }
+
+    /* 导演中心与登录弹窗组件样式 */
+    .user-modal-tabs {
+      display: flex;
+      background: #F1F5F9;
+      border-radius: 10px;
+      padding: 3px;
+      margin-bottom: 12px;
+      border: 1.5px solid #CBD5E1;
+      gap: 4px;
+    }
+    .user-tab-btn {
+      flex: 1;
+      border: none;
+      background: transparent;
+      padding: 7px 4px;
+      font-size: 12px;
+      font-weight: 900;
+      color: #64748B;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+    .user-tab-btn.active {
+      background: #FFFFFF;
+      color: var(--ink-navy);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    }
+    .director-profile-card {
+      background: #F8FAFC;
+      border: 2px solid var(--border-dark);
+      border-radius: 12px;
+      padding: 10px;
+      box-shadow: 0 2px 0 var(--border-dark);
+      margin-bottom: 10px;
+    }
+    .profile-card-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .profile-avatar-badge {
+      background: #7C5CFF;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 900;
+      padding: 8px;
+      border-radius: 10px;
+      border: 2px solid var(--border-dark);
+    }
+    .profile-stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 6px;
+      background: #fff;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 6px;
+      text-align: center;
+    }
+    .p-stat-val {
+      font-size: 13px;
+      font-weight: 900;
+      color: #2563EB;
+    }
+    .p-stat-lbl {
+      font-size: 10px;
+      color: #64748B;
+      margin-top: 1px;
+    }
+    .user-script-row {
+      background: #fff;
+      border: 2px solid #CBD5E1;
+      border-radius: 10px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 0 #CBD5E1;
+    }
+    .user-script-row.in-progress {
+      border-color: #F59E0B;
+      background: #FFFBEB;
+    }
+    .user-script-row.finished {
+      border-color: #10B981;
+      background: #ECFDF5;
+    }
+    .form-item {
+      margin-bottom: 10px;
+      text-align: left;
+    }
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 900;
+      color: var(--ink-navy);
+      margin-bottom: 4px;
+    }
+    .form-input {
+      width: 100%;
+      box-sizing: border-box;
+      border: 2px solid var(--border-dark);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 13px;
+      font-weight: 700;
+      outline: none;
+    }
+    .form-input:focus {
+      border-color: #2563EB;
+    }
+    .quick-user-item {
+      background: #fff;
+      border: 2px solid var(--border-dark);
+      border-radius: 10px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 0 var(--border-dark);
+      cursor: pointer;
+    }
+    .quick-user-item.current {
+      background: #EFF6FF;
+      border-color: #2563EB;
+    }
+    .tiny-btn {
+      background: #E2E8F0;
+      border: 1px solid #94A3B8;
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-size: 10px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .brand-logo-wrap {
+      display: flex;
+      gap: 3px;
+    }
+    .logo-char-box {
+      width: 22px;
+      height: 22px;
+      border: 2px solid var(--border-dark);
+      border-radius: 5px;
+      font-weight: 900;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 1px 1px 0 var(--border-dark);
+    }
+    .top-actions {
+      display: flex;
+      gap: 6px;
+    }
+    .pill-btn {
+      background: #fff;
+      border: 2px solid var(--border-dark);
+      border-radius: 99px;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      box-shadow: 0 2px 0 var(--border-dark);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .pill-btn:active {
+      transform: translateY(1px);
+      box-shadow: 0 1px 0 var(--border-dark);
+    }
+
+    /* 首页样式 */
+    .home-header {
+      text-align: center;
+      margin-top: 4px;
+      margin-bottom: 12px;
+    }
+    .theater-tag {
+      display: inline-block;
+      background: #E84576;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 900;
+      padding: 4px 16px;
+      border-radius: 99px;
+      border: 2px solid var(--border-dark);
+      box-shadow: 0 3px 0 var(--border-dark);
+      margin-bottom: 10px;
+    }
+    .title-blocks {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .big-block {
+      width: 48px;
+      height: 48px;
+      border: 3px solid var(--border-dark);
+      border-radius: 12px;
+      font-weight: 900;
+      font-size: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 0 var(--border-dark);
+    }
+    .home-sub {
+      font-size: 13px;
+      font-weight: 800;
+      color: #475569;
+    }
+
+    /* 原版 1:1 首页卡片墙 (home-hero & home-poster-wall) */
+    .home-hero-card {
+      background: #fff;
+      border: 3.5px solid var(--border-dark);
+      border-radius: 20px;
+      box-shadow: 0 6px 0 var(--border-dark);
+      padding: 14px 12px 16px;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    .home-poster-wall {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr 1fr;
+      align-items: center;
+      gap: 8px;
+      margin: 12px 0 10px;
+    }
+    .home-poster {
+      min-width: 0;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .home-poster:first-child {
+      transform: rotate(-2.5deg);
+    }
+    .home-poster:last-child {
+      transform: rotate(2.5deg);
+    }
+    .home-poster.featured {
+      z-index: 2;
+      transform: scale(1.08) rotate(0deg);
+    }
+    .home-poster:hover {
+      transform: scale(1.04);
+    }
+    .home-poster.featured:hover {
+      transform: scale(1.1);
+    }
+    .poster-art {
+      aspect-ratio: 3/4;
+      background: #FFE8F2;
+      border: 2.5px solid var(--border-dark);
+      box-shadow: 0 4px 0 var(--border-dark);
+      border-radius: 14px;
+      display: block;
+      overflow: hidden;
+      position: relative;
+    }
+    .poster-img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .poster-badge {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: #2563EB;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 2px 8px;
+      border-radius: 99px;
+      border: 1.5px solid #000;
+      box-shadow: 0 1px 0 #000;
+    }
+    .poster-badge.pink {
+      background: var(--pop-pink);
+    }
+    .poster-name {
+      text-align: center;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      border: 2px solid var(--border-dark);
+      color: var(--border-dark);
+      border-radius: 8px;
+      padding: 2px 4px;
+      font-size: 12px;
+      font-weight: 900;
+      line-height: 1.3;
+      position: absolute;
+      bottom: 6px;
+      left: 6px;
+      right: 6px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 2px 0 var(--border-dark);
+    }
+    .home-poster.featured .poster-name {
+      background: #2563EB;
+      color: #fff;
+      border-color: #1D4ED8;
+    }
+
+    .home-chips {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 10px;
+      padding: 0;
+      list-style: none;
+    }
+    .home-chips li {
+      background: #F1F5F9;
+      border: 2px solid var(--border-dark);
+      border-radius: 99px;
+      padding: 3px 10px;
+      font-size: 11.5px;
+      font-weight: 800;
+      box-shadow: 0 2px 0 var(--border-dark);
+    }
+
+    /* 原版剧情梗概 (role-intro) */
+    .role-intro-box {
+      background: #fff;
+      border: 3px solid var(--border-dark);
+      border-radius: 16px;
+      padding: 10px 12px;
+      box-shadow: 0 4px 0 var(--border-dark);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .role-tag {
+      background: #FFD43B;
+      color: var(--border-dark);
+      border: 2px solid var(--border-dark);
+      font-size: 11px;
+      font-weight: 900;
+      padding: 2px 8px;
+      border-radius: 8px;
+      flex-shrink: 0;
+      box-shadow: 0 1px 0 var(--border-dark);
+    }
+    .role-text {
+      font-size: 13px;
+      line-height: 1.55;
+      font-weight: 700;
+      color: #1E293B;
+    }
+
+    /* 首页底部三副按钮单行等宽对齐 */
+    .home-actions-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .btn-action-pill {
+      background: #fff;
+      border: 2.5px solid var(--border-dark);
+      border-radius: 99px;
+      padding: 9px 6px;
+      font-weight: 900;
+      font-size: 12.5px;
+      text-align: center;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 0 var(--border-dark);
+      cursor: pointer;
+    }
+    .btn-action-pill:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 0 var(--border-dark);
+    }
+
+    /* 换剧本弹窗选片卡片 */
+    .genre-select-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .genre-card-row {
+      background: #fff;
+      border: 2.5px solid var(--border-dark);
+      border-radius: 14px;
+      padding: 10px;
+      display: flex;
+      gap: 10px;
+      box-shadow: 0 3px 0 var(--border-dark);
+      cursor: pointer;
+      align-items: center;
+      transition: all 0.15s;
+    }
+    .genre-card-row:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 0 var(--border-dark);
+      background: #FDF2F8;
+    }
+    .genre-card-row.current {
+      border-color: #2563EB;
+      background: #EFF6FF;
+    }
+    .genre-card-thumb {
+      width: 60px;
+      height: 80px;
+      aspect-ratio: 3/4;
+      border-radius: 8px;
+      border: 2px solid var(--border-dark);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .genre-card-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .genre-card-info {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .genre-card-title-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .genre-card-title {
+      flex: 1;
+      min-width: 0;
+      font-size: 14px;
+      font-weight: 900;
+      line-height: 1.3;
+      color: #0F172A;
+    }
+    .genre-select-pill {
+      flex-shrink: 0;
+      white-space: nowrap;
+      min-width: 58px;
+      text-align: center;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 900;
+      border-radius: 99px;
+      border: 2px solid var(--border-dark);
+      box-shadow: 0 2px 0 var(--border-dark);
+      line-height: 1.3;
+    }
+    .genre-card-logline {
+      font-size: 12px;
+      font-weight: 700;
+      color: #64748B;
+      line-height: 1.4;
+    }
+    .genre-card-meta {
+      font-size: 11px;
+      font-weight: 800;
+      color: #7C5CFF;
+    }
+
+    /* 全服封神榜排行榜行样式 */
+    .rank-row {
+      background: #fff;
+      border: 2.5px solid var(--border-dark);
+      border-radius: 14px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 3px 0 var(--border-dark);
+    }
+    .rank-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      background: #F1F5F9;
+      border: 2px solid var(--border-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 900;
+      color: #1E2246;
+      flex-shrink: 0;
+    }
+    .rank-num.gold { background: #FDE047; color: #713F12; }
+    .rank-num.silver { background: #E2E8F0; color: #334155; }
+    .rank-num.bronze { background: #FED7AA; color: #9A3412; }
+    .rank-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      overflow: hidden;
+    }
+    .rank-title {
+      font-size: 13px;
+      font-weight: 900;
+      color: #0F172A;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .rank-director {
+      font-size: 11px;
+      font-weight: 700;
+      color: #64748B;
+    }
+    .rank-badge-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 900;
+      padding: 1px 6px;
+      border-radius: 4px;
+      background: #EDE9FE;
+      color: #6B21A8;
+      width: fit-content;
+      margin-top: 2px;
+    }
+    .rank-val {
+      font-size: 15px;
+      font-weight: 900;
+      color: #F43F5E;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .btn-main-pink {
+      background: var(--pop-pink);
+      color: #fff;
+      border: 3px solid var(--border-dark);
+      border-radius: 99px;
+      padding: 14px 20px;
+      font-weight: 900;
+      font-size: 17px;
+      text-align: center;
+      box-shadow: 0 5px 0 var(--border-dark);
+      cursor: pointer;
+      display: block;
+      width: 100%;
+    }
+    .btn-main-pink:active {
+      transform: translateY(2px);
+      box-shadow: 0 3px 0 var(--border-dark);
+    }
+
+    /* 拍摄片场页面 (Episode View) */
+    .episode-view {
+      display: none;
+      flex-direction: column;
+      flex: 1;
+    }
+    .ep-header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .ep-header-bar .pill-btn {
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .ep-sticker-card {
+      background: linear-gradient(135deg, #FFE8F1 0%, #FFF7FA 100%);
+      border: 2.5px solid var(--border-dark);
+      border-radius: 14px;
+      padding: 8px 12px;
+      box-shadow: 0 3px 0 var(--border-dark);
+      margin-bottom: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .ep-title-pills {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .pill-genre {
+      background: #fff;
+      color: #D63384;
+      border: 2px solid var(--border-dark);
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 2px 9px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 72%;
+    }
+    .pill-ep-num {
+      background: #FFD43B;
+      color: var(--border-dark);
+      border: 2px solid var(--border-dark);
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 2px 9px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .ep-sub-title {
+      font-weight: 900;
+      font-size: 15px;
+      line-height: 1.3;
+      color: var(--ink-navy);
+      padding-left: 2px;
+    }
+
+    /* 5项属性指示栏 */
+    .stats-shelf {
+      background: #fff;
+      border: 2.5px solid var(--border-dark);
+      border-radius: 14px;
+      padding: 6px 8px;
+      box-shadow: 0 3px 0 var(--border-dark);
+      margin-bottom: 8px;
+    }
+    .stats-progress-track {
+      width: 100%;
+      height: 5px;
+      background: #E2E8F0;
+      border-radius: 99px;
+      margin-bottom: 6px;
+      overflow: hidden;
+    }
+    .stats-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #FF6292, #7C5CFF);
+      width: 35%;
+      border-radius: 99px;
+      transition: width 0.3s;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px;
+    }
+    .stat-chip {
+      background: #F8FAFC;
+      border: 1.5px solid var(--border-dark);
+      border-radius: 8px;
+      padding: 2px 1px;
+      text-align: center;
+      font-size: 10px;
+      font-weight: 800;
+      color: #334155;
+    }
+    .stat-chip span {
+      display: block;
+      color: #0F172A;
+      font-weight: 900;
+      font-size: 11px;
+    }
+
+    /* 场景立绘与弹幕区 (每一幕旁白独立专属分镜) */
+    .comic-stage-box {
+      width: 100%;
+      height: 220px;
+      border: 3.5px solid var(--border-dark);
+      border-radius: 18px;
+      overflow: hidden;
+      position: relative;
+      background: #e2e8f0;
+      box-shadow: 0 4px 0 var(--border-dark);
+      margin-bottom: 8px;
+      flex-shrink: 0;
+    }
+    .episode-view {
+      min-height: 0;
+      padding-bottom: 4px;
+    }
+    .comic-stage-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.25s ease, transform 0.4s ease-out;
+      transform-origin: center center;
+    }
+    .panel-scene-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 6px;
+      z-index: 5;
+    }
+
+    /* 弹幕层：仅在 choices 阶段显示！ */
+    .danmaku-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 10;
+      display: none; /* 旁白阶段隐藏 */
+    }
+    .danmaku-item {
+      position: absolute;
+      white-space: nowrap;
+      font-size: 13px;
+      font-weight: 900;
+      color: #fff;
+      text-shadow: 1px 1px 2px #000, -1px -1px 2px #000;
+      background: rgba(0, 0, 0, 0.55);
+      padding: 3px 10px;
+      border-radius: 99px;
+      animation: danmuMove 4.5s linear infinite;
+    }
+    @keyframes danmuMove {
+      from { transform: translateX(420px); }
+      to { transform: translateX(-450px); }
+    }
+
+    /* 剧情卡片与人名高亮 */
+    .narration-box {
+      background: #fff;
+      border: 3px dashed var(--border-dark);
+      border-radius: 18px;
+      padding: 12px;
+      box-shadow: 0 4px 0 var(--border-dark);
+      margin-bottom: 12px;
+      position: relative;
+    }
+    .prev-choice-chip {
+      display: inline-block;
+      background: #FFD43B;
+      color: var(--border-dark);
+      border: 1.5px solid var(--border-dark);
+      font-size: 11px;
+      font-weight: 900;
+      padding: 2px 8px;
+      border-radius: 99px;
+      margin-bottom: 8px;
+    }
+    .narration-content {
+      font-size: 14px;
+      line-height: 1.7;
+      font-weight: 700;
+      color: #1E293B;
+      min-height: 72px;
+    }
+    .cast-ally {
+      background: #D1FAE5;
+      color: #065F46;
+      padding: 1px 5px;
+      border-radius: 4px;
+      border-bottom: 2px solid #10B981;
+      font-weight: 900;
+    }
+    .cast-villain {
+      background: #FFE4E6;
+      color: #9F1239;
+      padding: 1px 5px;
+      border-radius: 4px;
+      border-bottom: 2px solid #F43F5E;
+      font-weight: 900;
+    }
+
+    /* 选项抉择区 */
+    .choices-box {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 6px;
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+    }
+    .countdown-bar-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #FEF3C7;
+      border: 2px solid #D97706;
+      border-radius: 10px;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 900;
+      color: #B45309;
+    }
+    .countdown-timer {
+      background: #DC2626;
+      color: #fff;
+      border-radius: 99px;
+      padding: 1px 6px;
+      font-size: 11px;
+    }
+    .choice-card-btn {
+      background: #fff;
+      border: 2.5px solid var(--border-dark);
+      border-radius: 16px;
+      padding: 10px 14px;
+      box-shadow: 0 3px 0 var(--border-dark);
+      cursor: pointer;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+      text-align: left;
+      transition: all 0.15s ease;
+    }
+    .choice-card-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 var(--border-dark);
+      background: #FDF2F8;
+    }
+    .choice-num-circle {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid var(--border-dark);
+      font-size: 12px;
+      font-weight: 900;
+      color: var(--ink-navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .choice-num-circle.c1 { background: #2CD3E1; }
+    .choice-num-circle.c2 { background: #FF6292; color: #fff; }
+    .choice-num-circle.c3 { background: #FFD43B; }
+    .choice-title-text {
+      font-size: 14px;
+      font-weight: 900;
+      color: var(--ink-navy);
+      line-height: 1.35;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 1;
+    }
+
+    /* 抉择反馈卡片 */
+    .outcome-feedback-box {
+      display: none;
+      background: #fff;
+      border: 3px solid var(--border-dark);
+      border-radius: 18px;
+      padding: 12px;
+      box-shadow: 0 4px 0 var(--border-dark);
+      margin-bottom: 12px;
+    }
+    .outcome-auto-pill {
+      display: inline-block;
+      background: #FFE3ED;
+      color: #D63384;
+      border: 1.5px solid #F43F5E;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 2px 8px;
+      border-radius: 99px;
+      margin-bottom: 4px;
+    }
+    .outcome-director-pill {
+      display: inline-block;
+      background: #FEE2E2;
+      color: #991B1B;
+      border: 1.5px solid #EF4444;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 2px 8px;
+      border-radius: 99px;
+      margin-bottom: 6px;
+    }
+    .outcome-text {
+      font-size: 13.5px;
+      line-height: 1.6;
+      font-weight: 700;
+      color: #1E293B;
+      margin-bottom: 8px;
+    }
+    .peer-ratio-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 800;
+      color: #475569;
+      margin-bottom: 8px;
+    }
+    .peer-chip {
+      background: #0284C7;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 1px 8px;
+      border-radius: 99px;
+    }
+    .stats-delta-pill {
+      background: #20C997;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 4px 10px;
+      border-radius: 99px;
+      border: 1.5px solid var(--border-dark);
+      display: inline-block;
+    }
+
+    /* 底部按钮栏（预留底部阴影安全边距，绝不裁切边框与阴影） */
+    .ep-footer-btns {
+      display: flex;
+      gap: 10px;
+      margin-top: auto;
+      padding: 4px 2px 6px;
+      flex-shrink: 0;
+    }
+    .btn-review {
+      background: #fff;
+      border: 2.5px solid var(--border-dark);
+      border-radius: 99px;
+      padding: 12px 18px;
+      font-weight: 900;
+      font-size: 14px;
+      box-shadow: 0 3px 0 var(--border-dark);
+      cursor: pointer;
+    }
+    .btn-continue {
+      flex: 1;
+      background: var(--pop-pink);
+      color: #fff;
+      border: 2.5px solid var(--border-dark);
+      border-radius: 99px;
+      padding: 12px 18px;
+      font-weight: 900;
+      font-size: 15px;
+      text-align: center;
+      box-shadow: 0 4px 0 var(--border-dark);
+      cursor: pointer;
+    }
+
+    /* 杀青大吉报告页 */
+    .report-view {
+      display: none;
+      flex-direction: column;
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+    }
+    .report-badge-top {
+      background: #FEF08A;
+      color: var(--border-dark);
+      border: 2.5px solid var(--border-dark);
+      border-radius: 99px;
+      padding: 6px 16px;
+      font-weight: 900;
+      font-size: 14px;
+      box-shadow: 0 3px 0 var(--border-dark);
+      margin: 0 auto 12px;
+      text-align: center;
+      width: fit-content;
+    }
+    .report-main-card {
+      background: #fff;
+      border: 3px solid var(--border-dark);
+      border-radius: 18px;
+      padding: 11px 12px;
+      box-shadow: 0 4px 0 var(--border-dark);
+      margin-bottom: 10px;
+    }
+    .report-header-line {
+      text-align: center;
+      font-size: 11.5px;
+      font-weight: 900;
+      color: #475569;
+      margin-bottom: 6px;
+    }
+    .title-banner-box {
+      background: linear-gradient(135deg, #7C5CFF, #6366F1);
+      border: 2.5px solid var(--border-dark);
+      border-radius: 12px;
+      padding: 9px 10px;
+      color: #fff;
+      text-align: center;
+      box-shadow: 0 3px 0 var(--border-dark);
+      margin-bottom: 8px;
+    }
+    .tier-badge {
+      display: inline-block;
+      background: #FEF08A;
+      color: #713F12;
+      border: 1.5px solid var(--border-dark);
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 1px 8px;
+      margin-bottom: 4px;
+    }
+    .ending-title-text {
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+    }
+
+    .stats-dual-board {
+      background: #F8FAFC;
+      border: 2.5px solid var(--border-dark);
+      border-radius: 14px;
+      padding: 10px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .board-score-val {
+      font-size: 30px;
+      font-weight: 900;
+      color: #F43F5E;
+      line-height: 1.1;
+    }
+    .board-views-val {
+      font-size: 26px;
+      font-weight: 900;
+      color: #0F172A;
+      line-height: 1.1;
+    }
+    .board-label {
+      font-size: 11px;
+      font-weight: 800;
+      color: #64748B;
+      margin-bottom: 2px;
+    }
+    .board-sub-pill {
+      font-size: 10px;
+      font-weight: 900;
+      color: #7C5CFF;
+      background: #EDE9FE;
+      padding: 1px 6px;
+      border-radius: 99px;
+      display: inline-block;
+      margin-top: 4px;
+    }
+    .board-rank-pill {
+      font-size: 10px;
+      font-weight: 900;
+      color: #0284C7;
+      background: #E0F2FE;
+      padding: 1px 6px;
+      border-radius: 99px;
+      display: inline-block;
+      margin-top: 4px;
+    }
+
+    .report-desc-text {
+      font-size: 12.5px;
+      line-height: 1.6;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 10px;
+    }
+    .net-comment-box {
+      background: #FAF5FF;
+      border: 2px dashed #C084FC;
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 12px;
+      font-weight: 800;
+      color: #6B21A8;
+      line-height: 1.5;
+    }
+
+    /* 报告操作按钮组（4行紧凑排布 + 底部预留阴影空间，100%完整显示） */
+    .report-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-top: auto;
+      padding: 2px 2px 6px;
+      flex-shrink: 0;
+    }
+    .btn-watch-whole {
+      background: #22C55E;
+      color: #fff;
+      border: 2.5px solid var(--border-dark);
+      border-radius: 99px;
+      padding: 9px 14px;
+      font-weight: 900;
+      font-size: 14px;
+      text-align: center;
+      box-shadow: 0 3px 0 var(--border-dark);
+      cursor: pointer;
+    }
+    .btn-watch-whole:active {
+      transform: translateY(1px);
+    }
+    .btn-share-friend {
+      background: #3B82F6;
+      color: #fff;
+      border: 2.5px solid var(--border-dark);
+      border-radius: 99px;
+      padding: 9px 12px;
+      font-weight: 900;
+      font-size: 13px;
+      text-align: center;
+      box-shadow: 0 3px 0 var(--border-dark);
+      cursor: pointer;
+    }
+    .btn-boost {
+      background: #FDE047;
+      color: var(--border-dark);
+      border: 2.5px solid var(--border-dark);
+      border-radius: 99px;
+      padding: 9px 14px;
+      font-weight: 900;
+      font-size: 13.5px;
+      text-align: center;
+      box-shadow: 0 3px 0 var(--border-dark);
+      cursor: pointer;
+    }
+    .sub-action-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .btn-sub-action {
+      background: #fff;
+      border: 2.5px solid var(--border-dark);
+      border-radius: 99px;
+      padding: 8px 8px;
+      font-weight: 900;
+      font-size: 12.5px;
+      text-align: center;
+      box-shadow: 0 3px 0 var(--border-dark);
+      cursor: pointer;
+    }
+
+    /* 弹窗遮罩 */
+    .modal-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+    }
+    .modal-window {
+      background: var(--bg-paper);
+      border: 4px solid var(--border-dark);
+      border-radius: 24px;
+      width: 100%;
+      height: min(740px, 88vh);
+      max-height: 92%;
+      box-shadow: 0 10px 0 var(--border-dark);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .modal-head {
+      background: #7C5CFF;
+      color: #fff;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 900;
+      border-bottom: 3px solid var(--border-dark);
+      flex-shrink: 0;
+    }
+    .modal-body {
+      padding: 12px;
+      overflow-y: auto;
+      flex: 1;
+      min-height: 0;
+    }
+
+    /* 完整成片长卷流（每一集展开所有分镜片段） */
+    .whole-story-ep {
+      background: #fff;
+      border: 3px solid var(--border-dark);
+      border-radius: 20px;
+      padding: 14px;
+      margin-bottom: 18px;
+      box-shadow: 0 5px 0 var(--border-dark);
+    }
+    .ep-tag-ribbon {
+      background: #FFD43B;
+      color: var(--border-dark);
+      border: 2px solid var(--border-dark);
+      padding: 3px 12px;
+      border-radius: 99px;
+      font-size: 13px;
+      font-weight: 900;
+      display: inline-block;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 0 var(--border-dark);
+    }
+    .ep-clips-stream {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .panel-clip-box {
+      background: #F8FAFC;
+      border: 2px solid #CBD5E1;
+      border-radius: 14px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .clip-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 900;
+      color: #64748B;
+    }
+    .clip-num-pill {
+      background: #E2E8F0;
+      color: #1E293B;
+      border-radius: 6px;
+      padding: 1px 6px;
+    }
+    .clip-img-wrap {
+      width: 100%;
+      height: 165px;
+      border-radius: 10px;
+      border: 2px solid var(--border-dark);
+      overflow: hidden;
+      background: #E2E8F0;
+    }
+    .clip-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .clip-dialogue-text {
+      font-size: 13px;
+      line-height: 1.65;
+      font-weight: 700;
+      color: #1E293B;
+    }
+
+    /* 导演决策与本集收尾结果卡片 */
+    .ep-climax-box {
+      background: #FFF1F2;
+      border: 2.5px solid #F43F5E;
+      border-radius: 14px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .climax-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .director-decision-pill {
+      background: var(--pop-pink);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 2px 10px;
+      border-radius: 99px;
+      border: 1.5px solid var(--border-dark);
+      display: inline-block;
+    }
+    .climax-outcome-text {
+      font-size: 13.5px;
+      line-height: 1.6;
+      font-weight: 700;
+      color: #881337;
+    }
+
+    /* 线索案卷档案袋卡片样式 */
+    .clue-list-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 4px;
+    }
+    .clue-card {
+      background: #fff;
+      border: 2.5px solid var(--border-dark);
+      border-radius: 14px;
+      padding: 12px;
+      box-shadow: 0 3px 0 var(--border-dark);
+      position: relative;
+      transition: all 0.2s;
+    }
+    .clue-card.locked {
+      background: #F1F5F9;
+      border-color: #94A3B8;
+      box-shadow: 0 2px 0 #94A3B8;
+      opacity: 0.85;
+    }
+    .clue-head-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .clue-tag-pill {
+      background: #FEF08A;
+      color: #713F12;
+      border: 1.5px solid #B45309;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 2px 8px;
+      border-radius: 99px;
+    }
+    .clue-status-badge {
+      font-size: 11px;
+      font-weight: 900;
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+    .clue-status-badge.unlocked {
+      background: #D1FAE5;
+      color: #065F46;
+      border: 1px solid #10B981;
+    }
+    .clue-status-badge.locked {
+      background: #E2E8F0;
+      color: #64748B;
+    }
+    .clue-title-text {
+      font-size: 14px;
+      font-weight: 900;
+      color: #0F172A;
+      margin-bottom: 4px;
+    }
+    .clue-desc-text {
+      font-size: 12.5px;
+      line-height: 1.55;
+      font-weight: 700;
+      color: #475569;
+    }
+
+    /* 交互式动态搜证热点：呼吸放大缩小脉冲 + 外圈波纹（零 Emoji） */
+    @keyframes evidencePulseScale {
+      0%, 100% { transform: scale(0.92); box-shadow: 0 3px 0 #1E2246, 0 0 0 0 rgba(250, 204, 21, 0.72); }
+      50% { transform: scale(1.13); box-shadow: 0 5px 0 #1E2246, 0 0 0 10px rgba(250, 204, 21, 0); }
+    }
+    @keyframes evidenceRingRipple {
+      0% { transform: scale(0.95); opacity: 0.85; }
+      100% { transform: scale(1.45); opacity: 0; }
+    }
+    .evidence-hotspot-btn {
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      z-index: 8;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 2.5px solid #1E2246;
+      background: #FDE047;
+      color: #1E2246;
+      font-size: 12px;
+      font-weight: 900;
+      cursor: pointer;
+      animation: evidencePulseScale 0.95s ease-in-out infinite;
+    }
+    .evidence-hotspot-btn::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 999px;
+      border: 2px solid #FACC15;
+      pointer-events: none;
+      animation: evidenceRingRipple 1.1s ease-out infinite;
+    }
+    .evidence-collected-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      z-index: 8;
+      padding: 2px 9px;
+      border-radius: 999px;
+      border: 2px solid #1E2246;
+      background: #22C55E;
+      color: #FFFFFF;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    /* 好友看后亲自拍操作 */
+    .friend-call-to-action {
+      background: #FEF08A;
+      border: 3px solid var(--border-dark);
+      border-radius: 16px;
+      padding: 12px;
+      text-align: center;
+      margin-top: 10px;
+      box-shadow: 0 4px 0 var(--border-dark);
+    }
+
+    /* ================= 原版 1:1 我的图鉴样式 ================= */
+    .collection-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .collect-hero {
+      border-radius: 14px;
+      background: #FEF9C3;
+      border: 2.5px solid var(--border-dark);
+      box-shadow: 0 3px 0 var(--border-dark);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 12px 14px;
+    }
+    .collect-count {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+    .collect-count b {
+      font-size: 34px;
+      font-weight: 900;
+      line-height: 1;
+      color: var(--pop-pink);
+      font-variant-numeric: tabular-nums;
+    }
+    .collect-count span {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--ink-navy);
+    }
+    .collect-bar {
+      border: 2.5px solid var(--border-dark);
+      background: #fff;
+      border-radius: 999px;
+      height: 14px;
+      overflow: hidden;
+    }
+    .collect-bar i {
+      background: linear-gradient(90deg, var(--pop-pink), var(--pop-cyan));
+      border-radius: 999px;
+      height: 100%;
+      display: block;
+      transition: width 0.45s ease;
+    }
+    .collect-goal {
+      margin: 0;
+      font-size: 12.5px;
+      font-weight: 800;
+      line-height: 1.45;
+      color: var(--ink-navy);
+    }
+    .collect-muted-line {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #64748B;
+    }
+    .collect-sub-title {
+      font-size: 15px;
+      font-weight: 900;
+      color: var(--ink-navy);
+      margin-top: 4px;
+      padding-left: 8px;
+      border-left: 4px solid var(--pop-pink);
+    }
+    .ending-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .ending-group-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+    .ending-group-head h4 {
+      margin: 0;
+      margin-right: auto;
+      font-size: 14px;
+      font-weight: 900;
+      color: var(--ink-navy);
+    }
+    .pips {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .pips i {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 2px solid var(--border-dark);
+      background: #fff;
+      display: inline-block;
+    }
+    .pips i.on {
+      background: var(--pop-pink);
+    }
+    .unlock-count {
+      font-size: 12px;
+      font-weight: 900;
+      color: var(--ink-navy);
+    }
+    .btn-collect-play {
+      background: #fff;
+      border: 2px solid var(--border-dark);
+      box-shadow: 0 2px 0 var(--border-dark);
+      border-radius: 999px;
+      padding: 3px 10px;
+      font-size: 11px;
+      font-weight: 900;
+      color: var(--ink-navy);
+      cursor: pointer;
+    }
+    .btn-collect-play:active {
+      transform: translateY(2px);
+      box-shadow: none;
+    }
+    .btn-collect-play.near {
+      background: var(--pop-yellow);
+    }
+    .tag-all-clear {
+      background: #D1FAE5;
+      color: #065F46;
+      border: 1.5px solid var(--border-dark);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 900;
+    }
+    .ending-cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .ending-item {
+      border: 2.5px solid var(--border-dark);
+      border-radius: 14px;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      background: #fff;
+      box-shadow: 0 3px 0 var(--border-dark);
+    }
+    .ending-item.locked {
+      background: #F8FAFC;
+      border-style: dashed;
+      border-color: #64748B;
+      box-shadow: none;
+    }
+    .ending-item.unlocked.type-triumph { background: #FEF9C3; }
+    .ending-item.unlocked.type-hidden { background: #FFE8F2; }
+    .ending-item.unlocked.type-subversive { background: #DCFCE7; }
+    .ending-item.unlocked.type-unfinished { background: #E0F2FE; }
+    .ending-thumb {
+      aspect-ratio: 3 / 4;
+      border: 2px solid var(--border-dark);
+      background: #FCE7F3;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .ending-thumb-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .ending-silhouette {
+      aspect-ratio: 3 / 4;
+      border: 2px dashed #64748B;
+      border-radius: 10px;
+      background: repeating-linear-gradient(45deg, rgba(30,34,70,0.06) 0, rgba(30,34,70,0.06) 6px, transparent 6px, transparent 12px);
+      display: grid;
+      place-items: center;
+      color: rgba(30,34,70,0.4);
+      font-size: 36px;
+      font-weight: 900;
+      position: relative;
+      overflow: hidden;
+    }
+    .ending-silhouette.has-art {
+      border-style: solid;
+      border-color: #94A3B8;
+      background: #F1F5F9;
+    }
+    .ending-sil-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(65%) contrast(1.08) brightness(0.68) blur(4px);
+      opacity: 0.65;
+      transform: scale(1.12);
+    }
+    .sil-q {
+      position: relative;
+      z-index: 1;
+      color: #fff;
+      text-shadow: 0 2px 8px rgba(15, 23, 42, 0.7);
+      font-size: 40px;
+      font-weight: 900;
+    }
+    .ending-item-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 4px;
+    }
+    .ending-type-tag {
+      font-size: 10px;
+      font-weight: 900;
+      padding: 1px 6px;
+      border-radius: 6px;
+      border: 1.5px solid var(--border-dark);
+      background: #fff;
+      color: var(--ink-navy);
+    }
+    .ending-type-tag.on {
+      background: var(--pop-yellow);
+    }
+    .ending-item-title {
+      font-size: 12.5px;
+      font-weight: 900;
+      color: var(--ink-navy);
+      line-height: 1.3;
+    }
+    .new-tag {
+      background: var(--pop-pink);
+      color: #fff;
+      border: 1.5px solid var(--border-dark);
+      font-size: 10px;
+      font-weight: 900;
+      border-radius: 999px;
+      padding: 0 6px;
+      margin-left: auto;
+    }
+    .ending-meta {
+      font-size: 11px;
+      font-weight: 700;
+      color: #475569;
+      line-height: 1.4;
+    }
+    .ending-details {
+      font-size: 11.5px;
+      background: rgba(255,255,255,0.75);
+      border: 1.5px solid var(--border-dark);
+      border-radius: 8px;
+      padding: 5px 7px;
+    }
+    .ending-details summary {
+      cursor: pointer;
+      font-weight: 900;
+      color: var(--ink-navy);
+      font-size: 11px;
+    }
+    .ending-details p {
+      margin-top: 5px;
+      line-height: 1.5;
+      color: #1E293B;
+      font-weight: 600;
+    }
+    .ending-details ol {
+      margin: 5px 0 0;
+      padding-left: 16px;
+      color: #475569;
+      font-size: 11px;
+      line-height: 1.45;
+    }
+    .title-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .title-chip {
+      border: 2px solid var(--border-dark);
+      box-shadow: 0 2px 0 var(--border-dark);
+      background: var(--pop-yellow);
+      padding: 3px 10px;
+      font-size: 12px;
+      font-weight: 900;
+      border-radius: 6px;
+      color: var(--ink-navy);
+    }
+    .title-chip:nth-child(3n+2) {
+      background: var(--pop-pink);
+      color: #fff;
+      transform: rotate(2deg);
+    }
+    .title-chip:nth-child(3n) {
+      background: var(--pop-cyan);
+      transform: rotate(-2deg);
+    }
+    .style-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .style-chip {
+      border-radius: 12px;
+      border: 2px solid var(--border-dark);
+      background: #fff;
+      box-shadow: 0 2px 0 var(--border-dark);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 9px;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--ink-navy);
+    }
+    .style-chip.locked {
+      opacity: 0.6;
+      box-shadow: none;
+      border-style: dashed;
+      background: #F8FAFC;
+    }
+    .style-chip small {
+      width: 100%;
+      color: #64748B;
+      font-size: 10.5px;
+      font-weight: 700;
+    }
+    .swatch {
+      background: linear-gradient(135deg, var(--c0) 0 50%, var(--c1) 50% 80%, var(--c2) 80%);
+      border: 2px solid var(--border-dark);
+      border-radius: 6px;
+      width: 22px;
+      height: 22px;
+      flex: none;
+    }
+
+    /* 统一纯 CSS 加载旋转动画与按钮防重 Loading 态 */
+    @keyframes rySpin {
+      to { transform: rotate(360deg); }
+    }
+    .ry-spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2.5px solid currentColor;
+      border-right-color: transparent;
+      border-radius: 50%;
+      animation: rySpin 0.65s linear infinite;
+      vertical-align: middle;
+      margin-right: 6px;
+      flex-shrink: 0;
+    }
+    .ry-loading-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 42px 16px;
+      color: #64748B;
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .ry-loading-state .ry-spinner {
+      width: 26px;
+      height: 26px;
+      border-width: 3px;
+      color: #FF5A8D;
+      margin-right: 0;
+    }
+    button.is-loading {
+      opacity: 0.78;
+      pointer-events: none;
+      cursor: not-allowed;
+    }
+
+    /* 首页全量剧本轮播指示条（左右切换 + 全部剧目圆点 + 序号计数） */
+    .carousel-nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 4px 0 8px;
+    }
+    .carousel-arrow-btn {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid var(--border-dark);
+      background: #fff;
+      color: var(--ink-navy);
+      font-size: 12px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 0 var(--border-dark);
+      flex-shrink: 0;
+    }
+    .carousel-arrow-btn:active {
+      transform: translateY(1px);
+      box-shadow: none;
+    }
+    .carousel-dots {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-wrap: nowrap;
+    }
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 99px;
+      border: 1.5px solid var(--border-dark);
+      background: #fff;
+      cursor: pointer;
+      transition: all 0.2s;
+      padding: 0;
+    }
+    .carousel-dot.is-rec {
+      border-color: #FF5A8D;
+    }
+    .carousel-dot.active {
+      width: 18px;
+      background: #FF5A8D;
+      border-color: var(--border-dark);
+    }
+    .carousel-counter {
+      font-size: 11px;
+      font-weight: 900;
+      color: #475569;
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ================= 我的成片影片架样式 ================= */
+    .movie-shelf-summary {
+      background: #FEF9C3;
+      border: 2px solid var(--border-dark);
+      border-radius: 12px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--ink-navy);
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 0 var(--border-dark);
+    }
+    .movie-shelf-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .movie-shelf-card {
+      background: #fff;
+      border: 2.5px solid var(--border-dark);
+      border-radius: 14px;
+      padding: 8px;
+      box-shadow: 0 3px 0 var(--border-dark);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      transition: transform 0.12s;
+    }
+    .movie-shelf-card:active {
+      transform: translateY(1px);
+    }
+    .movie-shelf-card.is-finished {
+      background: #F0FDF4;
+      border-color: #16A34A;
+    }
+    .movie-shelf-card.is-shooting {
+      background: #FFFBEB;
+      border-color: #D97706;
+    }
+    .movie-shelf-card.is-unstarted {
+      background: #F8FAFC;
+      border-style: dashed;
+      border-color: #94A3B8;
+      box-shadow: none;
+    }
+    .movie-shelf-poster {
+      position: relative;
+      aspect-ratio: 3 / 4;
+      border-radius: 10px;
+      border: 2px solid var(--border-dark);
+      overflow: hidden;
+      background: #E2E8F0;
+    }
+    .movie-shelf-poster img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .movie-shelf-card.is-unstarted .movie-shelf-poster img {
+      filter: grayscale(60%) brightness(0.85);
+    }
+    .movie-shelf-badge {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      font-size: 10px;
+      font-weight: 900;
+      padding: 2px 6px;
+      border-radius: 6px;
+      border: 1.5px solid var(--border-dark);
+      white-space: nowrap;
+      color: #fff;
+      background: #64748B;
+    }
+    .movie-shelf-badge.finished { background: #16A34A; }
+    .movie-shelf-badge.shooting { background: #F59E0B; color: #1E2246; }
+    .movie-shelf-title {
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--ink-navy);
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .movie-shelf-meta {
+      font-size: 11px;
+      font-weight: 700;
+      color: #64748B;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .movie-shelf-cta {
+      width: 100%;
+      border: 2px solid var(--border-dark);
+      border-radius: 99px;
+      padding: 5px 8px;
+      font-size: 11px;
+      font-weight: 900;
+      text-align: center;
+      background: #22C55E;
+      color: #fff;
+      box-shadow: 0 2px 0 var(--border-dark);
+      cursor: pointer;
+    }
+    .movie-shelf-cta.shooting {
+      background: #2563EB;
+    }
+    .movie-shelf-cta.unstarted {
+      background: #fff;
+      color: #475569;
+      box-shadow: none;
+    }
+    .shelf-back-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #F1F5F9;
+      border: 2px solid var(--border-dark);
+      border-radius: 12px;
+      padding: 6px 10px;
+      margin-bottom: 10px;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--ink-navy);
+    }
+    .locked-ep-card {
+      background: #F8FAFC;
+      border: 2px dashed #94A3B8;
+      border-radius: 16px;
+      padding: 16px 14px;
+      margin-bottom: 12px;
+      text-align: center;
+      color: #64748B;
+      font-size: 12.5px;
+      font-weight: 800;
+    }
+    .pk-compare-card {
+      display: none;
+      background: #FEF3C7;
+      border: 2.5px solid var(--border-dark);
+      border-radius: 14px;
+      padding: 10px 12px;
+      margin-top: 10px;
+      box-shadow: 0 3px 0 var(--border-dark);
+      font-size: 12px;
+      font-weight: 800;
+      color: #78350F;
+    }
+    .rank-filter-bar {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .rank-filter-select {
+      flex: 1;
+      border: 2px solid var(--border-dark);
+      border-radius: 10px;
+      padding: 6px 8px;
+      font-size: 12px;
+      font-weight: 800;
+      background: #fff;
+      color: var(--ink-navy);
+    }
+    .rank-my-footer {
+      margin-top: 10px;
+      background: #EDE9FE;
+      border: 2px solid var(--border-dark);
+      border-radius: 12px;
+      padding: 8px 10px;
+      font-size: 12px;
+      font-weight: 900;
+      color: #4C1D95;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .pop-toast {
+      position: fixed;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      background: #1E2246;
+      color: #fff;
+      border: 2.5px solid #FFD43B;
+      border-radius: 99px;
+      padding: 8px 16px;
+      font-size: 12.5px;
+      font-weight: 900;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s ease;
+      max-width: 360px;
+      text-align: center;
+    }
+    .pop-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .poster-canvas-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    .poster-canvas-wrap canvas {
+      width: 240px;
+      height: 320px;
+      border: 3px solid var(--border-dark);
+      border-radius: 14px;
+      box-shadow: 0 5px 0 var(--border-dark);
+      background: #fff;
+    }
+    .poster-style-picker {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .poster-style-opt {
+      border: 2px solid var(--border-dark);
+      border-radius: 10px;
+      padding: 6px 8px;
+      background: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+    .poster-style-opt.active {
+      background: #FEF08A;
+      box-shadow: 0 2px 0 var(--border-dark);
+    }
+    .poster-style-opt.locked {
+      opacity: 0.45;
+      border-style: dashed;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 模拟器顶部辅助条 -->
+  <div class="simulator-toolbar">
+    <span>《漫剧大导演》微信小程序在线预览</span>
+    <span class="sim-tag">原创高画质分镜</span>
+  </div>
+
+  <div class="phone-frame">
+    <!-- 微信顶部胶囊与电量 -->
+    <div class="wx-status-bar">
+      <span>9:41</span>
+      <span style="font-weight:900; letter-spacing: 0.5px;">漫剧大导演 · 互动短剧</span>
+      <div class="wx-capsule">
+        <span>•••</span>
+        <span>◎</span>
+      </div>
+    </div>
+
+    <!-- 好友分享专属首映横幅 -->
+    <div class="friend-share-banner" id="friendShareBanner">
+      <div>
+        <span class="friend-tag">好友首映</span>
+        <span id="friendShareNote">点击好友分享链接可同步查看好友成片战绩</span>
+      </div>
+      <button class="pill-btn" style="padding:2px 8px; font-size:11px;" onclick="openWholeStoryModal(true)">看TA的成片</button>
+    </div>
+
+    <!-- ================= 首页 (Home View) ================= -->
+    <div id="homeView" style="display:flex; flex-direction:column; flex:1;">
+      <!-- 顶部导航 -->
+      <div class="top-nav">
+        <div class="brand-logo-wrap" style="gap:2px;">
+          <div class="logo-char-box" style="background:#FFE3ED;width:20px;height:20px;font-size:11px;">漫</div>
+          <div class="logo-char-box" style="background:#EDE9FE;width:20px;height:20px;font-size:11px;">剧</div>
+          <div class="logo-char-box" style="background:#FEF08A;width:20px;height:20px;font-size:11px;">大</div>
+          <div class="logo-char-box" style="background:#E0F2FE;width:20px;height:20px;font-size:11px;">导</div>
+          <div class="logo-char-box" style="background:#D1FAE5;width:20px;height:20px;font-size:11px;">演</div>
+        </div>
+        <div class="top-actions">
+          <button class="pill-btn" onclick="openLeaderboard()">[榜单] 封神榜</button>
+          <button class="pill-btn" id="homeMuteBtn" onclick="toggleMute()">[音效] 开</button>
+          <button class="pill-btn" onclick="openMovieShelfModal()">[完整成片]</button>
+        </div>
+      </div>
+
+      <!-- 标题区 -->
+      <div class="home-header">
+        <div><span class="theater-tag">离谱放映厅 · 互动短剧</span></div>
+        <div class="title-blocks" style="gap:6px;">
+          <div class="big-block" style="background:#FDE047;width:44px;height:44px;font-size:24px;">漫</div>
+          <div class="big-block" style="background:#FF6292;color:#fff;width:44px;height:44px;font-size:24px;">剧</div>
+          <div class="big-block" style="background:#A78BFA;color:#fff;width:44px;height:44px;font-size:24px;">大</div>
+          <div class="big-block" style="background:#2CD3E1;width:44px;height:44px;font-size:24px;">导</div>
+          <div class="big-block" style="background:#38D9A9;color:#fff;width:44px;height:44px;font-size:24px;">演</div>
+        </div>
+        <div class="home-sub" id="homeProgressSub">演到第 1/6 集 · 刚刚</div>
+      </div>
+
+      <!-- 原版 1:1 三联海报主卡片墙 (居中主推 + 左右各一张联动) -->
+      <div class="home-hero-card">
+        <div class="home-poster-wall" id="genrePosterWall">
+          <!-- 动态渲染三联海报 -->
+        </div>
+        <div class="carousel-nav-bar" id="carouselNavBar">
+          <!-- 动态渲染全量剧本轮播圆点与计数 -->
+        </div>
+        <ul class="home-chips">
+          <li>每集一次抉择</li>
+          <li>共 6 集</li>
+          <li>4 种结局</li>
+        </ul>
+      </div>
+
+      <!-- 原版剧情前情梗概 (role-intro) -->
+      <div class="role-intro-box">
+        <span class="role-tag" id="roleIntroTag">第 1 集</span>
+        <div class="role-text" id="roleIntroText">正在装载剧情梗概...</div>
+      </div>
+
+      <!-- 底部开拍按钮与原版双副按钮行 (换剧本 / 我的图鉴) -->
+      <div style="margin-top:auto;">
+        <button class="btn-main-pink" id="startShootBtn" onclick="handleStartShoot()">开拍 · 《真假千金》</button>
+        <div class="home-actions-row">
+          <button class="btn-action-pill" onclick="openGenreSelectModal()">换剧本</button>
+          <button class="btn-action-pill" onclick="openUserCenterModal()">我的片单</button>
+          <button class="btn-action-pill" id="homeCollectionBtn" onclick="openCollectionModal()">我的图鉴 0/36</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= 拍摄片场页面 (Episode View) ================= -->
+    <div id="episodeView" class="episode-view">
+      <!-- 片场顶部导航（第一行：返回与快捷操作，绝不挤压换行） -->
+      <div class="ep-header-bar">
+        <button class="pill-btn" onclick="backToHome()">&lt; 首页</button>
+        <div class="top-actions">
+          <button class="pill-btn" style="background:#FEF9C3; border-color:#D97706; color:#78350F; font-weight:900;" onclick="openCluesModal()">[线索本]</button>
+          <button class="pill-btn" id="epMuteBtn" onclick="toggleMute()">[音效] 开</button>
+        </div>
+      </div>
+
+      <!-- 片场剧集标题贴纸卡（第二行：剧名 + 集数标牌 + 清晰分集标题） -->
+      <div class="ep-sticker-card">
+        <div class="ep-title-pills">
+          <span class="pill-genre" id="epGenrePill">《真假千金》</span>
+          <span class="pill-ep-num" id="epNumberPill">第 1 集 / 6</span>
+        </div>
+        <div class="ep-sub-title" id="epSubTitle">第 1 集：进门先考餐具</div>
+      </div>
+
+      <!-- 5 维属性指示栏 -->
+      <div class="stats-shelf">
+        <div class="stats-progress-track">
+          <div class="stats-progress-fill" id="statsProgressBar"></div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-chip">爽点值<span id="statPleasure">10</span></div>
+          <div class="stat-chip">戏剧浓度<span id="statDrama">25</span></div>
+          <div class="stat-chip">反派怒气<span id="statAnger">10</span></div>
+          <div class="stat-chip" style="background:#FEF9C3; cursor:pointer; border-color:#D97706;" onclick="openCluesModal()" title="点击查看已备材料线索">已备材料<span id="statEvidence" style="color:#B45309;">0</span></div>
+          <div class="stat-chip">拆套路<span id="statSubversion">0</span></div>
+        </div>
+      </div>
+
+      <!-- 漫画大图（每一幕旁白对应专属分镜立绘）与抉择弹幕区 -->
+      <div class="comic-stage-box">
+        <div class="panel-scene-badge" id="panelSceneBadge">第 1 幕分镜</div>
+        <button id="evidenceHotspotBtn" class="evidence-hotspot-btn" style="display:none;" onclick="collectPendingEvidence()" type="button">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1E2246" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="#FFFFFF"></circle><line x1="20" y1="20" x2="16.2" y2="16.2"></line></svg>
+          <span>发现证据 · 点击收取</span>
+        </button>
+        <button id="evidenceCollectedBadge" class="evidence-collected-badge" style="display:none;" onclick="openCluesModal()" type="button">[证据] 已入卷</button>
+        <img id="sceneComicImg" src="/static/generated_scenes/heiress/heiress_ep1_p1.jpg" class="comic-stage-img" alt="剧情分镜漫画" />
+        <!-- 弹幕层：仅在进入 choices 抉择倒计时阶段时才启动并显示 -->
+        <div class="danmaku-container" id="danmakuContainer">
+          <!-- 动态飘动弹幕 -->
+        </div>
+      </div>
+
+      <!-- 剧情旁白分步卡片 (Panels 逐句推进，无弹幕纯享剧情) -->
+      <div class="narration-box" id="narrationCard">
+        <div class="prev-choice-chip" id="lastChoiceChip">剧情开场</div>
+        <div class="narration-content" id="narrationText">正在装载片场旁白台词...</div>
+      </div>
+
+      <!-- 选项抉择区 (Panels 走完后显示，此时伴随全屏弹幕狂欢) -->
+      <div class="choices-box" id="choicesCard">
+        <div class="countdown-bar-wrap">
+          <span>请拍板本集拍摄方向（弹幕狂欢 30s）：</span>
+          <span class="countdown-timer" id="countdownTimer">30s</span>
+        </div>
+        <div id="choiceButtonsList" style="display:flex; flex-direction:column; gap:8px;">
+          <!-- 动态渲染 A / B / C 选项 -->
+        </div>
+      </div>
+
+      <!-- 抉择结果反馈卡片 -->
+      <div class="outcome-feedback-box" id="outcomeCard">
+        <div id="outcomePillGroup">
+          <span class="outcome-auto-pill" id="outcomeAutoPill">超时自动选择</span>
+          <span class="outcome-director-pill" id="outcomeDirectorPill">30 秒没选，导演替你拍了这一条</span>
+        </div>
+        <div class="outcome-text" id="outcomeStoryText"></div>
+        <div class="peer-ratio-row">
+          <span>弹幕里</span>
+          <span class="peer-chip" id="peerPercentChip">31%</span>
+          <span>也选了这个（模拟全服）</span>
+        </div>
+        <div>
+          <span class="stats-delta-pill" id="statsDeltaPill">本集分镜已拍板，剧情走向已悄然改写</span>
+        </div>
+      </div>
+
+      <!-- 底部操作按钮 -->
+      <div class="ep-footer-btns">
+        <button class="btn-review" onclick="openReviewHistory()">回顾</button>
+        <button class="btn-continue" id="continueBtn" onclick="nextPanelOrStep()">继续 (1/4)</button>
+      </div>
+    </div>
+
+    <!-- ================= 杀青大吉报告页 (Report View) ================= -->
+    <div id="reportView" class="report-view">
+      <div class="report-badge-top">杀青大吉 · 剧集质量检验报告</div>
+
+      <div class="report-main-card">
+        <div class="report-header-line" id="reportHeaderLine">《真假千金》· 领衔主演：匿名主角</div>
+
+        <div class="title-banner-box">
+          <span class="tier-badge" id="reportTierBadge">SR · 爽剧典范</span>
+          <div class="ending-title-text" id="reportEndingTitle">满级马甲女王：莫欺少女穷</div>
+        </div>
+
+        <div class="stats-dual-board">
+          <div>
+            <div class="board-label">综合拍摄质量评分</div>
+            <div class="board-score-val" id="reportScoreVal">87.98</div>
+            <div class="board-sub-pill" id="reportScoreSub">爽片正统大师 (+6.5分)</div>
+          </div>
+          <div>
+            <div class="board-label">预估首日全网播放量</div>
+            <div class="board-views-val" id="reportViewsVal">4.18 亿</div>
+            <div class="board-rank-pill" id="reportRankSub">击败全国 55% 的导演</div>
+          </div>
+        </div>
+
+        <div class="report-desc-text" id="reportDescText">
+          钢琴女皇、神医鬼手、世界首富继承人......你的马甲一层接一层掉落，偏心的家人把膝盖都跪碎了。你独自站在财富之巅，诠释了什么叫真正的大女主。
+        </div>
+
+        <div class="net-comment-box" id="reportNetComment">
+          网友热评：「虽然套路经典，但打脸那一下还是爽得我拍大腿！」
+        </div>
+
+        <div class="pk-compare-card" id="reportPkCard"></div>
+      </div>
+
+      <div class="report-actions">
+        <!-- 观看完整成片、追加宣发 + 2x2双列操作按钮（1:1 复刻原版，绝不撑破或挤压底部按钮） -->
+        <button class="btn-watch-whole" onclick="openWholeStoryModal(false)">观看完整成片：本片全景剧情回放</button>
+        <button class="btn-boost" onclick="boostViews(this)">看广告追加宣发：首日播放量 +25% 冲榜</button>
+        <div class="sub-action-row">
+          <button class="btn-sub-action" style="background:#D1FAE5; color:#065F46;" onclick="openPosterModal()">生成杀青海报</button>
+          <button class="btn-sub-action" style="background:#FEF9C3; color:#713F12;" onclick="shareWithFriends(this)">发群里挑战好友</button>
+        </div>
+        <div class="sub-action-row">
+          <button class="btn-sub-action" onclick="restartCurrentScript()">换套路重拍</button>
+          <button class="btn-sub-action" onclick="backToHome()">回放映厅</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= 观看完整成片全景放映厅弹窗 ================= -->
+    <div class="modal-overlay" id="wholeStoryModal" onclick="if(event.target===this)closeWholeStoryModal()">
+      <div class="modal-window">
+        <div class="modal-head" style="background:#22C55E;">
+          <span id="wholeModalTitle">完整成片 · 全剧分镜连贯回放</span>
+          <button class="pill-btn" style="padding:2px 8px;" onclick="closeWholeStoryModal()">关闭</button>
+        </div>
+        <div class="modal-body" id="wholeStoryContent">
+          <!-- 动态渲染 6 集连续图文剧情流 -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= 全服封神榜弹窗（分剧筛选 + 我的排名） ================= -->
+    <div class="modal-overlay" id="leaderboardModal" onclick="if(event.target===this)closeLeaderboard()">
+      <div class="modal-window">
+        <div class="modal-head" style="background:#7C5CFF;">
+          <span>全服封神排行榜 (按播放量冲榜)</span>
+          <button class="pill-btn close-btn" style="padding:4px 12px; font-weight:900; background:#fff; cursor:pointer;" onclick="closeLeaderboard()">关闭</button>
+        </div>
+        <div class="modal-body" style="display:flex; flex-direction:column;">
+          <div class="rank-filter-bar">
+            <select id="leaderboardScriptSelect" class="rank-filter-select" onchange="loadLeaderboardData(this.value)">
+              <option value="">全部剧本总榜</option>
+            </select>
+          </div>
+          <div id="leaderboardList" style="flex:1; overflow-y:auto; min-height:0;">
+            <!-- 动态排行榜行 -->
+          </div>
+          <div class="rank-my-footer" id="leaderboardMyFooter">
+            <span>我的当前排名：计算中...</span>
+          </div>
+        </div>
+        <div style="padding:10px 14px; background:#F8FAFC; border-top:2px solid var(--border-dark); text-align:center; flex-shrink:0;">
+          <button class="pill-btn" style="width:100%; justify-content:center; padding:9px; font-size:13px; font-weight:900; background:#fff;" onclick="closeLeaderboard()">返回放映厅</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= Canvas 杀青海报生成器弹窗 ================= -->
+    <div class="modal-overlay" id="posterModal" onclick="if(event.target===this)closePosterModal()">
+      <div class="modal-window" style="background:#FFFDF7;">
+        <div class="modal-head" style="background:#FF5A8D;">
+          <span>杀青海报生成器 (8 款解锁样式)</span>
+          <button class="pill-btn" style="padding:2px 8px;" onclick="closePosterModal()">关闭</button>
+        </div>
+        <div class="modal-body">
+          <div class="poster-canvas-wrap">
+            <canvas id="endingPosterCanvas" width="480" height="640"></canvas>
+          </div>
+          <div style="font-size:12px; font-weight:900; color:#1E2246; margin-bottom:6px;">选择已解锁海报样式：</div>
+          <div class="poster-style-picker" id="posterStylePicker"></div>
+          <button class="btn-main-pink" style="padding:10px; font-size:14px;" onclick="downloadEndingPoster()">保存高清杀青海报 (PNG)</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= 应用内自定义波普弹窗（替代原生 alert/confirm/prompt） ================= -->
+    <div class="modal-overlay" id="popDialogModal" style="z-index:300;">
+      <div class="modal-window" style="height:auto; max-height:60%; max-width:340px;">
+        <div class="modal-head" style="background:#1E2246;">
+          <span id="popDialogTitle">提示</span>
+        </div>
+        <div class="modal-body" style="padding:16px;">
+          <div id="popDialogText" style="font-size:13px; font-weight:700; color:#1E2246; line-height:1.6; white-space:pre-line; word-break:break-all;"></div>
+          <input type="text" id="popDialogInput" class="form-input" style="display:none; width:100%; margin-top:10px;" />
+          <div style="display:flex; gap:8px; margin-top:14px; justify-content:flex-end;">
+            <button class="pill-btn" id="popDialogCancelBtn" style="padding:6px 14px;">取消</button>
+            <button class="pill-btn" id="popDialogConfirmBtn" style="padding:6px 16px; background:#FF5A8D; color:#fff;">确定</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pop-toast" id="popToast"></div>
+
+    <!-- ================= 原版 1:1 换剧本选片弹窗 ================= -->
+    <div class="modal-overlay" id="genreSelectModal" onclick="if(event.target===this)closeGenreSelectModal()">
+      <div class="modal-window">
+        <div class="modal-head" style="background:#2563EB;">
+          <span>换剧本 · 全题材选片大厅</span>
+          <button class="pill-btn" style="padding:2px 8px;" onclick="closeGenreSelectModal()">关闭</button>
+        </div>
+        <div class="modal-body">
+          <div style="font-size:12px; font-weight:800; color:#475569; margin-bottom:10px;">点击任意剧本，立即换至放映厅主舞台开拍：</div>
+          <div class="genre-select-list" id="genreSelectList">
+            <!-- 动态渲染全部 7 大题材卡片 -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= 原版 1:1 我的图鉴弹窗 ================= -->
+    <div class="modal-overlay" id="collectionModal" onclick="if(event.target===this)closeCollectionModal()">
+      <div class="modal-window" style="background:#FFFDF7;">
+        <div class="modal-head" style="background:#FF5A8D;">
+          <span id="collectionModalTitle">我的图鉴</span>
+          <button class="pill-btn" style="padding:2px 8px;" onclick="closeCollectionModal()">关闭</button>
+        </div>
+        <div class="modal-body" id="collectionModalBody">
+          <!-- 动态渲染 1:1 原版图鉴结构：进度Hero、分剧本结局图鉴、已获称号、海报样式 -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= 已备材料与线索档案袋弹窗 ================= -->
+    <div class="modal-overlay" id="cluesModal" onclick="if(event.target===this)closeCluesModal()">
+      <div class="modal-window">
+        <div class="modal-head" style="background:#D97706;">
+          <span id="cluesModalTitle">已备材料 · 线索案卷档案袋</span>
+          <button class="pill-btn" style="padding:2px 8px;" onclick="closeCluesModal()">关闭</button>
+        </div>
+        <div class="modal-body">
+          <div style="background:#FEF3C7; border:1.5px solid #F59E0B; border-radius:10px; padding:8px 10px; font-size:12px; font-weight:800; color:#92400E; margin-bottom:10px;">
+            每一处搜集到的实锤物证，都将在关键分集（第3集、收官第6集）触发【线索回收】打脸隐藏幕！
+          </div>
+          <div class="clue-list-wrap" id="cluesListContent">
+            <!-- 动态渲染线索卡片 -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= 剧情回顾抽屉弹窗 ================= -->
+    <div class="modal-overlay" id="reviewModal" onclick="if(event.target===this)closeReview()">
+      <div class="modal-window">
+        <div class="modal-head" style="background:#FF6292;">
+          <span>本集剧本台词回顾</span>
+          <button class="pill-btn" style="padding:2px 8px;" onclick="closeReview()">关闭</button>
+        </div>
+        <div class="modal-body" id="reviewList" style="font-size:13px; line-height:1.6;">
+          <!-- 历史台词 -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= 导演中心与用户登录档期弹窗 ================= -->
+    <div class="modal-overlay" id="userCenterModal" onclick="if(event.target===this)closeUserCenterModal()">
+      <div class="modal-window">
+        <div class="modal-head" style="background:#1E2246;">
+          <span id="userCenterTitle">[导演中心] 拍摄档期与登录</span>
+          <button class="pill-btn" style="padding:2px 8px;" onclick="closeUserCenterModal()">关闭</button>
+        </div>
+        <div class="modal-body">
+          <!-- 标签栏（一个用户即一位导演，仅保留个人档期与账号登录切换） -->
+          <div class="user-modal-tabs">
+            <button class="user-tab-btn active" id="tabBtnProgress" onclick="switchUserTab('progress')">我的拍摄档期</button>
+            <button class="user-tab-btn" id="tabBtnLogin" onclick="switchUserTab('login')">账号登录 / 切换</button>
+          </div>
+
+          <!-- Tab 1: 各剧本拍摄档期 -->
+          <div id="tabPaneProgress">
+            <!-- 导演名片 -->
+            <div class="director-profile-card">
+              <div class="profile-card-top">
+                <span class="profile-avatar-badge" id="modalUserAvatar">[导演]</span>
+                <div style="flex:1;">
+                  <div style="display:flex; align-items:center; gap:6px;">
+                    <span style="font-weight:900; font-size:15px; color:#1E2246;" id="modalUserNick">微信导演</span>
+                    <button class="tiny-btn" onclick="promptChangeNickname(this)">[改名]</button>
+                  </div>
+                  <div style="font-size:11px; color:#64748B; margin-top:2px;" id="modalUserAccount">正在连接导演档案...</div>
+                </div>
+              </div>
+              <div class="profile-stats-grid">
+                <div class="p-stat-box">
+                  <div class="p-stat-val" id="modalBoxOffice">0 亿</div>
+                  <div class="p-stat-lbl">累计播放票房</div>
+                </div>
+                <div class="p-stat-box">
+                  <div class="p-stat-val" id="modalBestScore">0.0 分</div>
+                  <div class="p-stat-lbl">历史最高评分</div>
+                </div>
+                <div class="p-stat-box">
+                  <div class="p-stat-val" id="modalShootCount">0 部</div>
+                  <div class="p-stat-lbl">已执导短剧</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 各剧本进度列表 -->
+            <div style="font-size:13px; font-weight:900; margin:10px 0 6px; color:#1E2246;">各剧本拍摄进度档期</div>
+            <div id="userScriptProgressList" style="display:flex; flex-direction:column; gap:8px;">
+              <!-- 动态加载各剧本拍摄集数进度卡片 -->
+            </div>
+          </div>
+
+          <!-- Tab 2: 账号密码登录 / 注册 / 游客新开号 -->
+          <div id="tabPaneLogin" style="display:none;">
+            <div class="login-form-box">
+              <div class="form-item">
+                <label class="form-label">导演账号 / 用户名</label>
+                <input type="text" id="loginUsername" class="form-input" placeholder="请输入用户名 (如: director_zhang)" />
+              </div>
+              <div class="form-item">
+                <label class="form-label">登录密码</label>
+                <input type="password" id="loginPassword" class="form-input" placeholder="请输入密码 (默认: 123456)" />
+              </div>
+              <div class="form-item">
+                <label class="form-label">导演昵称 (首次注册可选)</label>
+                <input type="text" id="loginNickname" class="form-input" placeholder="对外展示昵称 (如: 金牌导演小张)" />
+              </div>
+              <button class="btn-main-pink" style="width:100%; margin-top:8px; padding:10px; font-size:14px;" onclick="handleAccountLogin(this)">登录 / 注册并进入片场</button>
+              <button class="pill-btn" style="width:100%; margin-top:8px; padding:9px; font-size:12px; font-weight:800;" onclick="createRandomGuest(this)">游客快速体验 (分配独立新账号)</button>
+              <div style="font-size:11px; color:#94A3B8; text-align:center; margin-top:6px;">* 每个用户对应唯一导演身份，数据云端实时同步</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // 全局数据状态
+    let gameData = null;
+    let selectedGenreIndex = 1; // 默认真假千金
+    let currentEpisodeIndex = 0; // 0..5
+    let currentPanelIndex = 0;   // 0..panels.length-1
+    let phase = 'narration';     // narration | choices | outcome
+    let currentStats = { pleasure: 10, drama: 25, anger: 10, evidence: 0, subversion: 0 };
+    let countdownTimerId = null;
+    let countdownSec = 10;
+    let danmuInterval = null;
+    let historyChoices = [];     // 记录整部剧 6 集的选择结果与对应台词
+    let collectedClues = {};     // { 'ep1': true }
+    let collectedEvidenceEps = []; // 真实点击收取过的 0-based 集数索引
+    let pendingEvidence = null;  // 当前集待点击收取的动态证物
+    let currentShareCode = '';   // 当前成片分享口令
+    let isFriendViewer = false;  // 是否是通过好友分享链接进来的好友读者
+
+    // 导演用户中心与多端登录系统状态
+    let currentUser = {
+      userId: 0,
+      userName: '',
+      openid: '',
+      nickname: '微信导演',
+      avatarUrl: '[导演]',
+      totalBoxOffice: 0,
+      bestScore: 0,
+      shootCount: 0
+    };
+    let userProgressMap = {};
+
+    function getScriptIdForGenre(genreId) {
+      if (gameData && Array.isArray(gameData.genres)) {
+        const found = gameData.genres.find(g => g.id === genreId);
+        if (found && found.dbScriptId) return found.dbScriptId;
+      }
+      if (genreId === 'dragon') return 'script_01_zhuixu';
+      if (genreId === 'heiress') return 'script_02_qianjin';
+      if (genreId === 'landlady' || genreId === 'bazong') return 'script_03_bazong';
+      if (genreId === 'marriage' || genreId === 'baomu') return 'script_04_baomu';
+      if (genreId === 'reborn') return 'script_05_reborn';
+      if (genreId === 'transmig') return 'script_06_transmig';
+      if (genreId === 'veteran') return 'script_07_veteran';
+      if (genreId === 'healer') return 'script_08_healer';
+      if (genreId === 'palace') return 'script_09_palace';
+      return genreId;
+    }
+
+    // 原创人物一致性分镜插画库（每一幕专属分镜）
+    const panelImageMap = {
+      'heiress_ep1_p1': '/static/generated_scenes/heiress/heiress_ep1_p1.jpg',
+      'heiress_ep1_p2': '/static/generated_scenes/heiress/heiress_ep1_p2.jpg',
+      'heiress_ep1_p3': '/static/generated_scenes/heiress/heiress_ep1_p2.jpg',
+      'heiress_ep1_p4': '/static/generated_scenes/heiress/heiress_ep1_p1.jpg',
+      'heiress_ep2_p1': '/static/generated_scenes/heiress/heiress_ep2_p1.jpg',
+      'heiress_ep2_p2': '/static/generated_scenes/heiress/heiress_ep2_p1.jpg',
+      'heiress_ep2_p3': '/static/generated_scenes/heiress/heiress_ep2_p1.jpg',
+      'heiress_ep2_p4': '/static/generated_scenes/heiress/heiress_ep2_p1.jpg'
+    };
+
+    let peerDanmuList = [
+      "选A！选A！直接都用汤勺，笑死我了",
+      "绝了，这反派管事太欠揍了！",
+      "弹幕护体，这神级反转我给满分",
+      "这集太离谱了，快拍！",
+      "这波打脸必须狠，建议选B！",
+      "哈哈哈，大家都在选第一个！",
+      "支持真千金手撕绿茶协议！",
+      "满级马甲上线，坐等反杀！"
+    ];
+
+    const API_ORIGIN = window.__API_ORIGIN__ || (window.location.port === '8082'
+      ? `${window.location.protocol}//${window.location.hostname || 'localhost'}:8080`
+      : window.location.origin);
+    let appConfig = { adEnabled: true, reviewSafeMode: false, antiCheatStrict: true };
+    let friendSharedMovie = null;
+
+    // 应用内波普风轻量 Toast（替代原生 alert，兼容微信小游戏/小程序）
+    let popToastTimer = null;
+    function showToast(msg, duration = 2600) {
+      const el = document.getElementById('popToast');
+      if (!el) return;
+      el.innerText = String(msg || '').replace(/\n+/g, ' ');
+      el.classList.add('show');
+      clearTimeout(popToastTimer);
+      popToastTimer = setTimeout(() => el.classList.remove('show'), duration);
+    }
+
+    // 应用内自定义波普弹窗（替代原生 confirm / prompt）
+    function showPopDialog({ title = '提示', content = '', showInput = false, inputValue = '', inputPlaceholder = '', confirmText = '确定', cancelText = '取消', showCancel = true } = {}) {
+      return new Promise((resolve) => {
+        const modal = document.getElementById('popDialogModal');
+        const titleEl = document.getElementById('popDialogTitle');
+        const textEl = document.getElementById('popDialogText');
+        const inputEl = document.getElementById('popDialogInput');
+        const okBtn = document.getElementById('popDialogConfirmBtn');
+        const cancelBtn = document.getElementById('popDialogCancelBtn');
+        if (!modal) return resolve(false);
+
+        titleEl.innerText = title;
+        textEl.innerText = content;
+        okBtn.innerText = confirmText;
+        cancelBtn.innerText = cancelText;
+        cancelBtn.style.display = showCancel ? 'inline-block' : 'none';
+        inputEl.style.display = showInput ? 'block' : 'none';
+        inputEl.value = inputValue || '';
+        inputEl.placeholder = inputPlaceholder || '';
+        modal.style.display = 'flex';
+        if (showInput) setTimeout(() => inputEl.focus(), 60);
+
+        const cleanup = (val) => {
+          modal.style.display = 'none';
+          okBtn.onclick = null;
+          cancelBtn.onclick = null;
+          resolve(val);
+        };
+        okBtn.onclick = () => cleanup(showInput ? inputEl.value : true);
+        cancelBtn.onclick = () => cleanup(showInput ? null : false);
+      });
+    }
+
+    // 通用加载态占位 HTML（纯 CSS 旋转动画）
+    function renderLoadingHtml(text) {
+      return `<div class="ry-loading-state"><span class="ry-spinner"></span><span>${text || '数据加载中...'}</span></div>`;
+    }
+
+    // 通用异步按钮 Loading 防重包装器
+    async function withBtnLoading(btn, loadingText, asyncFn) {
+      if (btn && btn.classList && btn.classList.contains('is-loading')) return;
+      const prevHtml = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.classList.add('is-loading');
+        btn.disabled = true;
+        btn.innerHTML = `<span class="ry-spinner"></span>${loadingText || '处理中...'}`;
+      }
+      try {
+        return await asyncFn();
+      } finally {
+        if (btn) {
+          btn.classList.remove('is-loading');
+          btn.disabled = false;
+          btn.innerHTML = prevHtml;
+        }
+      }
+    }
+
+    async function loadAppConfig() {
+      try {
+        const res = await fetch(`${API_ORIGIN}/api/duanju/config`);
+        const data = await res.json();
+        if (data && data.code === 200 && data.data) {
+          appConfig = { ...appConfig, ...data.data };
+          const isAudit = Boolean(appConfig.auditMode || appConfig.reviewSafeMode);
+          const boostBtn = document.querySelector('.btn-boost');
+          if (boostBtn) {
+            boostBtn.style.display = isAudit ? 'none' : 'block';
+            boostBtn.innerText = appConfig.adEnabled
+              ? '看广告追加宣发：首日播放量 +25% 冲榜'
+              : '追加宣发经费：首日播放量立即 +25% 冲榜';
+          }
+        }
+      } catch (e) {}
+    }
+
+    // 初始化载入真实数据并检查 URL 分享参数
+    async function initGame() {
+      // 检查是否有好友分享参数 (?shareCode=xxx 或 ?share=xxx)
+      const urlParams = new URLSearchParams(window.location.search);
+      const shareCode = urlParams.get('shareCode') || urlParams.get('share');
+      const inviteBy = urlParams.get('inviteBy');
+      if (inviteBy) {
+        try { localStorage.setItem('duanju_invited_by', inviteBy); } catch (e) {}
+      }
+
+      await loadAppConfig();
+
+      try {
+        const res = await fetch('/static/scripts/FULL_GAME_DATA.json');
+        gameData = await res.json();
+        if (gameData.danmuLines && gameData.danmuLines.length > 0) {
+          peerDanmuList = gameData.danmuLines;
+        }
+      } catch (e) {
+        console.warn('读取本地数据失败', e);
+      }
+
+      // 实时从云端同步最新剧本名称
+      await syncScriptsFromBackend();
+
+      // 从云端载入当前登录导演档案与各剧本拍摄进度
+      await loadUserAndProgress();
+
+      renderGallery();
+      updateCollectionBadge();
+
+      // 每 5 秒轮询同步一次管理端最新修改的剧本名称
+      setInterval(syncScriptsFromBackend, 5000);
+
+      if (shareCode) {
+        isFriendViewer = true;
+        currentShareCode = shareCode;
+        loadFriendSharedMovie(shareCode);
+      }
+
+      if (urlParams.get('openUserModal') === '1') {
+        openUserCenterModal();
+      }
+    }
+
+    // 载入当前导演档案与各剧本拍摄进度档期
+    async function loadUserAndProgress() {
+      let deviceId = '';
+      try {
+        deviceId = localStorage.getItem('duanju_device_id') || '';
+        if (!deviceId) {
+          deviceId = Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
+          localStorage.setItem('duanju_device_id', deviceId);
+        }
+        const saved = localStorage.getItem('duanju_current_user');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          // 清理旧测试账号缓存
+          if (parsed && parsed.openid !== 'wx_director_02' && parsed.userId !== 1002) {
+            currentUser = parsed;
+          } else {
+            localStorage.removeItem('duanju_current_user');
+          }
+        }
+      } catch (e) {}
+
+      // 若尚无真实账号，自动通过游客登录创建独立云端账号
+      if (!currentUser.userId && !currentUser.openid) {
+        try {
+          const lRes = await fetch(`${API_ORIGIN}/app-api/duanju/auth/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ loginType: 'guest', deviceId })
+          });
+          const lData = await lRes.json();
+          if (lData && lData.code === 200 && lData.data) {
+            currentUser = { ...currentUser, ...lData.data };
+            localStorage.setItem('duanju_current_user', JSON.stringify(currentUser));
+          }
+        } catch (e) {}
+      }
+
+      // 1. 获取最新用户信息
+      if (currentUser.userId || currentUser.openid) {
+        try {
+          const uRes = await fetch(`${API_ORIGIN}/app-api/duanju/auth/info?userId=${currentUser.userId || 0}&openid=${encodeURIComponent(currentUser.openid || '')}`);
+          const uData = await uRes.json();
+          if (uData && uData.code === 200 && uData.data) {
+            currentUser = { ...currentUser, ...uData.data };
+            localStorage.setItem('duanju_current_user', JSON.stringify(currentUser));
+          }
+        } catch (e) {}
+      }
+
+      // 2. 获取该导演所有剧本的拍摄进度
+      if (currentUser.userId || currentUser.openid) {
+        try {
+          const pRes = await fetch(`${API_ORIGIN}/app-api/duanju/progress/list?userId=${currentUser.userId || 0}&openid=${encodeURIComponent(currentUser.openid || '')}`);
+          const pData = await pRes.json();
+          if (pData && pData.code === 200 && Array.isArray(pData.rows)) {
+            userProgressMap = {};
+            pData.rows.forEach(p => {
+              userProgressMap[p.scriptId] = p;
+              if (p.scriptId.includes('zhuixu') || p.scriptId === 'dragon') userProgressMap['dragon'] = p;
+              if (p.scriptId.includes('qianjin') || p.scriptId === 'heiress') userProgressMap['heiress'] = p;
+              if (p.scriptId.includes('bazong') || p.scriptId === 'landlady') userProgressMap['landlady'] = p;
+              if (p.scriptId.includes('baomu') || p.scriptId === 'marriage') userProgressMap['marriage'] = p;
+            });
+          }
+        } catch (e) {}
+
+        // 3. 从云端同步当前导演已解锁结局图鉴
+        try {
+          const cRes = await fetch(`${API_ORIGIN}/app-api/duanju/collection/my?userId=${currentUser.userId || 0}&openid=${encodeURIComponent(currentUser.openid || '')}`);
+          const cData = await cRes.json();
+          if (cData && cData.code === 200 && cData.data && cData.data.endings) {
+            const localCol = loadUserCollection();
+            Object.keys(cData.data.endings).forEach(eid => {
+              if (!localCol.endings[eid]) {
+                localCol.endings[eid] = cData.data.endings[eid];
+              }
+            });
+            saveUserCollection(localCol);
+            updateCollectionBadge();
+          }
+        } catch (e) {}
+      }
+
+      updateUserHeaderUI();
+    }
+
+    // 更新顶部导演状态条
+    function updateUserHeaderUI() {
+      const nickEl = document.getElementById('curDirectorNick');
+      const statEl = document.getElementById('curDirectorStat');
+      const avatarEl = document.getElementById('userAvatarBadge');
+
+      if (nickEl) nickEl.innerText = currentUser.nickname || '微信导演';
+      if (avatarEl) avatarEl.innerText = currentUser.avatarUrl || '[导演]';
+      if (statEl) {
+        let boxOfficeStr = '0 亿';
+        if (currentUser.totalBoxOffice) {
+          boxOfficeStr = (currentUser.totalBoxOffice >= 100000000) 
+            ? `${(currentUser.totalBoxOffice / 100000000).toFixed(2)} 亿`
+            : `${currentUser.totalBoxOffice} 播放`;
+        }
+        statEl.innerText = `票房: ${boxOfficeStr} · 已拍 ${currentUser.shootCount || 0} 部`;
+      }
+    }
+
+    // 实时同步最新全部剧本与分镜独白数据
+    async function syncScriptsFromBackend() {
+      try {
+        const sRes = await fetch(`${API_ORIGIN}/api/duanju/script/list`);
+        const sData = await sRes.json();
+        if (sData && Array.isArray(sData.rows) && sData.rows.length > 0) {
+          if (!gameData) gameData = { genres: [] };
+          if (!gameData.genres) gameData.genres = [];
+
+          // 仅展示后端已上架 (status === '0') 的剧本，并与管理端全量剧本保持一致
+          const activeRows = sData.rows.filter(r => String(r.status) !== '1');
+          let hasChange = false;
+          activeRows.forEach((serverScript, sIdx) => {
+            const sid = serverScript.scriptId || '';
+            // 尝试在本地原有 genres 中精准匹配
+            let targetGenre = gameData.genres.find(g =>
+              g.id === sid ||
+              g.dbScriptId === sid ||
+              (sid.includes('zhuixu') && g.id === 'dragon') ||
+              (sid.includes('qianjin') && g.id === 'heiress') ||
+              (sid.includes('bazong') && (g.id === 'landlady' || g.id === 'bazong')) ||
+              (sid.includes('baomu') && (g.id === 'marriage' || g.id === 'baomu')) ||
+              (sid.includes('reborn') && g.id === 'reborn') ||
+              (sid.includes('transmig') && g.id === 'transmig') ||
+              (sid.includes('veteran') && g.id === 'veteran') ||
+              (sid.includes('healer') && g.id === 'healer') ||
+              (sid.includes('palace') && g.id === 'palace')
+            );
+
+            if (targetGenre) {
+              if (serverScript.title && targetGenre.name !== serverScript.title) {
+                targetGenre.name = serverScript.title;
+                targetGenre.title = serverScript.title;
+                hasChange = true;
+              }
+              if (serverScript.synopsis) {
+                targetGenre.logline = serverScript.synopsis;
+                roleIntroMap[targetGenre.id] = serverScript.synopsis;
+                hasChange = true;
+              }
+              if (serverScript.coverImage) {
+                targetGenre.coverImage = serverScript.coverImage;
+              }
+              if (serverScript.coverTheme) {
+                targetGenre.coverTheme = serverScript.coverTheme;
+              }
+              if (serverScript.defaultProtagonist) {
+                targetGenre.protagonist = serverScript.defaultProtagonist;
+              }
+              if (Array.isArray(serverScript.episodes) && serverScript.episodes.length > 0) {
+                targetGenre.episodes = serverScript.episodes;
+              }
+              if (Array.isArray(serverScript.endings) && serverScript.endings.length > 0) {
+                targetGenre.endings = serverScript.endings;
+              }
+              const nextRec = Boolean(serverScript.recommend);
+              if (Boolean(targetGenre.recommend) !== nextRec) {
+                targetGenre.recommend = nextRec;
+                hasChange = true;
+              }
+              targetGenre.sortOrder = Number(serverScript.sortOrder) || (sIdx + 1);
+              targetGenre.dbScriptId = sid;
+            } else {
+              // 动态新增由后台管理端新创建的剧本！
+              const newG = {
+                id: sid,
+                dbScriptId: sid,
+                recommend: Boolean(serverScript.recommend),
+                sortOrder: Number(serverScript.sortOrder) || (sIdx + 1),
+                name: serverScript.title || `新剧本 ${sIdx + 1}`,
+                title: serverScript.title || `新剧本 ${sIdx + 1}`,
+                logline: serverScript.synopsis || '全新热门互动短剧',
+                protagonist: serverScript.defaultProtagonist || '新锐主演',
+                coverImage: serverScript.coverImage || '/static/art/covers/cover-dragon.jpg',
+                coverTheme: serverScript.coverTheme || '#FFE600',
+                episodes: (Array.isArray(serverScript.episodes) && serverScript.episodes.length > 0)
+                  ? serverScript.episodes
+                  : Array.from({ length: 6 }, (_, eIdx) => ({
+                      number: eIdx + 1,
+                      title: `第 ${eIdx + 1} 集`,
+                      sceneDesc: `${serverScript.title} 第 ${eIdx + 1} 集开场独白。`,
+                      panels: [{ speaker: '旁白', text: `${serverScript.title} 第 ${eIdx + 1} 集开场独白。` }],
+                      choices: [
+                        { id: 'A', label: '正面对决，按常理出牌', outcome: '剧情稳步推进。', effects: { pleasure: 10, drama: 10, anger: 5, evidence: 1, subversion: 0 } },
+                        { id: 'B', label: '离谱反转，当场整活', outcome: '弹幕瞬间炸裂！', effects: { pleasure: 18, drama: 20, anger: 15, evidence: 0, subversion: 2 } },
+                        { id: 'C', label: '打工人觉醒，依规办事', outcome: '全场起立鼓掌！', effects: { pleasure: 15, drama: 15, anger: -5, evidence: 1, subversion: 1 } }
+                      ]
+                    })),
+                endings: serverScript.endings || []
+              };
+              roleIntroMap[sid] = serverScript.synopsis || newG.logline;
+              gameData.genres.push(newG);
+              hasChange = true;
+            }
+          });
+
+          // 移除在后台被下架 (status === '1') 的剧本，确保与管理端上架剧本完全一致
+          const activeIds = new Set(activeRows.map(r => r.scriptId));
+          const beforeLen = gameData.genres.length;
+          gameData.genres = gameData.genres.filter(g => !g.dbScriptId || activeIds.has(g.dbScriptId));
+          if (gameData.genres.length !== beforeLen) hasChange = true;
+
+          // 按“主推剧本优先 -> 后台排序序号”排列
+          const activeGenreId = gameData.genres[selectedGenreIndex] ? gameData.genres[selectedGenreIndex].id : null;
+          gameData.genres.sort((a, b) => {
+            const recDiff = (b.recommend ? 1 : 0) - (a.recommend ? 1 : 0);
+            if (recDiff !== 0) return recDiff;
+            return (a.sortOrder || 999) - (b.sortOrder || 999);
+          });
+
+          if (!window.__hasInitDefaultGenre) {
+            // 首次进入首页：默认选中第 2 个主推剧本居中展示（左=主推1、中=主推2、右=主推3）
+            window.__hasInitDefaultGenre = true;
+            const recCount = gameData.genres.filter(g => g.recommend).length;
+            if (recCount >= 2) {
+              selectedGenreIndex = 1;
+            } else if (gameData.genres.length > 1) {
+              selectedGenreIndex = 1;
+            } else {
+              selectedGenreIndex = 0;
+            }
+            hasChange = true;
+          } else if (activeGenreId) {
+            // 后续后台轮询刷新：保持用户当前手动选中的剧本不跳变
+            const newIdx = gameData.genres.findIndex(g => g.id === activeGenreId);
+            selectedGenreIndex = newIdx >= 0 ? newIdx : 0;
+          }
+
+          if (hasChange) {
+            renderGallery();
+            updateCollectionBadge();
+            updateBriefBox();
+          }
+        }
+      } catch (err) {
+        // silent
+      }
+    }
+
+    // 原版角色前情提要映射表 (roleIntro)
+    const roleIntroMap = {
+      marriage: '你正在扮演为分摊房租闪婚的租客：搭伙协议八页，对象自称“略有积蓄”，其实整栋楼电梯都归他。',
+      heiress: '你正在扮演在城乡结合部养猪十八年、刚被林家豪门找回来的真千金：认亲宴上，假千金楚楚可怜准备陷害你，全家都护在她身前......',
+      dragon: '你正在扮演三年忍让只为守住老街食堂的赘婿：寿宴只剩折叠凳，退婚协议背面是点菜单，龙纹至尊令却被当成三块钱购物卡。',
+      reborn: '你正在扮演重生归来的女配：上一世被渣男算计负债累累，重回订婚典礼现场，你决定当场改换剧本逆风翻盘。',
+      transmig: '你正在扮演穿进狗血短剧的恶毒女配：原著剧本里你活不过三集，这次你手握全本剧透，誓要带全员打破降智光环。',
+      landlady: '你正在扮演手握整条老街门面房的包租婆：豪门霸总隐瞒身份住进破旧公寓苦苦追妻，你天天按时敲门收水电费。',
+      veteran: '你正在扮演退伍归来的老兵：回到家乡发现妻女受尽恶霸欺凌，昔日战友一个电话，十万将士闻令而动。'
+    };
+
+    // 渲染原版 1:1 三联海报墙 (左侧、当前主推、右侧)
+    function renderGallery() {
+      if (!gameData || !gameData.genres) return;
+      const wall = document.getElementById('genrePosterWall');
+      if (!wall) return;
+      wall.innerHTML = '';
+
+      const total = gameData.genres.length;
+      const curIdx = selectedGenreIndex;
+      const prevIdx = (curIdx - 1 + total) % total;
+      const nextIdx = (curIdx + 1) % total;
+
+      // 组装左、中(featured)、右 3 张海报
+      const trio = [
+        { genre: gameData.genres[prevIdx], idx: prevIdx, isFeatured: false },
+        { genre: gameData.genres[curIdx], idx: curIdx, isFeatured: true },
+        { genre: gameData.genres[nextIdx], idx: nextIdx, isFeatured: false }
+      ];
+
+      trio.forEach((item) => {
+        const g = item.genre;
+        const fig = document.createElement('figure');
+        fig.className = `home-poster ${item.isFeatured ? 'featured' : ''}`;
+        fig.onclick = () => selectGenre(item.idx);
+
+        const sid = getScriptIdForGenre(g.id);
+        const prog = userProgressMap[g.id] || userProgressMap[sid];
+        let badgeHtml = '';
+        if (prog && prog.isFinished === '1') {
+          badgeHtml = `<span class="poster-badge" style="background:#10B981;">已杀青 ${prog.finishScore||'98'}分</span>`;
+        } else if (prog && prog.currentEpisode > 1) {
+          badgeHtml = `<span class="poster-badge pink">第 ${prog.currentEpisode}/6 集</span>`;
+        } else if (g.recommend) {
+          badgeHtml = `<span class="poster-badge" style="background:#FF5A8D;color:#fff;">主推</span>`;
+        } else if (item.isFeatured) {
+          badgeHtml = `<span class="poster-badge">第 1 集</span>`;
+        }
+        const coverSrc = g.coverImage || `/static/art/covers/cover-${g.id}.jpg`;
+
+        fig.innerHTML = `
+          <span class="poster-art">
+            <img class="poster-img" src="${coverSrc}" alt="${g.name}" onerror="this.src='/static/generated_scenes/heiress/heiress_ep1_p1.jpg';" />
+            ${badgeHtml}
+          </span>
+          <figcaption class="poster-name">${g.name}</figcaption>
+        `;
+        wall.appendChild(fig);
+      });
+
+      // 渲染全量剧本轮播指示条（左右切换 + 全部 N 部圆点 + 第 X/N 部计数）
+      const navEl = document.getElementById('carouselNavBar');
+      if (navEl && total > 0) {
+        const dotsHtml = gameData.genres.map((g, idx) =>
+          `<button class="carousel-dot ${idx === curIdx ? 'active' : ''} ${g.recommend ? 'is-rec' : ''}" title="${g.name}" onclick="selectGenre(${idx})"></button>`
+        ).join('');
+        navEl.innerHTML = `
+          <button class="carousel-arrow-btn" onclick="stepGenre(-1)" aria-label="上一部">&lt;</button>
+          <div class="carousel-dots">${dotsHtml}</div>
+          <span class="carousel-counter">${curIdx + 1}/${total}</span>
+          <button class="carousel-arrow-btn" onclick="stepGenre(1)" aria-label="下一部">&gt;</button>
+        `;
+      }
+
+      updateBriefBox();
+    }
+
+    function stepGenre(delta) {
+      if (!gameData || !gameData.genres || gameData.genres.length === 0) return;
+      const total = gameData.genres.length;
+      const nextIdx = (selectedGenreIndex + delta + total) % total;
+      selectGenre(nextIdx);
+    }
+
+    function selectGenre(idx) {
+      selectedGenreIndex = idx;
+      const g = gameData.genres[idx];
+      const sid = getScriptIdForGenre(g.id);
+      const prog = userProgressMap[g.id] || userProgressMap[sid];
+
+      if (prog && prog.currentEpisode && prog.isFinished !== '1') {
+        currentEpisodeIndex = Math.min(5, Math.max(0, prog.currentEpisode - 1));
+        currentPanelIndex = prog.currentPanel || 0;
+        historyChoices = Array.isArray(prog.historyChoices) ? [...prog.historyChoices] : [];
+        currentStats = prog.currentStats ? { ...prog.currentStats } : { pleasure: 10, drama: 25, anger: 10, evidence: 0, subversion: 0 };
+      } else {
+        currentEpisodeIndex = 0;
+        currentPanelIndex = 0;
+        currentStats = { pleasure: 10, drama: 25, anger: 10, evidence: 0, subversion: 0 };
+        historyChoices = [];
+        collectedClues = {};
+        collectedEvidenceEps = [];
+        pendingEvidence = null;
+      }
+      renderGallery();
+      updateCollectionBadge();
+    }
+
+    function updateBriefBox() {
+      if (!gameData) return;
+      const genre = gameData.genres[selectedGenreIndex];
+      const sid = getScriptIdForGenre(genre.id);
+      const prog = userProgressMap[genre.id] || userProgressMap[sid];
+
+      const epNum = (prog && prog.currentEpisode && prog.isFinished !== '1') ? prog.currentEpisode : (currentEpisodeIndex + 1);
+      const ep = genre.episodes[epNum - 1] || genre.episodes[0];
+
+      const tagEl = document.getElementById('roleIntroTag');
+      const textEl = document.getElementById('roleIntroText');
+      if (tagEl) tagEl.innerText = `第 ${epNum} 集`;
+      if (textEl) {
+        textEl.innerText = roleIntroMap[genre.id] || (ep && ep.panels && ep.panels[0] ? cleanDialogue(ep.panels[0].text) : (ep && ep.sceneDesc ? ep.sceneDesc : genre.logline));
+      }
+
+      const startBtn = document.getElementById('startShootBtn');
+      if (startBtn) {
+        if (prog && prog.isFinished === '1') {
+          startBtn.innerText = `重拍新结局 · 《${genre.name}》`;
+        } else if (prog && prog.currentEpisode > 1) {
+          startBtn.innerText = `继续拍摄第 ${prog.currentEpisode} 集 · 《${genre.name}》`;
+        } else {
+          startBtn.innerText = `开拍 · 《${genre.name}》`;
+        }
+      }
+      const subEl = document.getElementById('homeProgressSub');
+      if (subEl) {
+        if (prog && prog.isFinished === '1') {
+          subEl.innerText = `已杀青完结 · 评分 ${prog.finishScore || '98.5'} 分 · 刚刚`;
+        } else if (prog && prog.currentEpisode > 1) {
+          subEl.innerText = `演到第 ${prog.currentEpisode}/6 集 · 拍摄中 · 刚刚`;
+        } else {
+          subEl.innerText = `演到第 1/6 集 · 刚刚`;
+        }
+      }
+
+      // 更新顶部胶囊进度标牌
+      const pill = document.getElementById('curScriptProgressPill');
+      if (pill) {
+        if (prog && prog.isFinished === '1') {
+          pill.className = 'user-progress-badge finished';
+          pill.innerText = `[已杀青 · ${prog.finishScore || '98.5'}分]`;
+        } else if (prog && prog.currentEpisode > 1) {
+          pill.className = 'user-progress-badge';
+          pill.innerText = `[拍摄中 · 第 ${prog.currentEpisode} 集]`;
+        } else {
+          pill.className = 'user-progress-badge';
+          pill.innerText = `[未开拍 · 第 1 集]`;
+        }
+      }
+    }
+
+    // 打开原版 1:1 换剧本全题材选片弹窗
+    async function openGenreSelectModal() {
+      const modal = document.getElementById('genreSelectModal');
+      const listEl = document.getElementById('genreSelectList');
+      modal.style.display = 'flex';
+      listEl.innerHTML = renderLoadingHtml('正在刷新剧本列表...');
+
+      await syncScriptsFromBackend();
+      listEl.innerHTML = '';
+
+      gameData.genres.forEach((genre, idx) => {
+        const isCurrent = idx === selectedGenreIndex;
+        const row = document.createElement('div');
+        row.className = `genre-card-row ${isCurrent ? 'current' : ''}`;
+        row.onclick = () => {
+          selectGenre(idx);
+          closeGenreSelectModal();
+        };
+
+        const coverSrc = genre.coverImage || `/static/art/covers/cover-${genre.id}.jpg`;
+        const recTagHtml = genre.recommend
+          ? `<span style="display:inline-block;background:#FF5A8D;color:#fff;font-size:10px;font-weight:900;padding:1px 6px;border-radius:6px;border:1.5px solid #1E2246;margin-left:4px;vertical-align:middle;white-space:nowrap;">主推</span>`
+          : '';
+        row.innerHTML = `
+          <div class="genre-card-thumb">
+            <img src="${coverSrc}" alt="${genre.name}" onerror="this.src='/static/generated_scenes/heiress/heiress_ep1_p1.jpg';" />
+          </div>
+          <div class="genre-card-info">
+            <div class="genre-card-title-line">
+              <span class="genre-card-title">《${genre.name}》${recTagHtml}</span>
+              <span class="genre-select-pill" style="background:${isCurrent?'#2563EB':'#F1F5F9'}; color:${isCurrent?'#fff':'#334155'};">${isCurrent ? '当前选中' : '选此剧'}</span>
+            </div>
+            <div class="genre-card-logline">${genre.logline}</div>
+            <div class="genre-card-meta">主角：${genre.protagonist.slice(0, 16)} · 共 6 集</div>
+          </div>
+        `;
+        listEl.appendChild(row);
+      });
+    }
+
+    function closeGenreSelectModal() {
+      document.getElementById('genreSelectModal').style.display = 'none';
+    }
+
+    // ================= 原版 1:1 我的图鉴系统 =================
+    const ENDING_TYPE_LABELS = {
+      hidden: '隐藏彩蛋',
+      subversive: '反套路收官',
+      unfinished: '喜剧烂尾',
+      triumph: '爽剧完结'
+    };
+
+    const ENDING_HINTS = {
+      hidden: '留意第二集的小物件，别忘第五集的准备。',
+      subversive: '多拆几次套路，看看这部剧还能不能按原样演。',
+      unfinished: '排场拉满、材料留空，收官会发生什么？',
+      triumph: '照着自己的节奏好好演完，就能看到。'
+    };
+
+    const POSTER_STYLES = [
+      { id: 'gold', name: '土豪金经典款', unlock: { always: true }, palette: ['#FFF8E7', '#FFD93D', '#111111'] },
+      { id: 'pink', name: '粉色反转款', unlock: { completedRuns: 1 }, palette: ['#FFE8F2', '#FF5FA2', '#111111'] },
+      { id: 'ink', name: '账本水墨款', unlock: { uniqueEndings: 3 }, palette: ['#F3EFE4', '#2ECC71', '#111111'] },
+      { id: 'retro', name: '录像带吐槽款', unlock: { uniqueEndings: 6 }, palette: ['#E3F5FD', '#3CB8F0', '#111111'] },
+      { id: 'comic', name: '爆炸气泡款', unlock: { uniqueGenres: 3 }, palette: ['#FFF3C2', '#FF5FA2', '#111111'] },
+      { id: 'minimal', name: '准点下班极简款', unlock: { subversiveEndings: 2 }, palette: ['#FFFFFF', '#3CB8F0', '#111111'] },
+      { id: 'secret', name: '隐藏档案款', unlock: { hiddenEndings: 2 }, palette: ['#ECECEC', '#2ECC71', '#111111'] },
+      { id: 'unfinished', name: '未完待补件款', unlock: { unfinishedEndings: 1 }, palette: ['#FFF8E7', '#FF5FA2', '#111111'] }
+    ];
+
+    let lastNewEndingId = null;
+
+    function getCollectionStorageKey() {
+      const uid = (currentUser && currentUser.userId) ? currentUser.userId : 'guest';
+      return `duanju_collection_${uid}`;
+    }
+
+    function loadUserCollection() {
+      try {
+        const raw = localStorage.getItem(getCollectionStorageKey());
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed && typeof parsed === 'object') {
+            return {
+              completedRuns: Number(parsed.completedRuns) || 0,
+              endings: parsed.endings || {}
+            };
+          }
+        }
+      } catch (e) {}
+      return { completedRuns: 0, endings: {} };
+    }
+
+    function saveUserCollection(col) {
+      try {
+        localStorage.setItem(getCollectionStorageKey(), JSON.stringify(col));
+      } catch (e) {}
+    }
+
+    function recordUnlockedEnding(genre, ending, choices) {
+      if (!ending || !ending.id) return;
+      const col = loadUserCollection();
+      col.completedRuns = (col.completedRuns || 0) + 1;
+      const existing = col.endings[ending.id];
+      const nowIso = new Date().toISOString();
+      const formattedChoices = (choices || []).map((c, idx) => ({
+        ep: idx + 1,
+        label: c.choiceLabel || c.label || '按剧本推进'
+      }));
+      if (existing) {
+        existing.count = (existing.count || 1) + 1;
+        existing.title = ending.title;
+        existing.type = ending.type || 'triumph';
+        if (formattedChoices.length > 0) existing.choices = formattedChoices;
+      } else {
+        col.endings[ending.id] = {
+          id: ending.id,
+          genreId: genre.id,
+          title: ending.title,
+          type: ending.type || 'triumph',
+          firstAt: nowIso,
+          count: 1,
+          choices: formattedChoices
+        };
+      }
+      lastNewEndingId = ending.id;
+      saveUserCollection(col);
+      updateCollectionBadge();
+
+      // 同步写入云端图鉴表
+      fetch(`${API_ORIGIN}/app-api/duanju/collection/unlock`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: currentUser.userId,
+          openid: currentUser.openid,
+          scriptId: getScriptIdForGenre(genre.id),
+          endingId: ending.id,
+          endingTitle: ending.title,
+          endingType: ending.type || 'triumph',
+          choices: formattedChoices
+        })
+      }).catch(() => {});
+    }
+
+    function computeCollectionMetrics(col) {
+      const genres = (gameData && Array.isArray(gameData.genres)) ? gameData.genres : [];
+      let total = 0;
+      let unlocked = 0;
+      let subversiveEndings = 0;
+      let hiddenEndings = 0;
+      let unfinishedEndings = 0;
+      const genreSet = new Set();
+
+      genres.forEach(g => {
+        const ends = g.endings || [];
+        total += ends.length;
+        ends.forEach(e => {
+          if (col.endings[e.id]) {
+            unlocked++;
+            genreSet.add(g.id);
+            const t = e.type || 'triumph';
+            if (t === 'subversive') subversiveEndings++;
+            else if (t === 'hidden') hiddenEndings++;
+            else if (t === 'unfinished') unfinishedEndings++;
+          }
+        });
+      });
+
+      return {
+        total,
+        unlocked,
+        completedRuns: Math.max(col.completedRuns || 0, (currentUser && currentUser.shootCount) ? Number(currentUser.shootCount) : 0),
+        uniqueEndings: Object.keys(col.endings).length,
+        uniqueGenres: genreSet.size,
+        subversiveEndings,
+        hiddenEndings,
+        unfinishedEndings
+      };
+    }
+
+    function isPosterStyleUnlocked(style, metrics) {
+      const u = style.unlock || {};
+      if (u.always) return true;
+      if (u.completedRuns && metrics.completedRuns >= u.completedRuns) return true;
+      if (u.uniqueEndings && metrics.uniqueEndings >= u.uniqueEndings) return true;
+      if (u.uniqueGenres && metrics.uniqueGenres >= u.uniqueGenres) return true;
+      if (u.subversiveEndings && metrics.subversiveEndings >= u.subversiveEndings) return true;
+      if (u.hiddenEndings && metrics.hiddenEndings >= u.hiddenEndings) return true;
+      if (u.unfinishedEndings && metrics.unfinishedEndings >= u.unfinishedEndings) return true;
+      return false;
+    }
+
+    function formatStyleUnlockText(unlock) {
+      if (!unlock) return '';
+      if (unlock.completedRuns) return `完成 ${unlock.completedRuns} 局解锁`;
+      if (unlock.uniqueEndings) return `解锁 ${unlock.uniqueEndings} 个不同结局`;
+      if (unlock.uniqueGenres) return `体验 ${unlock.uniqueGenres} 部不同剧本`;
+      if (unlock.subversiveEndings) return `解锁 ${unlock.subversiveEndings} 个反套路结局`;
+      if (unlock.hiddenEndings) return `解锁 ${unlock.hiddenEndings} 个隐藏彩蛋`;
+      if (unlock.unfinishedEndings) return `解锁 ${unlock.unfinishedEndings} 个喜剧烂尾`;
+      return '完成更多拍摄解锁';
+    }
+
+    function formatStyleGap(style, metrics) {
+      const u = style.unlock || {};
+      if (u.completedRuns) return `再完成 ${u.completedRuns - metrics.completedRuns} 局`;
+      if (u.uniqueEndings) return `再解锁 ${u.uniqueEndings - metrics.uniqueEndings} 个不同结局`;
+      if (u.uniqueGenres) return `再演 ${u.uniqueGenres - metrics.uniqueGenres} 部不同剧本`;
+      if (u.subversiveEndings) return `再解锁 ${u.subversiveEndings - metrics.subversiveEndings} 个反套路结局`;
+      if (u.hiddenEndings) return `再解锁 ${u.hiddenEndings - metrics.hiddenEndings} 个隐藏彩蛋`;
+      if (u.unfinishedEndings) return `再解锁 ${u.unfinishedEndings - metrics.unfinishedEndings} 个喜剧烂尾`;
+      return '';
+    }
+
+    function updateCollectionBadge() {
+      const btn = document.getElementById('homeCollectionBtn');
+      if (!btn || !gameData || !Array.isArray(gameData.genres)) return;
+      const col = loadUserCollection();
+      const metrics = computeCollectionMetrics(col);
+      btn.innerText = `我的图鉴 ${metrics.unlocked}/${metrics.total}`;
+    }
+
+    function getEndingArtPath(ending, genre) {
+      if (ending && ending.imageUrl) return ending.imageUrl;
+      if (ending && ending.id) {
+        return `/static/art/endings/ending-${String(ending.id).replace('.', '_')}.jpg`;
+      }
+      return (genre && genre.coverImage) || '/static/art/covers/cover-dragon.jpg';
+    }
+
+    function formatCollectionTime(isoStr) {
+      if (!isoStr) return '刚刚';
+      try {
+        return new Date(isoStr).toLocaleString('zh-CN', { hour12: false });
+      } catch (e) {
+        return '';
+      }
+    }
+
+    function jumpToScriptFromCollection(genreIdx) {
+      closeCollectionModal();
+      selectedGenreIndex = genreIdx;
+      currentEpisodeIndex = 0;
+      currentStats = { pleasure: 15, drama: 15, anger: 10, evidence: 0, subversion: 0 };
+      historyChoices = [];
+      collectedClues = {};
+      collectedEvidenceEps = [];
+      pendingEvidence = null;
+      renderGallery();
+      updateCollectionBadge();
+      updateBriefBox();
+      startEpisode();
+    }
+
+    // 打开原版 1:1 我的图鉴弹窗
+    function openCollectionModal() {
+      const modal = document.getElementById('collectionModal');
+      const bodyEl = document.getElementById('collectionModalBody');
+      modal.style.display = 'flex';
+
+      const col = loadUserCollection();
+      const metrics = computeCollectionMetrics(col);
+      const genres = (gameData && Array.isArray(gameData.genres)) ? gameData.genres : [];
+      const pct = metrics.total ? Math.round((metrics.unlocked / metrics.total) * 100) : 0;
+
+      // 查找下一个可解锁的海报样式提示
+      const nextLockedStyle = POSTER_STYLES.find(s => !isPosterStyleUnlocked(s, metrics));
+      let goalText = '';
+      if (metrics.total > 0 && metrics.unlocked >= metrics.total) {
+        goalText = `${metrics.total} 个结局全收齐了！`;
+      } else if (nextLockedStyle) {
+        const gap = formatStyleGap(nextLockedStyle, metrics);
+        goalText = `${gap}，海报样式「${nextLockedStyle.name}」就解锁。`;
+      } else {
+        goalText = `还有 ${metrics.total - metrics.unlocked} 个结局没见过。`;
+      }
+
+      document.getElementById('collectionModalTitle').innerText = `我的图鉴 (${metrics.unlocked}/${metrics.total})`;
+
+      // 1. 顶部 Hero 进度卡
+      let html = `
+        <div class="collection-wrap">
+          <div class="collect-hero">
+            <div class="collect-count">
+              <b>${metrics.unlocked}</b>
+              <span>/${metrics.total} 个结局</span>
+            </div>
+            <div class="collect-bar" role="progressbar" aria-valuemin="0" aria-valuemax="${metrics.total}" aria-valuenow="${metrics.unlocked}">
+              <i style="width:${pct}%"></i>
+            </div>
+            <p class="collect-goal">${goalText}</p>
+          </div>
+          <div class="collect-muted-line">已完成 ${metrics.completedRuns} 局 · 数据保存在当前导演档案中</div>
+          <div class="collect-sub-title">结局图鉴</div>
+      `;
+
+      // 2. 按剧本分组渲染结局图鉴
+      genres.forEach((g, gIdx) => {
+        const endings = g.endings || [];
+        if (endings.length === 0) return;
+        const unlockedInGroup = endings.filter(e => col.endings[e.id]).length;
+        const remain = endings.length - unlockedInGroup;
+
+        const pipsHtml = endings.map(e => `<i class="${col.endings[e.id] ? 'on' : ''}"></i>`).join('');
+        const actionHtml = remain > 0
+          ? `<button class="btn-collect-play ${remain === 1 ? 'near' : ''}" onclick="jumpToScriptFromCollection(${gIdx})">${remain === 1 ? '差 1 个，去刷' : '去刷这条线'}</button>`
+          : `<span class="tag-all-clear">全收集</span>`;
+
+        const cardsHtml = endings.map(e => {
+          const rec = col.endings[e.id];
+          const typeKey = e.type || 'triumph';
+          const typeLabel = ENDING_TYPE_LABELS[typeKey] || '爽剧完结';
+          const artUrl = getEndingArtPath(e, g);
+          const fallbackArt = g.coverImage || '/static/art/covers/cover-dragon.jpg';
+
+          if (rec) {
+            const choicesHtml = (rec.choices && rec.choices.length > 0)
+              ? `<ol>${rec.choices.map(c => `<li>第 ${c.ep} 集：${c.label}</li>`).join('')}</ol>`
+              : '';
+            const endingStory = e.text || e.description || '本局高能收官，全网观众起立鼓掌！';
+            return `
+              <div class="ending-item unlocked type-${typeKey}">
+                <div class="ending-thumb">
+                  <img class="ending-thumb-img" src="${artUrl}" alt="${e.title}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackArt}';" />
+                </div>
+                <div class="ending-item-head">
+                  <span class="ending-type-tag on">${typeLabel}</span>
+                  ${lastNewEndingId === e.id ? '<span class="new-tag">NEW</span>' : ''}
+                </div>
+                <div class="ending-item-title">${e.title}</div>
+                <div class="ending-meta">首次达成：${formatCollectionTime(rec.firstAt)} · 共 ${rec.count || 1} 次</div>
+                <details class="ending-details">
+                  <summary>结局正文与当时的选择</summary>
+                  <p>${endingStory}</p>
+                  ${choicesHtml}
+                </details>
+              </div>
+            `;
+          } else {
+            return `
+              <div class="ending-item locked">
+                <div class="ending-silhouette has-art">
+                  <img class="ending-sil-img" src="${artUrl}" alt="" loading="lazy" onerror="this.onerror=null;this.src='${fallbackArt}';" />
+                  <span class="sil-q">？</span>
+                </div>
+                <div class="ending-item-head">
+                  <span class="ending-type-tag">${typeLabel}</span>
+                </div>
+                <div class="ending-item-title" style="color:#64748B;">未解锁</div>
+                <div class="ending-meta">提示：${e.hint || ENDING_HINTS[typeKey] || '完成对应路线即可解锁。'}</div>
+              </div>
+            `;
+          }
+        }).join('');
+
+        html += `
+          <div class="ending-group">
+            <div class="ending-group-head">
+              <h4>《${g.name}》</h4>
+              <span class="pips">${pipsHtml}</span>
+              <span class="unlock-count">${unlockedInGroup}/${endings.length}</span>
+              ${actionHtml}
+            </div>
+            <div class="ending-cards">${cardsHtml}</div>
+          </div>
+        `;
+      });
+
+      // 3. 已获称号
+      const unlockedTitles = Object.values(col.endings).map(e => e.title).filter(Boolean);
+      html += `<div class="collect-sub-title">已获称号（${unlockedTitles.length}）</div>`;
+      if (unlockedTitles.length > 0) {
+        html += `<div class="title-chips">${unlockedTitles.map(t => `<span class="title-chip">${t}</span>`).join('')}</div>`;
+      } else {
+        html += `<div class="collect-muted-line">演完任意一部即可获得第一个称号。</div>`;
+      }
+
+      // 4. 海报样式
+      html += `<div class="collect-sub-title">海报样式</div>`;
+      html += `<div class="style-grid">`;
+      POSTER_STYLES.forEach(s => {
+        const unlockedStyle = isPosterStyleUnlocked(s, metrics);
+        html += `
+          <div class="style-chip ${unlockedStyle ? '' : 'locked'}" style="--c0:${s.palette[0]}; --c1:${s.palette[1]}; --c2:${s.palette[2]};">
+            <span class="swatch"></span>
+            <span>${unlockedStyle ? s.name : `[未解锁] ${s.name}`}</span>
+            <small>${unlockedStyle ? '已解锁' : formatStyleUnlockText(s.unlock)}</small>
+          </div>
+        `;
+      });
+      html += `</div></div>`;
+
+      bodyEl.innerHTML = html;
+    }
+
+    function closeCollectionModal() {
+      document.getElementById('collectionModal').style.display = 'none';
+    }
+
+    // 进入片场
+    function startEpisode() {
+      document.getElementById('homeView').style.display = 'none';
+      document.getElementById('reportView').style.display = 'none';
+      document.getElementById('episodeView').style.display = 'flex';
+
+      currentPanelIndex = 0;
+      phase = 'narration';
+      // 保证旁白阶段绝对没有弹幕
+      stopDanmaku();
+      loadEpisodeUI();
+    }
+
+    // 装配集数视图
+    function loadEpisodeUI() {
+      const genre = gameData.genres[selectedGenreIndex];
+      const ep = genre.episodes[currentEpisodeIndex];
+
+      const cleanEpTitle = String(ep.title || '').replace(/^第\s*\d+\s*集[：:\s]*/, '');
+      document.getElementById('epGenrePill').innerText = `《${genre.name}》`;
+      document.getElementById('epNumberPill').innerText = `第 ${currentEpisodeIndex + 1} 集 / 6`;
+      document.getElementById('epSubTitle').innerText = `第 ${currentEpisodeIndex + 1} 集：${cleanEpTitle}`;
+
+      updateSceneImageForPanel();
+      updateStatsUI();
+      showNarrationPhase();
+    }
+
+    // 核心：为当前剧本、当前集数、每一幕旁白精确匹配对应画面（绝不跨剧本错位）
+    function updateSceneImageForPanel() {
+      const genre = gameData.genres[selectedGenreIndex];
+      const epNum = currentEpisodeIndex + 1;
+      const pNum = currentPanelIndex + 1;
+      const sceneImg = document.getElementById('sceneComicImg');
+      const badge = document.getElementById('panelSceneBadge');
+
+      const ep = genre.episodes[currentEpisodeIndex];
+      const epTitle = ep ? ep.title : '';
+      badge.innerText = `第 ${epNum} 集 · 第 ${pNum} 幕分镜【${epTitle}】`;
+
+      // 0. 若当前集在管理端配置了专属分镜插画路径，优先采用
+      if (ep && ep.sceneImage) {
+        sceneImg.src = ep.sceneImage;
+        sceneImg.style.transform = 'scale(1.0) translate(0, 0)';
+        return;
+      }
+
+      // 1. 若当前剧本当前幕有专门生成的原创独立分镜，优先加载
+      const customKey = `${genre.id}_ep${epNum}_p${pNum}`;
+      if (panelImageMap[customKey]) {
+        sceneImg.src = panelImageMap[customKey];
+        sceneImg.style.transform = 'scale(1.0) translate(0, 0)';
+      } else {
+        // 2. 严格按当前题材与当前集数，加载属于该题材该集的专属分镜漫画（绝不跨剧本混用！）
+        sceneImg.src = `/static/art/scenes/scene-${genre.id}-ep${epNum}.jpg`;
+
+        // 3. 多幕镜头微推机位联动：每一幕呈现不同构图焦点（全景 -> 特写 -> 动作）
+        if (pNum === 1) {
+          sceneImg.style.transform = 'scale(1.0) translate(0, 0)';
+        } else if (pNum === 2) {
+          sceneImg.style.transform = 'scale(1.15) translate(-2%, -2%)';
+        } else if (pNum === 3) {
+          sceneImg.style.transform = 'scale(1.18) translate(2%, 2%)';
+        } else {
+          sceneImg.style.transform = 'scale(1.08) translate(0, 1%)';
+        }
+      }
+    }
+
+    function updateStatsUI() {
+      document.getElementById('statPleasure').innerText = currentStats.pleasure;
+      document.getElementById('statDrama').innerText = currentStats.drama;
+      document.getElementById('statAnger').innerText = currentStats.anger;
+      document.getElementById('statEvidence').innerText = currentStats.evidence;
+      document.getElementById('statSubversion').innerText = currentStats.subversion;
+
+      const progress = Math.min(100, Math.max(10, ((currentEpisodeIndex + 1) / 6) * 100));
+      document.getElementById('statsProgressBar').style.width = `${progress}%`;
+    }
+
+    // 人名智能高亮
+    function highlightCast(text) {
+      if (!gameData) return text;
+      const genre = gameData.genres[selectedGenreIndex];
+      let res = text;
+      if (genre.cast) {
+        genre.cast.forEach(c => {
+          const isVillain = c.role.includes('反派') || c.role.includes('挑衅') || c.role.includes('敌');
+          const cls = isVillain ? 'cast-villain' : 'cast-ally';
+          const reg = new RegExp(c.name, 'g');
+          res = res.replace(reg, `<span class="${cls}">${c.name}</span>`);
+        });
+      }
+      return res;
+    }
+
+    function cleanDialogue(t) {
+      return t.replace(/\（.*?\）/g, '').replace(/\(.*?\)/g, '');
+    }
+
+    function syncEvidenceHotspotUI() {
+      const hotspotBtn = document.getElementById('evidenceHotspotBtn');
+      const doneBadge = document.getElementById('evidenceCollectedBadge');
+      if (!hotspotBtn || !doneBadge) return;
+      if (phase === 'outcome' && pendingEvidence) {
+        if (pendingEvidence.collected) {
+          hotspotBtn.style.display = 'none';
+          doneBadge.style.display = 'inline-block';
+        } else {
+          hotspotBtn.style.display = 'inline-flex';
+          doneBadge.style.display = 'none';
+        }
+      } else {
+        hotspotBtn.style.display = 'none';
+        doneBadge.style.display = 'none';
+      }
+    }
+
+    function collectPendingEvidence() {
+      if (!pendingEvidence || pendingEvidence.collected) return;
+      pendingEvidence.collected = true;
+      const gain = Number(pendingEvidence.delta || 1);
+      currentStats.evidence += gain;
+      collectedClues['ep' + pendingEvidence.epNum] = true;
+      if (!collectedEvidenceEps.includes(pendingEvidence.epIndex)) {
+        collectedEvidenceEps.push(pendingEvidence.epIndex);
+      }
+      soundFX.playClue();
+      updateStatsUI();
+      syncEvidenceHotspotUI();
+      showToast(`已收取第 ${pendingEvidence.epNum} 集关键证物（已备材料 +${gain}）`);
+    }
+
+    // 1. 旁白阶段：弹幕完全关闭，纯享每一幕漫画与台词
+    function showNarrationPhase() {
+      phase = 'narration';
+      pendingEvidence = null;
+      syncEvidenceHotspotUI();
+      document.getElementById('episodeView').classList.remove('in-choices');
+      stopDanmaku(); // 确保弹幕不出现
+
+      document.getElementById('narrationCard').style.display = 'block';
+      document.getElementById('choicesCard').style.display = 'none';
+      document.getElementById('outcomeCard').style.display = 'none';
+
+      const genre = gameData.genres[selectedGenreIndex];
+      const ep = genre.episodes[currentEpisodeIndex] || genre.episodes[0];
+      if (!ep.panels || ep.panels.length === 0) {
+        ep.panels = [{ speaker: '旁白', text: ep.sceneDesc || `${genre.name} 第 ${currentEpisodeIndex + 1} 集开场。` }];
+      }
+      const panel = ep.panels[currentPanelIndex] || ep.panels[0];
+
+      document.getElementById('lastChoiceChip').innerText = currentEpisodeIndex === 0 && currentPanelIndex === 0
+        ? '剧情开场'
+        : (window.lastChoiceLabel ? `上集选择：${window.lastChoiceLabel}` : '剧情推进');
+
+      document.getElementById('narrationText').innerHTML = highlightCast(panel.text || ep.sceneDesc || '');
+
+      updateSceneImageForPanel();
+
+      const btn = document.getElementById('continueBtn');
+      btn.innerText = `继续 (${currentPanelIndex + 1}/${ep.panels.length})`;
+      btn.style.background = 'var(--pop-pink)';
+    }
+
+    // 2. 选项抉择阶段：此时弹幕狂欢涌现！
+    function showChoicesPhase() {
+      phase = 'choices';
+      document.getElementById('episodeView').classList.add('in-choices');
+      document.getElementById('narrationCard').style.display = 'none';
+      document.getElementById('outcomeCard').style.display = 'none';
+      document.getElementById('choicesCard').style.display = 'flex';
+
+      // 仅在此刻开启弹幕！
+      startDanmakuEmitter();
+
+      const genre = gameData.genres[selectedGenreIndex];
+      const ep = genre.episodes[currentEpisodeIndex];
+      const listEl = document.getElementById('choiceButtonsList');
+      listEl.innerHTML = '';
+
+      ep.choices.forEach((ch, cIdx) => {
+        const numIdx = cIdx + 1;
+        const rawText = (ch.text && String(ch.text).trim()) || '';
+        const rawLabel = (ch.label && String(ch.label).trim()) || '';
+        const actionTitle = (rawText && rawText.length > 1)
+          ? rawText
+          : ((rawLabel && rawLabel.length > 1) ? rawLabel : (ch.styleTag || `拍摄方向 ${numIdx}`));
+
+        const item = document.createElement('div');
+        item.className = 'choice-card-btn';
+        item.onclick = () => selectChoice(ch, false);
+        item.innerHTML = `
+          <span class="choice-num-circle c${numIdx}">${numIdx}</span>
+          <span class="choice-title-text">${actionTitle}</span>
+        `;
+        listEl.appendChild(item);
+      });
+
+      // 启动 30 秒倒计时
+      countdownSec = 30;
+      document.getElementById('countdownTimer').innerText = `${countdownSec}s`;
+      const btn = document.getElementById('continueBtn');
+      btn.innerText = `请选择本集拍摄方向 (${countdownSec}s)`;
+      btn.style.background = '#94A3B8';
+
+      clearInterval(countdownTimerId);
+      countdownTimerId = setInterval(() => {
+        countdownSec--;
+        document.getElementById('countdownTimer').innerText = `${countdownSec}s`;
+        if (btn) btn.innerText = `请选择本集拍摄方向 (${countdownSec}s)`;
+        if (countdownSec > 0 && countdownSec <= 5) {
+          soundFX.playTick(true);
+        }
+        if (countdownSec <= 0) {
+          clearInterval(countdownTimerId);
+          selectChoice(ep.choices[0], true);
+        }
+      }, 1000);
+    }
+
+    // 3. 抉择后：展示演化结果，弹幕渐渐停止
+    function selectChoice(choice, isTimeout) {
+      clearInterval(countdownTimerId);
+      document.getElementById('episodeView').classList.remove('in-choices');
+      stopDanmaku(); // 抉择完毕，弹幕停止
+      soundFX.playChoice();
+      if (choice && choice.effects && choice.effects.evidence > 0) {
+        setTimeout(() => soundFX.playClue(), 180);
+      }
+      const resolvedChoiceTitle = (choice.text && String(choice.text).trim().length > 1)
+        ? String(choice.text).trim()
+        : ((choice.label && String(choice.label).trim().length > 1) ? String(choice.label).trim() : (choice.styleTag || '按剧本推进'));
+      window.lastChoiceLabel = resolvedChoiceTitle;
+
+      const genre = gameData.genres[selectedGenreIndex];
+      const ep = genre.episodes[currentEpisodeIndex];
+
+      // 记录到成片全景流水中
+      historyChoices.push({
+        epNum: currentEpisodeIndex + 1,
+        epTitle: ep.title,
+        choiceId: choice.choiceId || choice.id || choice.label || '',
+        targetEndingId: choice.targetEndingId || '',
+        choiceLabel: resolvedChoiceTitle,
+        outcomeText: choice.outcome || choice.feedback || '',
+        sceneImg: document.getElementById('sceneComicImg').src
+      });
+
+      // 计算属性变动（证据类字段必须点击画面脉冲热点后才真实入库）
+      if (choice.effects) {
+        currentStats.pleasure += choice.effects.pleasure || 0;
+        currentStats.drama += choice.effects.drama || 0;
+        currentStats.anger += choice.effects.anger || 0;
+        currentStats.subversion += choice.effects.subversion || 0;
+
+        const evGain = Number(choice.effects.evidence || 0);
+        if (evGain > 0) {
+          pendingEvidence = {
+            epIndex: currentEpisodeIndex,
+            epNum: currentEpisodeIndex + 1,
+            delta: evGain,
+            collected: false
+          };
+          setTimeout(() => {
+            showToast('画面发现关键证物！请点击分镜上的闪烁图标收取证据');
+          }, 300);
+        } else {
+          pendingEvidence = null;
+        }
+      } else {
+        pendingEvidence = null;
+      }
+      updateStatsUI();
+
+      // 实时自动存档当前集数与抉择至云端进度表 (断点续拍)
+      saveCurrentProgressToBackend(false);
+
+      phase = 'outcome';
+      syncEvidenceHotspotUI();
+      document.getElementById('narrationCard').style.display = 'none';
+      document.getElementById('choicesCard').style.display = 'none';
+      const outcomeCard = document.getElementById('outcomeCard');
+      outcomeCard.style.display = 'block';
+
+      if (isTimeout) {
+        document.getElementById('outcomeAutoPill').style.display = 'inline-block';
+        document.getElementById('outcomeAutoPill').innerText = `超时自动选择：${choice.label}`;
+        document.getElementById('outcomeDirectorPill').style.display = 'inline-block';
+        document.getElementById('outcomeDirectorPill').innerText = `30 秒没选，导演替你拍了这一条`;
+      } else {
+        document.getElementById('outcomeAutoPill').style.display = 'inline-block';
+        document.getElementById('outcomeAutoPill').innerText = `导演采纳：${choice.label}`;
+        document.getElementById('outcomeDirectorPill').style.display = 'none';
+      }
+
+      document.getElementById('outcomeStoryText').innerHTML = highlightCast(choice.outcome);
+
+      const peerRate = Math.floor(Math.random() * 15 + 28);
+      document.getElementById('peerPercentChip').innerText = `${peerRate}%`;
+
+      document.getElementById('statsDeltaPill').innerText = '本集分镜已拍板，剧情走向已悄然改写';
+
+      const btn = document.getElementById('continueBtn');
+      if (currentEpisodeIndex < 5) {
+        btn.innerText = `下一集 · 第 ${currentEpisodeIndex + 2} 集`;
+      } else {
+        btn.innerText = `杀青大吉 · 查看质量报告`;
+      }
+      btn.style.background = 'var(--pop-pink)';
+    }
+
+    // 流程步进
+    function nextPanelOrStep() {
+      const ep = gameData.genres[selectedGenreIndex].episodes[currentEpisodeIndex];
+
+      if (phase === 'narration') {
+        if (currentPanelIndex < ep.panels.length - 1) {
+          currentPanelIndex++;
+          showNarrationPhase();
+        } else {
+          showChoicesPhase();
+        }
+      } else if (phase === 'choices') {
+        showToast('请直接在上方点击选择 A、B、C 拍摄方向，或等待 30 秒超时自动拍板！');
+      } else if (phase === 'outcome') {
+        pendingEvidence = null;
+        syncEvidenceHotspotUI();
+        if (currentEpisodeIndex < 5) {
+          currentEpisodeIndex++;
+          currentPanelIndex = 0;
+          phase = 'narration';
+          loadEpisodeUI();
+        } else {
+          showFinalReport();
+        }
+      }
+    }
+
+    // 终局结算报告
+    function showFinalReport() {
+      soundFX.playFanfare();
+      document.getElementById('episodeView').style.display = 'none';
+      document.getElementById('reportView').style.display = 'flex';
+
+      const genre = gameData.genres[selectedGenreIndex];
+      document.getElementById('reportHeaderLine').innerText = `《${genre.name}》· 导演：${currentUser.nickname || '新锐导演'} · 主演：${genre.protagonist || '主角'}`;
+
+      const score = Math.min(99.9, Math.max(75, Math.floor(40 + 0.45 * currentStats.drama + 0.15 * currentStats.anger + 0.5 * currentStats.subversion + 12))).toFixed(2);
+      const views = ((score * 0.042) + (currentStats.pleasure * 0.008) + 0.5).toFixed(2);
+
+      document.getElementById('reportScoreVal').innerText = score;
+      document.getElementById('reportViewsVal').innerText = `${views} 亿`;
+
+      const endings = genre.endings || [];
+      // 1. 优先匹配最终选择链中显式指定的 targetEndingId
+      let chosenEnding = null;
+      for (let i = historyChoices.length - 1; i >= 0; i--) {
+        const tid = historyChoices[i] && historyChoices[i].targetEndingId;
+        if (tid) {
+          chosenEnding = endings.find(e => (e.id || e.endingId) === tid) || null;
+          if (chosenEnding) break;
+        }
+      }
+      // 2. 按优先级降序评估条件结局（与服务端及后台脑图推演保持一致）
+      if (!chosenEnding && endings.length > 0) {
+        const sortedEndings = [...endings].sort((a, b) => (Number(b.priority) || 0) - (Number(a.priority) || 0));
+        const pickedIds = historyChoices.map(h => h.choiceId).filter(Boolean);
+        for (const end of sortedEndings) {
+          const cond = end.condition || {};
+          if (cond.always || cond.default) continue;
+          const hasStatRule = Boolean((cond.minStats && Object.keys(cond.minStats).length) || (cond.maxStats && Object.keys(cond.maxStats).length) || cond.minAbsurd || cond.minThrill || cond.specialChoice);
+          const passSpecial = !cond.specialChoice || pickedIds.includes(cond.specialChoice);
+          const passFlags = (!Array.isArray(cond.allFlags) || cond.allFlags.length === 0 || hasStatRule) ? true : ((currentStats.evidence || 0) >= 3);
+          const passAbsurd = !cond.minAbsurd || (currentStats.drama || 0) >= cond.minAbsurd;
+          const passThrill = !cond.minThrill || (currentStats.pleasure || 0) >= cond.minThrill;
+          const passMinStats = !cond.minStats || Object.entries(cond.minStats).every(([k, v]) => (currentStats[k] || 0) >= Number(v || 0));
+          const passMaxStats = !cond.maxStats || Object.entries(cond.maxStats).every(([k, v]) => (currentStats[k] || 0) <= Number(v || 0));
+          if (passSpecial && passFlags && passAbsurd && passThrill && passMinStats && passMaxStats) {
+            chosenEnding = end;
+            break;
+          }
+        }
+        if (!chosenEnding) {
+          chosenEnding = sortedEndings.find(e => e.condition && (e.condition.always || e.condition.default))
+            || endings.find(e => e.type === 'triumph')
+            || sortedEndings[sortedEndings.length - 1];
+        }
+      }
+      if (!chosenEnding) {
+        chosenEnding = {
+          id: `${genre.id}.end4`,
+          type: 'triumph',
+          tier: 'SR · 爽剧典范',
+          title: '满级马甲女王：莫欺少女穷',
+          text: '你的马甲一层接一层掉落，偏心的家人把膝盖都跪碎了。你独自站在财富之巅，诠释了什么叫真正的大女主。'
+        };
+      }
+
+      const typeBadgeMap = {
+        hidden: 'SSR · 隐藏彩蛋',
+        subversive: 'SSR · 反套路收官',
+        unfinished: 'R · 喜剧烂尾',
+        triumph: 'SR · 爽剧完结'
+      };
+      const tierBadgeText = chosenEnding.tier || typeBadgeMap[chosenEnding.type] || 'SR · 爽剧典范';
+      document.getElementById('reportTierBadge').innerText = tierBadgeText;
+      document.getElementById('reportEndingTitle').innerText = chosenEnding.title || '龙王归来：掌管天下风云';
+      if (chosenEnding.text || chosenEnding.description) {
+        document.getElementById('reportDescText').innerText = chosenEnding.text || chosenEnding.description;
+      }
+
+      window.__lastReportMeta = {
+        genre,
+        score,
+        views,
+        tierBadgeText,
+        ending: chosenEnding,
+        artUrl: getEndingArtPath(chosenEnding, genre)
+      };
+
+      // 好友 PK 战绩对比卡（若是从好友分享链接挑战开拍）
+      const pkEl = document.getElementById('reportPkCard');
+      if (pkEl) {
+        if (friendSharedMovie && (friendSharedMovie.scriptId === genre.id || friendSharedMovie.scriptId === genre.dbScriptId)) {
+          const friendViews = parseFloat(String(friendSharedMovie.boxOffice || '4.18').replace(/[^0-9.]/g, '')) || 4.18;
+          const myViews = parseFloat(views) || 4.0;
+          const diff = Math.abs(myViews - friendViews).toFixed(2);
+          const friendNick = friendSharedMovie.nickname || '好友';
+          pkEl.style.display = 'block';
+          pkEl.innerHTML = myViews >= friendViews
+            ? `[PK 胜出] 你以 ${myViews} 亿播放量成功超越好友 [${friendNick}] (${friendViews} 亿)，领先 ${diff} 亿！快发群里炫耀！`
+            : `[PK 惜败] 好友 [${friendNick}] 拿下 ${friendViews} 亿播放，你仅差 ${diff} 亿！点击下方追加宣发即可反超！`;
+        } else {
+          pkEl.style.display = 'none';
+        }
+      }
+
+      // 解锁并记录到我的图鉴
+      recordUnlockedEnding(genre, chosenEnding, historyChoices);
+
+      currentShareCode = 'rec_' + Date.now();
+      submitShootRecord(score, views, chosenEnding.title);
+      // 实时保存杀青完结至云端进度表
+      saveCurrentProgressToBackend(true, score, views);
+    }
+
+    // 新增：打开【我的成片影片架】（点击顶部 [完整成片] 先展示影片架，再点选具体影片播放）
+    async function openMovieShelfModal() {
+      const modal = document.getElementById('wholeStoryModal');
+      const contentEl = document.getElementById('wholeStoryContent');
+      const titleEl = document.getElementById('wholeModalTitle');
+      modal.style.display = 'flex';
+      titleEl.innerText = '我的成片影片架';
+      contentEl.innerHTML = renderLoadingHtml('正在整理您的成片影片架...');
+
+      await loadUserAndProgress();
+      if (!gameData || !Array.isArray(gameData.genres)) {
+        contentEl.innerHTML = '<div style="text-align:center; padding:20px; color:#64748B;">暂无影片数据</div>';
+        return;
+      }
+
+      const items = gameData.genres.map((g, idx) => {
+        const sid = getScriptIdForGenre(g.id);
+        const prog = userProgressMap[g.id] || userProgressMap[sid];
+        let statusRank = 2; // 0=已杀青, 1=拍摄中, 2=未开拍
+        if (prog && prog.isFinished === '1') statusRank = 0;
+        else if (prog && prog.currentEpisode > 1) statusRank = 1;
+        return { g, idx, prog, statusRank };
+      }).sort((a, b) => {
+        if (a.statusRank !== b.statusRank) return a.statusRank - b.statusRank;
+        if (a.statusRank === 0) return Number(b.prog.finishScore || 0) - Number(a.prog.finishScore || 0);
+        if (a.statusRank === 1) return (b.prog.currentEpisode || 0) - (a.prog.currentEpisode || 0);
+        return a.idx - b.idx;
+      });
+
+      const finishedCnt = items.filter(x => x.statusRank === 0).length;
+      const shootingCnt = items.filter(x => x.statusRank === 1).length;
+
+      let html = `
+        <div class="movie-shelf-summary">
+          <span>已杀青 ${finishedCnt} 部 · 拍摄中 ${shootingCnt} 部 · 共 ${items.length} 部</span>
+          <span style="color:#64748B; font-size:11px;">点击影片播放</span>
+        </div>
+        <div class="movie-shelf-grid">
+      `;
+
+      items.forEach(({ g, idx, prog, statusRank }) => {
+        const coverSrc = g.coverImage || `/static/art/covers/cover-${g.id}.jpg`;
+        let cardCls = 'is-unstarted';
+        let badgeCls = '';
+        let badgeText = '待开拍';
+        let metaText = `主角：${(g.protagonist || '主角').slice(0, 8)} · 共 6 集`;
+        let ctaCls = 'unstarted';
+        let ctaText = '去开拍第 1 集';
+        let clickAction = `openWholeStoryModal(false, ${idx}, true)`;
+
+        if (statusRank === 0) {
+          cardCls = 'is-finished';
+          badgeCls = 'finished';
+          badgeText = `已杀青 · ${prog.finishScore || '98.5'}分`;
+          const bo = prog.finishBoxOffice ? (Number(prog.finishBoxOffice) >= 100000000 ? `${(Number(prog.finishBoxOffice) / 100000000).toFixed(2)} 亿播放` : `${prog.finishBoxOffice} 播放`) : '全 6 集完整成片';
+          metaText = bo;
+          ctaCls = '';
+          ctaText = '播放完整成片';
+        } else if (statusRank === 1) {
+          cardCls = 'is-shooting';
+          badgeCls = 'shooting';
+          badgeText = `拍摄中 · ${prog.currentEpisode}/6集`;
+          metaText = `已拍至第 ${prog.currentEpisode} 集，可先看样片`;
+          ctaCls = 'shooting';
+          ctaText = '观看已拍样片';
+        } else {
+          clickAction = `closeWholeStoryModal(); selectGenre(${idx}); handleStartShoot();`;
+        }
+
+        html += `
+          <div class="movie-shelf-card ${cardCls}" onclick="${clickAction}">
+            <div class="movie-shelf-poster">
+              <img src="${coverSrc}" alt="${g.name}" loading="lazy" onerror="this.src='/static/art/covers/cover-dragon.jpg';" />
+              <span class="movie-shelf-badge ${badgeCls}">${badgeText}</span>
+            </div>
+            <div class="movie-shelf-title">《${g.name}》</div>
+            <div class="movie-shelf-meta">${metaText}</div>
+            <div class="movie-shelf-cta ${ctaCls}">${ctaText}</div>
+          </div>
+        `;
+      });
+
+      html += `</div>`;
+      contentEl.innerHTML = html;
+    }
+
+    // 核心功能：打开完整成片放映厅（全景长卷回放，逐集展开所有精彩片段）
+    function openWholeStoryModal(fromFriend, overrideGenreIdx, fromShelf) {
+      const modal = document.getElementById('wholeStoryModal');
+      const contentEl = document.getElementById('wholeStoryContent');
+      const titleEl = document.getElementById('wholeModalTitle');
+      modal.style.display = 'flex';
+
+      const activeIdx = (typeof overrideGenreIdx === 'number' && overrideGenreIdx >= 0) ? overrideGenreIdx : selectedGenreIndex;
+      window.__viewingMovieIdx = activeIdx;
+      let targetGenre = gameData ? gameData.genres[activeIdx] : { name: '真假千金', episodes: [] };
+      let activeChoices = historyChoices;
+
+      if (!fromFriend && targetGenre) {
+        const sid = getScriptIdForGenre(targetGenre.id);
+        const prog = userProgressMap[targetGenre.id] || userProgressMap[sid];
+        if (prog && Array.isArray(prog.historyChoices) && prog.historyChoices.length > 0) {
+          activeChoices = prog.historyChoices;
+        } else if (activeIdx !== selectedGenreIndex) {
+          activeChoices = [];
+        }
+      }
+
+      if (fromFriend && friendSharedMovie && gameData && Array.isArray(gameData.genres)) {
+        const matched = gameData.genres.find(g => g.id === friendSharedMovie.scriptId || g.dbScriptId === friendSharedMovie.scriptId);
+        if (matched) targetGenre = matched;
+        if (Array.isArray(friendSharedMovie.historyChoices) && friendSharedMovie.historyChoices.length > 0) {
+          activeChoices = friendSharedMovie.historyChoices;
+        }
+      }
+      const genre = targetGenre;
+
+      if (fromFriend) {
+        const friendNick = (friendSharedMovie && friendSharedMovie.nickname) ? friendSharedMovie.nickname : '好友';
+        titleEl.innerText = `${friendNick} 的成片 · 《${genre.name}》完整回放`;
+      } else {
+        titleEl.innerText = `成片回放 · 《${genre.name}》`;
+      }
+
+      contentEl.innerHTML = '';
+
+      if (fromShelf) {
+        const backBar = document.createElement('div');
+        backBar.className = 'shelf-back-bar';
+        backBar.innerHTML = `
+          <button class="pill-btn" style="padding:2px 10px; font-size:11px;" onclick="openMovieShelfModal()">&lt; 返回影片架</button>
+          <span>《${genre.name}》全 6 集回放</span>
+        `;
+        contentEl.appendChild(backBar);
+      }
+
+      if (!genre.episodes || genre.episodes.length === 0) {
+        contentEl.innerHTML = '<div style="text-align:center; padding:20px;">正在加载剧本分镜数据...</div>';
+        return;
+      }
+
+      // 判断当前影片可回放的最大集数（拍摄中样片绝不剧透未拍剧集！）
+      let maxUnlockedEp = 6;
+      if (!fromFriend && genre) {
+        const sid = getScriptIdForGenre(genre.id);
+        const prog = userProgressMap[genre.id] || userProgressMap[sid];
+        const isFinishedFilm = (prog && prog.isFinished === '1') || (activeChoices && activeChoices.length >= 6);
+        if (!isFinishedFilm) {
+          const shotEps = Math.max(activeChoices ? activeChoices.length : 0, (prog && prog.currentEpisode) ? (prog.currentEpisode - 1) : 0);
+          maxUnlockedEp = Math.max(1, Math.min(6, shotEps));
+        }
+      }
+
+      // 遍历全部 6 集，已拍集数完整回放，未拍集数锁定防剧透
+      genre.episodes.forEach((ep, epIdx) => {
+        const epNum = epIdx + 1;
+        if (epNum > maxUnlockedEp) {
+          const lockBox = document.createElement('div');
+          lockBox.className = 'locked-ep-card';
+          lockBox.innerHTML = `
+            <div style="color:#1E2246; font-size:13px; margin-bottom:4px;">[未拍摄] 第 ${epNum} 集剧情已加密防剧透</div>
+            <div>完成前序集数拍摄后自动解锁本集完整回放</div>
+          `;
+          contentEl.appendChild(lockBox);
+          return;
+        }
+        const epBox = document.createElement('div');
+        epBox.className = 'whole-story-ep';
+
+        // 查找该集所做的选择；若尚未玩到该集，使用默认典范选择
+        const userChoice = (activeChoices && activeChoices[epIdx]) ? activeChoices[epIdx] : {
+          choiceLabel: ep.choices && ep.choices[0] ? ep.choices[0].label : '按剧本推进',
+          outcomeText: ep.choices && ep.choices[0] ? ep.choices[0].outcome : '剧情圆满推进。'
+        };
+
+        // 1. 本集标题
+        let panelsHtml = '';
+        if (ep.panels && ep.panels.length > 0) {
+          ep.panels.forEach((p, pIdx) => {
+            const pNum = pIdx + 1;
+            // 获取该幕专属分镜图片
+            const customKey = `${genre.id}_ep${epNum}_p${pNum}`;
+            let pImg = panelImageMap[customKey] || `/static/art/scenes/scene-${genre.id}-ep${epNum}.jpg`;
+
+            panelsHtml += `
+              <div class="panel-clip-box">
+                <div class="clip-header-row">
+                  <span class="clip-num-pill">片段 ${pNum} · 第 ${pNum} 幕</span>
+                  <span>${p.speaker || '旁白'}</span>
+                </div>
+                <div class="clip-img-wrap">
+                  <img src="${pImg}" alt="分镜立绘" onerror="this.src='/static/art/scenes/scene-${genre.id}-ep${epNum}.jpg'" />
+                </div>
+                <div class="clip-dialogue-text">${highlightCast(p.text)}</div>
+              </div>
+            `;
+          });
+        }
+
+        const pickedChoiceId = (userChoice && (userChoice.choiceId || userChoice.id)) || '';
+        let allChoicesHtml = '';
+        if (Array.isArray(ep.choices) && ep.choices.length > 0) {
+          allChoicesHtml = `<div style="margin:8px 0; padding:8px 10px; background:#FFFDF7; border:1.5px solid #CBD5E1; border-radius:10px;"><div style="font-size:11px; font-weight:900; color:#1E2246; margin-bottom:5px;">本集拍摄方向对比：</div>`
+            + ep.choices.map((ch, cIdx) => {
+              const cid = ch.choiceId || ch.id || '';
+              const chText = String(ch.text || ch.label || '').replace(/^[A-D1-4][.、：:\s]*/, '');
+              const isPicked = Boolean(
+                (pickedChoiceId && cid && pickedChoiceId === cid)
+                || (userChoice && userChoice.choiceLabel && chText && String(userChoice.choiceLabel).indexOf(chText.slice(0, 6)) >= 0)
+              );
+              const bg = isPicked ? '#FEF9C3' : '#F8FAFC';
+              const bd = isPicked ? '#FF5E8E' : '#E2E8F0';
+              const tagBg = isPicked ? '#FF5E8E' : '#E2E8F0';
+              const tagColor = isPicked ? '#FFFFFF' : '#64748B';
+              return `<div style="display:flex; align-items:center; gap:6px; padding:4px 7px; margin-bottom:4px; background:${bg}; border:1.5px solid ${bd}; border-radius:7px; font-size:11px; color:${isPicked ? '#1E2246' : '#64748B'}; font-weight:${isPicked ? '800' : '500'};"><span style="flex-shrink:0; padding:1px 6px; border-radius:6px; background:${tagBg}; color:${tagColor}; font-size:10px; font-weight:800;">${isPicked ? '已选择' : '选项' + (cIdx + 1)}</span><span>${chText}</span></div>`;
+            }).join('')
+            + `</div>`;
+        }
+
+        // 组装整集卡片：集标题 + 所有片段列表 + 本集全部选择方向对比 + 导演决策打脸收尾
+        epBox.innerHTML = `
+          <div class="ep-tag-ribbon">第 ${epNum} 集：${ep.title}</div>
+          <div class="ep-clips-stream">
+            ${panelsHtml}
+          </div>
+          ${allChoicesHtml}
+          <div class="ep-climax-box">
+            <div class="climax-badge-row">
+              <span class="director-decision-pill">[导演决策] ${userChoice.choiceLabel}</span>
+            </div>
+            <div class="climax-outcome-text">${highlightCast(userChoice.outcomeText)}</div>
+          </div>
+        `;
+        contentEl.appendChild(epBox);
+      });
+
+      // 好友裂变按钮：看好友成片时可一键重拍超越 TA；看自己成片时一键发群分享
+      const cta = document.createElement('div');
+      cta.className = 'friend-call-to-action';
+      cta.innerHTML = `
+        <div style="font-weight:900; font-size:14px; margin-bottom:8px; color:#1E2246;">
+          ${fromFriend ? '觉得好友拍得离谱？换你来拍一部超越 TA！' : '本片全 6 集成片已制作完成，快发群里让好友围观并挑战！'}
+        </div>
+        <button class="btn-main-pink" onclick="${fromFriend ? 'friendStartMyOwnShoot()' : 'shareWithFriends(this)'}" style="padding:10px 16px; font-size:15px;">
+          ${fromFriend ? '我也要当导演：开拍这部剧超越 TA' : '生成分享链接 · 邀请好友看成片'}
+        </button>
+      `;
+      contentEl.appendChild(cta);
+    }
+
+    function closeWholeStoryModal() {
+      document.getElementById('wholeStoryModal').style.display = 'none';
+    }
+
+    // 好友看完后亲自开拍同一部剧（同步上报裂变挑战计数）
+    function friendStartMyOwnShoot() {
+      closeWholeStoryModal();
+      document.getElementById('friendShareBanner').style.display = 'none';
+      if (currentShareCode) {
+        fetch(`${API_ORIGIN}/app-api/duanju/share/challenge`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ shareCode: currentShareCode })
+        }).catch(() => {});
+      }
+      if (friendSharedMovie && gameData && Array.isArray(gameData.genres)) {
+        const targetIdx = gameData.genres.findIndex(g => g.id === friendSharedMovie.scriptId || g.dbScriptId === friendSharedMovie.scriptId);
+        if (targetIdx >= 0) {
+          selectedGenreIndex = targetIdx;
+        }
+      }
+      restartCurrentScript();
+      showToast('已为您开启同剧片场，拍完可与好友 PK 票房！');
+    }
+
+    // ================= Canvas 杀青海报生成器（打通 8 款解锁样式） =================
+    let currentPosterStyleId = 'gold';
+
+    function openPosterModal() {
+      const modal = document.getElementById('posterModal');
+      const picker = document.getElementById('posterStylePicker');
+      if (!modal || !picker) return;
+      modal.style.display = 'flex';
+
+      const col = loadUserCollection();
+      const metrics = computeCollectionMetrics(col);
+      picker.innerHTML = POSTER_STYLES.map(s => {
+        const unlocked = isPosterStyleUnlocked(s, metrics);
+        const active = s.id === currentPosterStyleId;
+        return `
+          <div class="poster-style-opt ${active ? 'active' : ''} ${unlocked ? '' : 'locked'}"
+               onclick="${unlocked ? `selectPosterStyle('${s.id}')` : `showToast('需满足条件解锁：${formatStyleUnlockText(s.unlock)}')`}">
+            <span class="swatch" style="--c0:${s.palette[0]};--c1:${s.palette[1]};--c2:${s.palette[2]};width:18px;height:18px;"></span>
+            <span>${unlocked ? s.name : `[锁] ${s.name}`}</span>
+          </div>
+        `;
+      }).join('');
+
+      renderEndingPosterCanvas(currentPosterStyleId);
+    }
+
+    function closePosterModal() {
+      const modal = document.getElementById('posterModal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function selectPosterStyle(styleId) {
+      currentPosterStyleId = styleId;
+      openPosterModal();
+    }
+
+    function renderEndingPosterCanvas(styleId) {
+      const canvas = document.getElementById('endingPosterCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const style = POSTER_STYLES.find(s => s.id === styleId) || POSTER_STYLES[0];
+      const meta = window.__lastReportMeta || {
+        genre: gameData && gameData.genres[selectedGenreIndex] || { name: '漫剧大导演', protagonist: '主角' },
+        score: document.getElementById('reportScoreVal') ? document.getElementById('reportScoreVal').innerText : '88.50',
+        views: document.getElementById('reportViewsVal') ? document.getElementById('reportViewsVal').innerText.replace(/\s*亿/, '') : '4.18',
+        tierBadgeText: document.getElementById('reportTierBadge') ? document.getElementById('reportTierBadge').innerText : 'SR · 爽剧完结',
+        ending: { title: document.getElementById('reportEndingTitle') ? document.getElementById('reportEndingTitle').innerText : '杀青大吉' },
+        artUrl: '/static/art/covers/cover-dragon.jpg'
+      };
+
+      const [c0, c1, c2] = style.palette;
+      ctx.fillStyle = c0;
+      ctx.fillRect(0, 0, 480, 640);
+
+      // 外边框
+      ctx.strokeStyle = c2;
+      ctx.lineWidth = 10;
+      ctx.strokeRect(12, 12, 456, 616);
+
+      // 顶部彩带
+      ctx.fillStyle = c1;
+      ctx.fillRect(26, 26, 428, 54);
+      ctx.strokeStyle = c2;
+      ctx.lineWidth = 4;
+      ctx.strokeRect(26, 26, 428, 54);
+
+      ctx.fillStyle = c2;
+      ctx.font = 'bold 22px "PingFang SC", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(`《${meta.genre.name}》· 杀青大吉`, 240, 61);
+
+      // 绘制结局插画区域
+      const drawForeground = () => {
+        ctx.strokeStyle = c2;
+        ctx.lineWidth = 4;
+        ctx.strokeRect(44, 96, 392, 290);
+
+        // 结局称号卡片
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(36, 404, 408, 124);
+        ctx.strokeRect(36, 404, 408, 124);
+
+        ctx.fillStyle = c1;
+        ctx.fillRect(52, 418, 150, 28);
+        ctx.fillStyle = c2;
+        ctx.font = 'bold 14px "PingFang SC", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(meta.tierBadgeText, 127, 437);
+
+        ctx.textAlign = 'left';
+        ctx.font = 'bold 24px "PingFang SC", sans-serif';
+        ctx.fillStyle = c2;
+        ctx.fillText(String(meta.ending.title || '').slice(0, 14), 52, 478);
+
+        ctx.font = 'bold 18px "PingFang SC", sans-serif';
+        ctx.fillStyle = '#FF5A8D';
+        ctx.fillText(`综合评分 ${meta.score} 分   首日播放 ${meta.views} 亿`, 52, 512);
+
+        // 底部导演署名与款式标注
+        ctx.fillStyle = c2;
+        ctx.font = 'bold 16px "PingFang SC", sans-serif';
+        ctx.fillText(`总导演：${currentUser.nickname || '新锐导演'}`, 40, 568);
+        ctx.font = '14px "PingFang SC", sans-serif';
+        ctx.fillStyle = '#475569';
+        ctx.fillText(`海报样式：${style.name}  ·  漫剧大导演互动放映厅`, 40, 598);
+      };
+
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        ctx.drawImage(img, 44, 96, 392, 290);
+        drawForeground();
+      };
+      img.onerror = () => {
+        ctx.fillStyle = '#E2E8F0';
+        ctx.fillRect(44, 96, 392, 290);
+        drawForeground();
+      };
+      img.src = meta.artUrl || meta.genre.coverImage || '/static/art/covers/cover-dragon.jpg';
+    }
+
+    function downloadEndingPoster() {
+      const canvas = document.getElementById('endingPosterCanvas');
+      if (!canvas) return;
+      try {
+        const a = document.createElement('a');
+        a.download = `漫剧大导演_杀青海报_${Date.now()}.png`;
+        a.href = canvas.toDataURL('image/png');
+        a.click();
+        showToast('高清杀青海报已保存，快发朋友圈炫耀吧！');
+      } catch (e) {
+        showToast('海报已生成，可长按或右键保存图片');
+      }
+    }
+
+    // 核心功能：保存完整成片至后端并生成真实可回放的好友分享链接
+    async function shareWithFriends(btn) {
+      return withBtnLoading(btn, '生成分享链接中...', async () => {
+        const gIdx = (typeof window.__viewingMovieIdx === 'number' && gameData.genres[window.__viewingMovieIdx]) ? window.__viewingMovieIdx : selectedGenreIndex;
+        const genre = gameData.genres[gIdx];
+        const score = document.getElementById('reportScoreVal') ? document.getElementById('reportScoreVal').innerText : '88.50';
+        const views = document.getElementById('reportViewsVal') ? document.getElementById('reportViewsVal').innerText : '4.18 亿';
+        const endingTitle = document.getElementById('reportEndingTitle') ? document.getElementById('reportEndingTitle').innerText : '满级爽剧收官';
+
+        try {
+          const res = await fetch(`${API_ORIGIN}/app-api/duanju/share/save`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              userId: currentUser.userId,
+              openid: currentUser.openid,
+              nickname: currentUser.nickname || '新锐导演',
+              scriptId: genre.id,
+              scriptTitle: genre.name,
+              qualityScore: parseFloat(score) || 88.5,
+              boxOffice: views,
+              endingTitle,
+              historyChoices
+            })
+          });
+          const data = await res.json();
+          if (data && data.code === 200 && data.data && data.data.shareCode) {
+            currentShareCode = data.data.shareCode;
+          }
+        } catch (e) {}
+
+        const shareUrl = `${window.location.origin}/?shareCode=${currentShareCode}&genre=${genre.id}&inviteBy=${currentUser.userId || ''}`;
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(shareUrl).then(() => {
+            showToast(`【成片分享链接已复制】\n${shareUrl}\n\n好友打开链接即可直接观看你执导的《${genre.name}》完整成片，并一键开拍挑战你的播放量！`);
+          }).catch(() => {
+            showPopDialog({ title: '成片专属分享链接', content: shareUrl + '\n\n请复制上方链接发送给好友，好友打开即可观看您的完整成片并开拍 PK！', showCancel: false, confirmText: '知道了' });
+          });
+        } else {
+          showPopDialog({ title: '成片专属分享链接', content: shareUrl + '\n\n请复制上方链接发送给好友，好友打开即可观看您的完整成片并开拍 PK！', showCancel: false, confirmText: '知道了' });
+        }
+      });
+    }
+
+    // 真实拉取好友分享的短剧成片
+    async function loadFriendSharedMovie(code) {
+      const banner = document.getElementById('friendShareBanner');
+      banner.style.display = 'flex';
+      try {
+        const res = await fetch(`${API_ORIGIN}/app-api/duanju/share/detail?shareCode=${encodeURIComponent(code)}`);
+        const data = await res.json();
+        if (data && data.code === 200 && data.data) {
+          friendSharedMovie = data.data;
+          const d = data.data;
+          const viewsTxt = typeof d.boxOffice === 'number'
+            ? (d.boxOffice >= 100000000 ? `${(d.boxOffice / 100000000).toFixed(2)} 亿` : `${d.boxOffice}`)
+            : (d.boxOffice || '4.18 亿');
+          document.getElementById('friendShareNote').innerText = `好友 [${d.nickname || d.actorName || '王牌导演'}] 执导的《${(d.scriptTitle || '真假千金').replace(/[《》]/g, '')}》已杀青，斩获 ${viewsTxt} 播放！`;
+          return;
+        }
+      } catch (e) {}
+      document.getElementById('friendShareNote').innerText = `你的好友执导的短剧已杀青，点击右侧即可观看 TA 的成片！`;
+    }
+
+    // 仅在抉择阶段发射弹幕
+    function startDanmakuEmitter() {
+      const container = document.getElementById('danmakuContainer');
+      container.style.display = 'block';
+      if (danmuInterval) clearInterval(danmuInterval);
+
+      // 立即喷发前两发
+      emitOneDanmaku();
+      emitOneDanmaku();
+
+      danmuInterval = setInterval(() => {
+        if (phase !== 'choices') {
+          stopDanmaku();
+          return;
+        }
+        emitOneDanmaku();
+      }, 1000);
+    }
+
+    function emitOneDanmaku() {
+      const container = document.getElementById('danmakuContainer');
+      const msg = peerDanmuList[Math.floor(Math.random() * peerDanmuList.length)];
+      const item = document.createElement('div');
+      item.className = 'danmaku-item';
+      item.innerText = msg;
+
+      const topRatio = Math.floor(Math.random() * 65 + 10);
+      item.style.top = `${topRatio}%`;
+      const dur = (Math.random() * 1.5 + 4.0).toFixed(1);
+      item.style.animationDuration = `${dur}s`;
+
+      container.appendChild(item);
+      setTimeout(() => {
+        if (item && item.parentNode) item.parentNode.removeChild(item);
+      }, dur * 1000 + 500);
+    }
+
+    function stopDanmaku() {
+      if (danmuInterval) clearInterval(danmuInterval);
+      const container = document.getElementById('danmakuContainer');
+      container.style.display = 'none';
+      container.innerHTML = '';
+    }
+
+    let hasBoostedCurrentRun = false;
+    async function boostViews(btn) {
+      if (hasBoostedCurrentRun) {
+        showToast('本片已追加过宣发经费，重拍或换剧本可再次冲榜！');
+        return;
+      }
+      if (appConfig.adEnabled) {
+        const ok = await showPopDialog({ title: '微信激励视频广告位', content: '观看完整激励广告即可立即为本片追加 25% 宣发播放量并同步冲榜，是否立即观看？', confirmText: '观看广告 (+25%)', cancelText: '暂不观看' });
+        if (!ok) return;
+      }
+      return withBtnLoading(btn, '追加宣发冲榜中...', async () => {
+        hasBoostedCurrentRun = true;
+        soundFX.playFanfare();
+        let v = parseFloat(document.getElementById('reportViewsVal').innerText) || 4.0;
+        v = Number((v * 1.25).toFixed(2));
+        document.getElementById('reportViewsVal').innerText = `${v} 亿`;
+        document.getElementById('reportRankSub').innerText = '已追加宣发！击败全国 92% 的导演';
+
+        const genre = gameData.genres[selectedGenreIndex];
+        const sid = getScriptIdForGenre(genre.id);
+        try {
+          await fetch(`${API_ORIGIN}/app-api/duanju/game/boost`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              userId: currentUser.userId,
+              openid: currentUser.openid,
+              scriptId: sid,
+              boxOffice: Math.round(v * 100000000)
+            })
+          });
+        } catch (e) {}
+        showToast(`宣发经费已到账！首日播放量狂飙至 ${v} 亿，已实时同步至全服封神榜！`);
+      });
+    }
+
+    async function submitShootRecord(score, views, ending) {
+      hasBoostedCurrentRun = false;
+      try {
+        const genre = gameData.genres[selectedGenreIndex];
+        const sid = getScriptIdForGenre(genre.id);
+        const choicePath = historyChoices.map((h) => h.choiceId).filter(Boolean);
+        const payload = {
+          userId: currentUser.userId,
+          openid: currentUser.openid,
+          nickname: currentUser.nickname || '新锐导演',
+          genreId: genre.id,
+          scriptId: sid,
+          scriptName: genre.name,
+          directorName: currentUser.nickname || '新锐导演',
+          clientScore: parseFloat(score),
+          qualityScore: parseFloat(score),
+          boxOffice: Math.round(parseFloat(views) * 100000000),
+          endingTitle: ending,
+          choicePath,
+          collectedEvidenceEps: [...collectedEvidenceEps],
+          stats: currentStats,
+          historyChoices
+        };
+        await fetch(`${API_ORIGIN}/api/duanju/game/submit`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch (e) {
+        console.warn('后端联调异常', e);
+      }
+    }
+
+    // 全服封神榜排行榜（支持按剧本筛选 + 展示我的当前排名）
+    async function openLeaderboard() {
+      const modal = document.getElementById('leaderboardModal');
+      modal.style.display = 'flex';
+      const sel = document.getElementById('leaderboardScriptSelect');
+      if (sel && gameData && Array.isArray(gameData.genres)) {
+        const curVal = sel.value || '';
+        sel.innerHTML = `<option value="">全部剧本总榜</option>` + gameData.genres.map(g => {
+          const sid = getScriptIdForGenre(g.id);
+          return `<option value="${sid}" ${curVal === sid ? 'selected' : ''}>《${g.name}》单剧榜</option>`;
+        }).join('');
+      }
+      await loadLeaderboardData(sel ? sel.value : '');
+    }
+
+    async function loadLeaderboardData(scriptId) {
+      const listEl = document.getElementById('leaderboardList');
+      const footerEl = document.getElementById('leaderboardMyFooter');
+      listEl.innerHTML = renderLoadingHtml('正在拉取全服封神榜...');
+
+      try {
+        const q = scriptId ? `?scriptId=${encodeURIComponent(scriptId)}` : '';
+        const res = await fetch(`${API_ORIGIN}/api/duanju/leaderboard/list${q}`);
+        const data = await res.json();
+        const rows = (data.rows || []).filter(r => String(r.status || '0') === '0');
+
+        if (!rows || rows.length === 0) {
+          listEl.innerHTML = '<div style="text-align:center; padding:24px; color:#64748B; font-weight:800;">该剧本暂无上榜记录，快去抢占榜首！</div>';
+          if (footerEl) footerEl.innerHTML = `<span>我的排名：暂未上榜</span><span>拍完即可冲榜</span>`;
+          return;
+        }
+
+        // 计算我的排名与距上一名差距
+        const myIdx = rows.findIndex(r => String(r.userId) === String(currentUser.userId) || r.openid === currentUser.openid || r.nickname === currentUser.nickname);
+        if (footerEl) {
+          if (myIdx === 0) {
+            footerEl.innerHTML = `<span>我的当前排名：第 1 名（全服榜首）</span><span>领先全服</span>`;
+          } else if (myIdx > 0) {
+            const gap = Math.max(0.01, ((Number(rows[myIdx - 1].boxOffice || 0) - Number(rows[myIdx].boxOffice || 0)) / 100000000)).toFixed(2);
+            footerEl.innerHTML = `<span>我的排名：第 ${myIdx + 1} 名</span><span>距上一名差 ${gap} 亿播放</span>`;
+          } else {
+            const topBo = (Number(rows[0].boxOffice || 0) / 100000000).toFixed(2);
+            footerEl.innerHTML = `<span>我的排名：暂未入榜</span><span>榜首 ${topBo} 亿</span>`;
+          }
+        }
+
+        listEl.innerHTML = '';
+        rows.slice(0, 20).forEach((r, i) => {
+          const item = document.createElement('div');
+          item.className = 'rank-row';
+          const badgeCls = i === 0 ? 'gold' : (i === 1 ? 'silver' : (i === 2 ? 'bronze' : ''));
+
+          // 规范提取导演昵称
+          const director = r.nickname || r.actorName || r.directorName || '匿名大导';
+          // 规范提取剧本名称
+          let sName = r.scriptTitle || r.scriptName || '';
+          if (!sName && r.scriptId) {
+            if (r.scriptId.includes('zhuixu') || r.scriptId === 'dragon') sName = '《赘婿龙王》';
+            else if (r.scriptId.includes('qianjin') || r.scriptId === 'heiress') sName = '《真假千金》';
+            else if (r.scriptId.includes('bazong') || r.scriptId === 'landlady') sName = '《霸总追妻》';
+            else if (r.scriptId.includes('baomu')) sName = '《豪门保姆》';
+            else sName = '《漫剧大导演》';
+          }
+          if (!sName.startsWith('《')) sName = `《${sName}》`;
+
+          // 格式化播放量
+          let boxOfficeStr = '4.18 亿';
+          if (typeof r.boxOffice === 'number') {
+            boxOfficeStr = `${(r.boxOffice / 100000000).toFixed(2)} 亿`;
+          } else if (r.boxOffice) {
+            boxOfficeStr = String(r.boxOffice);
+            if (!boxOfficeStr.includes('亿')) boxOfficeStr += ' 亿';
+          }
+
+          // 格式化评分
+          const scoreVal = parseFloat(r.qualityScore || r.score || 88.5).toFixed(1);
+          // 称号标签
+          const endBadge = r.endingBadge ? `<span class="rank-badge-tag">${r.endingBadge}</span>` : '';
+
+          item.innerHTML = `
+            <div class="rank-num ${badgeCls}">${i + 1}</div>
+            <div class="rank-info">
+              <div class="rank-title">${sName} · ${director}</div>
+              <div class="rank-director">首日全网播放量：${boxOfficeStr}</div>
+              ${endBadge}
+            </div>
+            <div class="rank-val">${scoreVal}分</div>
+          `;
+          listEl.appendChild(item);
+        });
+      } catch (e) {
+        listEl.innerHTML = '<div style="text-align:center; color:#64748B; padding:16px;">排行榜已连接至本地模拟数据</div>';
+      }
+    }
+
+    // 关闭封神榜弹窗
+    function closeLeaderboard() {
+      const modal = document.getElementById('leaderboardModal');
+      if (modal) modal.style.display = 'none';
+    }
+    window.closeLeaderboard = closeLeaderboard;
+
+    // 全局支持按 Escape 键关闭所有弹窗
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' || e.keyCode === 27) {
+        closeLeaderboard();
+        if (typeof closeUserCenterModal === 'function') closeUserCenterModal();
+        if (typeof closeWholeStoryModal === 'function') closeWholeStoryModal();
+        if (typeof closeGenreSelectModal === 'function') closeGenreSelectModal();
+        if (typeof closeCollectionModal === 'function') closeCollectionModal();
+        if (typeof closeCluesModal === 'function') closeCluesModal();
+        if (typeof closeReview === 'function') closeReview();
+      }
+    });
+
+    // 核心线索案卷数据库（真假千金与各大剧本物证体系）
+    const cluesDatabase = {
+      heiress: [
+        {
+          id: 'heiress_clue_1',
+          epNum: 1,
+          tag: '物证 · 破绽',
+          title: '老街地摊焊点餐具',
+          desc: '管事摆出的第七把所谓「大家族镀银定制餐具」，底部清晰残留着去年你在老街旧货摊随手修补的点焊小印，当场戳破门第下马威。'
+        },
+        {
+          id: 'heiress_clue_2',
+          epNum: 2,
+          tag: '物证 · 关键',
+          title: '全家福相片底角与针线盒相册',
+          desc: '正厅全家福右下角被许管事裁掉的原始拍摄日期底片，以及阿棉从针线盒翻出的重缝旧相册，完整记录了真假千金当年的互换档案。'
+        },
+        {
+          id: 'heiress_clue_3',
+          epNum: 3,
+          tag: '档案 · 揭穿',
+          title: '老街少儿兴趣班曲谱印章',
+          desc: '许管事声称的「继承人专属烫金高雅曲谱」，版权页上印着「老街少儿兴趣班十五元教材」，戳破管事附庸风雅的虚伪。'
+        },
+        {
+          id: 'heiress_clue_4',
+          epNum: 4,
+          tag: '文书 · 实锤',
+          title: '档案室借阅单与篡改笔迹',
+          desc: '许管事私自去档案室单独借调学籍档案的出库单据，借出日期与发出错误假通知的日子分秒不差，伪造事实确凿。'
+        },
+        {
+          id: 'heiress_clue_5',
+          epNum: 5,
+          tag: '遗嘱 · 终局',
+          title: '老太爷共同继承遗嘱原件',
+          desc: '白纸黑字写明两位千金共同继承宅邸与家业、互相扶持，通篇翻完根本没有「争夺唯一赢家」或赶人出门的离谱条款。'
+        }
+      ],
+      dragon: [
+        {
+          id: 'dragon_clue_1',
+          epNum: 1,
+          tag: '票据 · 破防',
+          title: '退婚协议背面的点菜单',
+          desc: '梁少东甩在转盘上的退婚书背面，印着昨晚寿宴的大额点菜单，不仅没付钱还重复计费，当场被乔账房签字拆穿。'
+        },
+        {
+          id: 'dragon_clue_2',
+          epNum: 2,
+          tag: '合同 · 阴谋',
+          title: '梁家收购老街意向书',
+          desc: '梁家企图把大众平民食堂改造成高级会员专属餐厅、连白开水都要分三六九等收费的黑心协议。'
+        },
+        {
+          id: 'dragon_clue_3',
+          epNum: 3,
+          tag: '信物 · 至尊',
+          title: '龙纹会馆总会长紫铜令牌',
+          desc: '被梁少东随手当成普通食堂三块钱购物卡的紫铜令牌，实际是号令城中三十家餐饮商会的大掌柜信物。'
+        }
+      ]
+    };
+
+    // 打开查看线索档案袋弹窗
+    function openCluesModal() {
+      const modal = document.getElementById('cluesModal');
+      const listEl = document.getElementById('cluesListContent');
+      const titleEl = document.getElementById('cluesModalTitle');
+      modal.style.display = 'flex';
+
+      const genre = gameData ? gameData.genres[selectedGenreIndex] : { id: 'heiress', name: '真假千金' };
+      titleEl.innerText = `《${genre.name}》· 已备材料与线索案卷`;
+
+      const clues = cluesDatabase[genre.id] || cluesDatabase['heiress'];
+      listEl.innerHTML = '';
+
+      clues.forEach((c) => {
+        // 仅真实在分镜现场点击收取过闪烁证物的集数才解锁
+        const isUnlocked = Boolean(collectedClues['ep' + c.epNum]);
+        const card = document.createElement('div');
+        card.className = `clue-card ${isUnlocked ? 'unlocked' : 'locked'}`;
+        card.innerHTML = `
+          <div class="clue-head-row">
+            <span class="clue-tag-pill">${c.tag}</span>
+            <span class="clue-status-badge ${isUnlocked ? 'unlocked' : 'locked'}">${isUnlocked ? '已掌握物证' : `第 ${c.epNum} 集待发现`}</span>
+          </div>
+          <div class="clue-title-text">${c.title}</div>
+          <div class="clue-desc-text">${isUnlocked ? c.desc : '该关键物证线索尚未在片场触发，请跟随剧情抉择推进至该集收集。'}</div>
+        `;
+        listEl.appendChild(card);
+      });
+    }
+
+    function closeCluesModal() {
+      document.getElementById('cluesModal').style.display = 'none';
+    }
+
+    function openReviewHistory() {
+      const modal = document.getElementById('reviewModal');
+      const listEl = document.getElementById('reviewList');
+      modal.style.display = 'flex';
+
+      const ep = gameData.genres[selectedGenreIndex].episodes[currentEpisodeIndex];
+      listEl.innerHTML = '';
+      for (let i = 0; i <= currentPanelIndex; i++) {
+        const p = ep.panels[i];
+        const block = document.createElement('div');
+        block.style.marginBottom = '12px';
+        block.style.padding = '8px';
+        block.style.background = '#fff';
+        block.style.borderRadius = '8px';
+        block.style.border = '1px solid #CBD5E1';
+        block.innerHTML = `<strong>第 ${i + 1} 幕：</strong> ${highlightCast(p.text)}`;
+        listEl.appendChild(block);
+      }
+    }
+
+    function closeReview() {
+      document.getElementById('reviewModal').style.display = 'none';
+    }
+
+    // 点击开拍或继续拍摄按钮
+    function handleStartShoot() {
+      const genre = gameData.genres[selectedGenreIndex];
+      const sid = getScriptIdForGenre(genre.id);
+      const prog = userProgressMap[genre.id] || userProgressMap[sid];
+
+      if (prog && prog.currentEpisode > 1 && prog.isFinished !== '1') {
+        currentEpisodeIndex = Math.min(5, Math.max(0, prog.currentEpisode - 1));
+        currentPanelIndex = prog.currentPanel || 0;
+        historyChoices = Array.isArray(prog.historyChoices) ? [...prog.historyChoices] : [];
+        currentStats = prog.currentStats ? { ...prog.currentStats } : { pleasure: 10, drama: 25, anger: 10, evidence: 0, subversion: 0 };
+        console.log(`[断点续拍] 成功恢复《${genre.name}》第 ${currentEpisodeIndex + 1} 集拍摄进度！`);
+      } else {
+        currentEpisodeIndex = 0;
+        currentPanelIndex = 0;
+        currentStats = { pleasure: 10, drama: 25, anger: 10, evidence: 0, subversion: 0 };
+        historyChoices = [];
+        collectedClues = {};
+        collectedEvidenceEps = [];
+        pendingEvidence = null;
+      }
+      startEpisode();
+    }
+
+    // 自动保存当前拍摄进度至云端数据库
+    async function saveCurrentProgressToBackend(isFinished, score, boxOffice) {
+      if (!gameData) return;
+      const genre = gameData.genres[selectedGenreIndex];
+      const sid = getScriptIdForGenre(genre.id);
+
+      const payload = {
+        userId: currentUser.userId,
+        openid: currentUser.openid,
+        scriptId: sid,
+        scriptTitle: genre.name,
+        currentEpisode: isFinished ? 6 : (currentEpisodeIndex + 1),
+        currentPanel: currentPanelIndex,
+        historyChoices: historyChoices,
+        currentStats: currentStats,
+        isFinished: isFinished ? '1' : '0',
+        finishScore: score ? parseFloat(score) : null,
+        finishBoxOffice: boxOffice ? Math.round(parseFloat(boxOffice) * 100000000) : null
+      };
+
+      try {
+        const res = await fetch(`${API_ORIGIN}/app-api/duanju/progress/save`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const resData = await res.json();
+        if (resData.code === 200) {
+          userProgressMap[sid] = payload;
+          userProgressMap[genre.id] = payload;
+          if (isFinished) {
+            currentUser.shootCount = (currentUser.shootCount || 0) + 1;
+            currentUser.bestScore = Math.max(currentUser.bestScore || 0, parseFloat(score));
+            currentUser.totalBoxOffice = (currentUser.totalBoxOffice || 0) + (payload.finishBoxOffice || 0);
+            // 3. 从云端同步当前导演已解锁结局图鉴
+      try {
+        const cRes = await fetch(`${API_ORIGIN}/app-api/duanju/collection/my?userId=${currentUser.userId}&openid=${encodeURIComponent(currentUser.openid || '')}`);
+        const cData = await cRes.json();
+        if (cData && cData.code === 200 && cData.data && cData.data.endings) {
+          const localCol = loadUserCollection();
+          Object.keys(cData.data.endings).forEach(eid => {
+            if (!localCol.endings[eid]) {
+              localCol.endings[eid] = cData.data.endings[eid];
+            }
+          });
+          saveUserCollection(localCol);
+          updateCollectionBadge();
+        }
+      } catch (e) {}
+
+      updateUserHeaderUI();
+          }
+        }
+      } catch (err) {
+        console.warn('保存进度至服务端失败', err);
+      }
+    }
+
+    // ================= 导演中心与账号登录弹窗控制 =================
+    async function openUserCenterModal() {
+      const modal = document.getElementById('userCenterModal');
+      modal.style.display = 'flex';
+      switchUserTab('progress');
+    }
+
+    function closeUserCenterModal() {
+      const modal = document.getElementById('userCenterModal');
+      if (modal) modal.style.display = 'none';
+    }
+    window.closeUserCenterModal = closeUserCenterModal;
+
+    function switchUserTab(tabName) {
+      const tabs = ['progress', 'login'];
+      tabs.forEach(t => {
+        const btn = document.getElementById(`tabBtn${t.charAt(0).toUpperCase() + t.slice(1)}`);
+        const pane = document.getElementById(`tabPane${t.charAt(0).toUpperCase() + t.slice(1)}`);
+        if (btn) btn.className = `user-tab-btn ${t === tabName ? 'active' : ''}`;
+        if (pane) pane.style.display = (t === tabName ? 'block' : 'none');
+      });
+
+      if (tabName === 'progress') loadUserProgressTab();
+    }
+
+    // 渲染 Tab 1: 当前导演档期与各剧本进度列表
+    async function loadUserProgressTab() {
+      document.getElementById('modalUserNick').innerText = currentUser.nickname || '微信导演';
+      document.getElementById('modalUserAvatar').innerText = currentUser.avatarUrl || '[导演]';
+      document.getElementById('modalUserAccount').innerText = `账号: ${currentUser.userName || currentUser.openid || '未绑定'} · ID: ${currentUser.userId || '-'}`;
+
+      let boxOfficeStr = '0 亿';
+      if (currentUser.totalBoxOffice) {
+        boxOfficeStr = (currentUser.totalBoxOffice >= 100000000) 
+          ? `${(currentUser.totalBoxOffice / 100000000).toFixed(2)} 亿`
+          : `${currentUser.totalBoxOffice} 播放`;
+      }
+      document.getElementById('modalBoxOffice').innerText = boxOfficeStr;
+      document.getElementById('modalBestScore').innerText = `${currentUser.bestScore ? Number(currentUser.bestScore).toFixed(1) : '0.0'} 分`;
+      document.getElementById('modalShootCount').innerText = `${currentUser.shootCount || 0} 部`;
+
+      const listEl = document.getElementById('userScriptProgressList');
+      listEl.innerHTML = renderLoadingHtml('正在载入最新拍摄档期...');
+
+      await loadUserAndProgress();
+
+      listEl.innerHTML = '';
+      if (!gameData || !gameData.genres) return;
+
+      // 按状态优先级排序：0=已杀青(拍完的) -> 1=拍摄中 -> 2=未开拍(没拍的)
+      const sortedGenres = gameData.genres.map((g, idx) => {
+        const sid = getScriptIdForGenre(g.id);
+        const prog = userProgressMap[g.id] || userProgressMap[sid];
+        let statusRank = 2;
+        if (prog && prog.isFinished === '1') {
+          statusRank = 0;
+        } else if (prog && prog.currentEpisode > 1) {
+          statusRank = 1;
+        }
+        return { g, idx, prog, statusRank };
+      }).sort((a, b) => {
+        if (a.statusRank !== b.statusRank) return a.statusRank - b.statusRank;
+        if (a.statusRank === 1) {
+          return (b.prog.currentEpisode || 0) - (a.prog.currentEpisode || 0);
+        }
+        if (a.statusRank === 0) {
+          return Number(b.prog.finishScore || 0) - Number(a.prog.finishScore || 0);
+        }
+        return a.idx - b.idx;
+      });
+
+      sortedGenres.forEach(({ g, idx, prog, statusRank }) => {
+        const row = document.createElement('div');
+        let statusBadge = '';
+        let btnText = '立即开拍';
+        let rowClass = 'user-script-row';
+
+        if (statusRank === 0) {
+          rowClass += ' finished';
+          statusBadge = `<span style="font-size:11px; font-weight:900; background:#D1FAE5; color:#065F46; padding:2px 6px; border-radius:6px; border:1px solid #10B981; white-space:nowrap; flex-shrink:0;">已杀青 · ${prog.finishScore||'98'}分</span>`;
+          btnText = '重拍新结局';
+        } else if (statusRank === 1) {
+          rowClass += ' in-progress';
+          statusBadge = `<span style="font-size:11px; font-weight:900; background:#FEF3C7; color:#92400E; padding:2px 6px; border-radius:6px; border:1px solid #F59E0B; white-space:nowrap; flex-shrink:0;">拍摄中 · 第 ${prog.currentEpisode}/6 集</span>`;
+          btnText = `续拍第 ${prog.currentEpisode} 集`;
+        } else {
+          statusBadge = `<span style="font-size:11px; font-weight:800; background:#F1F5F9; color:#64748B; padding:2px 6px; border-radius:6px; white-space:nowrap; flex-shrink:0;">未开拍</span>`;
+          btnText = '开拍第 1 集';
+        }
+
+        row.className = rowClass;
+        row.innerHTML = `
+          <div style="flex:1; min-width:0;">
+            <div style="display:flex; align-items:center; flex-wrap:wrap; gap:6px;">
+              <span style="font-weight:900; font-size:13px; color:#1E2246;">《${g.name}》</span>
+              ${statusBadge}
+            </div>
+            <div style="font-size:11px; color:#64748B; margin-top:3px;">${g.logline.slice(0, 32)}...</div>
+          </div>
+          <button class="pill-btn" style="background:#2563EB; color:#fff; border-color:#1D4ED8; font-size:11px; padding:4px 8px; white-space:nowrap; flex-shrink:0;" onclick="quickResumeScript('${g.id}', ${idx})">${btnText}</button>
+        `;
+        listEl.appendChild(row);
+      });
+    }
+
+    // 从片单直接跳入拍摄或续拍
+    function quickResumeScript(genreId, genreIdx) {
+      closeUserCenterModal();
+      selectGenre(genreIdx);
+      handleStartShoot();
+    }
+
+    // 应用当前已认证登录的用户档案（一个用户对应唯一导演）
+    async function handleSwitchUser(u) {
+      currentUser = {
+        userId: u.userId,
+        userName: u.userName,
+        openid: u.openid,
+        nickname: u.nickname,
+        avatarUrl: u.avatarUrl || '[导演]',
+        totalBoxOffice: u.totalBoxOffice || 0,
+        bestScore: u.bestScore || 0,
+        shootCount: u.shootCount || 0
+      };
+      localStorage.setItem('duanju_current_user', JSON.stringify(currentUser));
+      await loadUserAndProgress();
+      renderGallery();
+      updateCollectionBadge();
+      updateBriefBox();
+      closeUserCenterModal();
+      showToast(`欢迎回来，【${currentUser.nickname}】！您的个人拍摄档期已同步。`);
+    }
+
+    // 随机注册新导演游客并进入
+    async function createRandomGuest(btn) {
+      return withBtnLoading(btn, '分配新账号中...', async () => {
+        const randomNum = Math.floor(Math.random() * 9000 + 1000);
+        const guestNick = `新锐导演_${randomNum}`;
+        try {
+          const res = await fetch(`${API_ORIGIN}/app-api/duanju/auth/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              loginType: 'guest',
+              nickname: guestNick,
+              openid: `wx_guest_${randomNum}`,
+              avatarUrl: '[新锐]'
+            })
+          });
+          const resData = await res.json();
+          if (resData.code === 200 && resData.data) {
+            await handleSwitchUser(resData.data);
+          }
+        } catch (e) {
+          showToast('新建游客导演失败，请稍后再试');
+        }
+      });
+    }
+
+    // 处理账号密码登录 / 自动注册
+    async function handleAccountLogin(btn) {
+      const usernameInput = document.getElementById('loginUsername');
+      const passwordInput = document.getElementById('loginPassword');
+      const nicknameInput = document.getElementById('loginNickname');
+
+      const userName = (usernameInput.value || '').trim();
+      const password = (passwordInput.value || '').trim() || '123456';
+      const nickname = (nicknameInput.value || '').trim();
+
+      if (!userName) {
+        showToast('请输入导演账号用户名！');
+        return;
+      }
+
+      return withBtnLoading(btn, '登录验证中...', async () => {
+        try {
+          const res = await fetch(`${API_ORIGIN}/app-api/duanju/auth/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              loginType: 'account',
+              userName,
+              password,
+              nickname: nickname || (`导演_${userName}`)
+            })
+          });
+          const resData = await res.json();
+          if (resData.code === 200 && resData.data) {
+            usernameInput.value = '';
+            passwordInput.value = '';
+            nicknameInput.value = '';
+            await handleSwitchUser(resData.data);
+          } else {
+            showToast(resData.msg || '登录失败');
+          }
+        } catch (e) {
+          showToast('登录服务异常，请检查网络');
+        }
+      });
+    }
+
+    // 修改导演昵称
+    async function promptChangeNickname(btn) {
+      const newNick = await showPopDialog({ title: '修改导演艺名', content: '请输入新的导演名称：', showInput: true, inputValue: currentUser.nickname || '', inputPlaceholder: '例如：金牌导演阿强', confirmText: '保存改名' });
+      if (newNick && newNick.trim() && newNick.trim() !== currentUser.nickname) {
+        return withBtnLoading(btn, '保存中...', async () => {
+          try {
+          const res = await fetch(`${API_ORIGIN}/app-api/duanju/auth/updateProfile`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              userId: currentUser.userId,
+              openid: currentUser.openid,
+              nickname: newNick.trim()
+            })
+          });
+          const data = await res.json();
+          if (data.code === 200) {
+            currentUser.nickname = newNick.trim();
+            localStorage.setItem('duanju_current_user', JSON.stringify(currentUser));
+            // 3. 从云端同步当前导演已解锁结局图鉴
+      try {
+        const cRes = await fetch(`${API_ORIGIN}/app-api/duanju/collection/my?userId=${currentUser.userId}&openid=${encodeURIComponent(currentUser.openid || '')}`);
+        const cData = await cRes.json();
+        if (cData && cData.code === 200 && cData.data && cData.data.endings) {
+          const localCol = loadUserCollection();
+          Object.keys(cData.data.endings).forEach(eid => {
+            if (!localCol.endings[eid]) {
+              localCol.endings[eid] = cData.data.endings[eid];
+            }
+          });
+          saveUserCollection(localCol);
+          updateCollectionBadge();
+        }
+      } catch (e) {}
+
+      updateUserHeaderUI();
+            document.getElementById('modalUserNick').innerText = currentUser.nickname;
+            showToast('导演名称已更新！');
+          }
+          } catch (e) {
+            showToast('更新昵称失败');
+          }
+        });
+      }
+    }
+
+    function backToHome() {
+      document.getElementById('episodeView').style.display = 'none';
+      document.getElementById('reportView').style.display = 'none';
+      document.getElementById('homeView').style.display = 'flex';
+      stopDanmaku();
+      clearInterval(countdownTimerId);
+      loadUserAndProgress().then(() => {
+        renderGallery();
+      updateCollectionBadge();
+        updateBriefBox();
+      });
+    }
+
+    async function restartCurrentScript() {
+      const genre = gameData.genres[selectedGenreIndex];
+      const sid = getScriptIdForGenre(genre.id);
+      try {
+        await fetch(`${API_ORIGIN}/app-api/duanju/progress/reset`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userId: currentUser.userId, openid: currentUser.openid, scriptId: sid })
+        });
+        delete userProgressMap[genre.id];
+        delete userProgressMap[sid];
+      } catch (e) {}
+
+      currentEpisodeIndex = 0;
+      currentPanelIndex = 0;
+      currentStats = { pleasure: 10, drama: 25, anger: 10, evidence: 0, subversion: 0 };
+      historyChoices = [];
+      collectedClues = {};
+      collectedEvidenceEps = [];
+      pendingEvidence = null;
+      startEpisode();
+    }
+
+    // ================= 零体积 Web Audio 片场音效合成引擎 =================
+    const soundFX = (() => {
+      let ctx = null;
+      let bgmAudio = null;
+      let muted = false;
+      try {
+        muted = localStorage.getItem('duanju_audio_muted') === '1';
+      } catch (e) {}
+
+      function ensureBgm() {
+        if (muted || typeof Audio === 'undefined') return;
+        try {
+          if (!bgmAudio) {
+            bgmAudio = new Audio('/static/audio/bgm_stage.mp3');
+            bgmAudio.loop = true;
+            bgmAudio.volume = 0.35;
+          }
+          if (bgmAudio.paused) {
+            const p = bgmAudio.play();
+            if (p && typeof p.catch === 'function') p.catch(() => {});
+          }
+        } catch (e) {}
+      }
+
+      function pauseBgm() {
+        try {
+          if (bgmAudio && !bgmAudio.paused) bgmAudio.pause();
+        } catch (e) {}
+      }
+
+      function getCtx() {
+        if (muted) return null;
+        try {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (!AudioCtx) return null;
+          if (!ctx) ctx = new AudioCtx();
+          if (ctx.state === 'suspended') ctx.resume();
+          return ctx;
+        } catch (e) {
+          return null;
+        }
+      }
+
+      function tone(type, startFreq, endFreq, duration, volume, delay = 0) {
+        const c = getCtx();
+        if (!c) return;
+        try {
+          const now = c.currentTime + delay;
+          const osc = c.createOscillator();
+          const gain = c.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(startFreq, now);
+          if (endFreq && endFreq !== startFreq) {
+            osc.frequency.exponentialRampToValueAtTime(Math.max(20, endFreq), now + duration);
+          }
+          gain.gain.setValueAtTime(volume, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+          osc.connect(gain);
+          gain.connect(c.destination);
+          osc.start(now);
+          osc.stop(now + duration + 0.01);
+        } catch (e) {}
+      }
+
+      function noiseBurst(duration, volume, delay = 0) {
+        const c = getCtx();
+        if (!c) return;
+        try {
+          const now = c.currentTime + delay;
+          const bufSize = Math.floor(c.sampleRate * duration);
+          const buffer = c.createBuffer(1, bufSize, c.sampleRate);
+          const data = buffer.getChannelData(0);
+          for (let i = 0; i < bufSize; i++) {
+            data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufSize * 0.28));
+          }
+          const src = c.createBufferSource();
+          src.buffer = buffer;
+          const gain = c.createGain();
+          gain.gain.setValueAtTime(volume, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+          src.connect(gain);
+          gain.connect(c.destination);
+          src.start(now);
+        } catch (e) {}
+      }
+
+      function syncUI() {
+        window.isMuted = muted;
+        const label = muted ? '[音效] 关' : '[音效] 开';
+        ['homeMuteBtn', 'epMuteBtn'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) {
+            el.innerText = label;
+            el.style.opacity = muted ? '0.6' : '1';
+            el.style.background = muted ? '#E2E8F0' : '#fff';
+          }
+        });
+      }
+
+      return {
+        isMuted: () => muted,
+        syncUI,
+        ensureBgm,
+        toggle() {
+          muted = !muted;
+          try { localStorage.setItem('duanju_audio_muted', muted ? '1' : '0'); } catch (e) {}
+          syncUI();
+          if (!muted) {
+            ensureBgm();
+            this.playClick();
+          } else {
+            pauseBgm();
+          }
+        },
+        // 清脆波普按钮点击声
+        playClick() {
+          tone('sine', 520, 780, 0.065, 0.12);
+        },
+        // 场记板“咔哒”打板声（开拍/进新分集）
+        playClap() {
+          noiseBurst(0.06, 0.22, 0);
+          tone('triangle', 320, 95, 0.09, 0.22, 0);
+        },
+        // 推进分镜翻页声
+        playNextPanel() {
+          tone('sine', 420, 620, 0.075, 0.1);
+        },
+        // 拍板抉择戏剧和弦
+        playChoice() {
+          tone('triangle', 440, 587.33, 0.09, 0.16, 0);
+          tone('triangle', 587.33, 880, 0.13, 0.16, 0.07);
+        },
+        // 倒计时急促滴答声
+        playTick(urgent) {
+          tone('square', urgent ? 960 : 680, urgent ? 840 : 620, 0.05, urgent ? 0.09 : 0.05);
+        },
+        // 搜集到实锤物证/线索叮咚声
+        playClue() {
+          tone('sine', 880, 880, 0.08, 0.14, 0);
+          tone('sine', 1318.5, 1318.5, 0.16, 0.15, 0.07);
+        },
+        // 杀青大吉 / 冲榜欢呼琶音
+        playFanfare() {
+          [523.25, 659.25, 783.99, 1046.5].forEach((freq, i) => {
+            tone('triangle', freq, freq, 0.18, 0.15, i * 0.085);
+          });
+        }
+      };
+    })();
+
+    function toggleMute() {
+      soundFX.toggle();
+    }
+
+    // 全局按钮点击轻触音效（排除静音按钮与已有专属音效的选项卡）
+    document.addEventListener('click', (e) => {
+      soundFX.ensureBgm();
+      const target = e.target && e.target.closest('button, .poster-item, .genre-card-row');
+      if (!target) return;
+      if (target.id === 'homeMuteBtn' || target.id === 'epMuteBtn') return;
+      if (target.id === 'startShootBtn') {
+        soundFX.playClap();
+      } else if (target.id === 'continueBtn') {
+        soundFX.playNextPanel();
+      } else {
+        soundFX.playClick();
+      }
+    });
+
+    window.onload = () => {
+      soundFX.syncUI();
+      initGame();
+    };
+  </script>
+</body>
+</html>

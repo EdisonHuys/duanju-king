@@ -1,0 +1,76 @@
+/**
+ * 《漫剧大导演》若依小程序 (RuoYi-App) 全局 Neo-Brutalism 波普手账风样式变量
+ */
+
+$bg-paper: #FFF6F8;
+$bg-grid-line: #F2E2E8;
+$card-bg-white: #FFFFFF;
+
+$ink-navy: #1E2246;
+$border-thick: 4rpx solid #1E2246;
+$border-heavy: 6rpx solid #1E2246;
+$shadow-card: 0 10rpx 0 #1E2246;
+$shadow-btn: 0 8rpx 0 #1E2246;
+$shadow-btn-active: 0 2rpx 0 #1E2246;
+
+$pop-pink: #FF6B9E;
+$pop-purple: #845EC2;
+$pop-cyan: #2CD3E1;
+$pop-green: #4ECCA3;
+$pop-yellow: #FFE66D;
+
+/* 方格纸页面底层 */
+.paper-grid-page {
+  min-height: 100vh;
+  background-color: $bg-paper;
+  background-image:
+    linear-gradient($bg-grid-line 2rpx, transparent 2rpx),
+    linear-gradient(90deg, $bg-grid-line 2rpx, transparent 2rpx);
+  background-size: 40rpx 40rpx;
+  color: $ink-navy;
+  box-sizing: border-box;
+  padding-bottom: calc(40rpx + env(safe-area-inset-bottom));
+}
+
+/* 波普风主卡片 */
+.pop-card {
+  background: $card-bg-white;
+  border: $border-heavy;
+  border-radius: 36rpx;
+  box-shadow: $shadow-card;
+  padding: 28rpx;
+}
+
+/* 波普风主按钮 */
+.pop-btn-primary {
+  background: $pop-pink;
+  color: $ink-navy;
+  font-weight: 900;
+  border: $border-heavy;
+  border-radius: 999rpx;
+  box-shadow: $shadow-btn;
+  text-align: center;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+
+  &:active {
+    transform: translateY(6rpx);
+    box-shadow: $shadow-btn-active;
+  }
+}
+
+/* 波普风次级白按钮 */
+.pop-btn-secondary {
+  background: #FFFFFF;
+  color: $ink-navy;
+  font-weight: 800;
+  border: $border-heavy;
+  border-radius: 999rpx;
+  box-shadow: $shadow-btn;
+  text-align: center;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+
+  &:active {
+    transform: translateY(6rpx);
+    box-shadow: $shadow-btn-active;
+  }
+}
